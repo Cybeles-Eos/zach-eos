@@ -16,6 +16,10 @@ const { title, description = "Developer portfolio" } = Astro.props;
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
 		<title>{title}</title>
+		<script is:inline>
+			// runs before paint so a saved dark theme doesn't flash light first
+			document.documentElement.dataset.theme = localStorage.getItem("theme") ?? "light";
+		</script>
 	</head>
 	<body>
 		<slot />

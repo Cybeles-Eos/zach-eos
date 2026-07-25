@@ -3,6 +3,8 @@
 .navbar-anchor {
     position: sticky;
     top: 100vh;
+    // dvh tracks the mobile URL bar, so the row never hides behind it
+    top: 100dvh;
     height: 0;
 }
 
@@ -11,7 +13,7 @@
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
-    width: 500px;
+    // width: 500px;
     height: 60px;
     display: flex;
     align-items: center;
@@ -24,27 +26,65 @@
     z-index: 999;
 
     display: grid;
-    grid-template-columns: 42px 90px;
+    grid-template-columns: 42px 90px 90px 100px 90px 42px;
 
     &__item{
         border: none;
         //width: 42px;
         height: 100%;
-        border-radius: 6px;
-        background-color: var(--white-color);
+        border-radius: 5px;
+        background-color: var(--white);
         border: 1px solid var(--border-light-mode-color);
-        transition: 0.2s ease;
+        // transition: 0.2s ease;
         display: flex;
         align-items: center;
         justify-content: center;
-        
+        color: hsla(214, 15%, 9%, 0.7);
         font-family: var(--font-satoshi) !important;
-        font-size: var(--font-size-6s);
+        font-size: 13px;
         font-weight: 400;
-        
+        line-height: 0.1px;
         &:hover{
-            opacity: 0.8;
-            border-color: var(--green-color) !important;
+          
+            border-color: var(--green-color-dark) !important;
+        }
+
+        &--active{
+            color: var(--white) !important;
+            background: var(--primary-color) !important;
+            border: none !important;
+        }
+    }
+}
+
+// the fixed columns add up to ~510px, so below that the bar has to go fluid
+// or it overflows the screen and drags the whole page sideways
+@media (max-width: 600px) {
+    .navbar-global{
+        width: calc(100% - 24px);
+        grid-template-columns: 36px repeat(4, minmax(0, 1fr)) 36px;
+        gap: 4px;
+        padding: 6px;
+
+        &__item{
+            font-size: 11px;
+            white-space: nowrap;
+        }
+    }
+}
+
+[data-theme="dark"] .navbar-global{
+    background-color: var(--bg-dark);
+    border-color: var(--border-dark-mode-color) !important;
+
+    .navbar-global__item{
+        background-color: var(--dark);
+        border-color: var(--border-dark-mode-color);
+        color: hsla(0, 0%, 100%, 0.7);
+
+        // the icons ship with a hardcoded gradient fill on the path
+        svg path{
+            fill: var(--white);
         }
     }
 }

@@ -6,7 +6,7 @@
 }
 
 :root {
-	--primary-color: linear-gradient(0deg, #00A14C, #00563F);
+	--primary-color: linear-gradient(0deg, #00563F, #00A14C);
 	--green-color-dark: #00563F;
 	--green-color-medium: #00A14C;
 	--green-color-light: #07D468;
@@ -46,12 +46,13 @@
 
 	--box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
 	--border-light-mode-color: #E2E2E2;
+	--border-dark-mode-color: #2D2D2D;
 }
 
 
 
 body{
-	font-family: var(--font-body);
+	// font-family: var(--font-body);
 }
 
 button{
@@ -63,4 +64,34 @@ button{
 a{
 	text-decoration: none;
 	color: inherit;
+}
+
+p, h1, h2, h3, h4, h5, h6{
+	color: var(--black);
+}
+
+// the theme swap is animated as a circular wipe from the toggle button,
+// so the browser's default cross-fade is replaced by a plain stacked reveal
+::view-transition-old(root),
+::view-transition-new(root){
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+::view-transition-old(root){
+	z-index: 0;
+}
+
+::view-transition-new(root){
+	z-index: 1;
+}
+
+[data-theme="dark"]{
+	body{
+		background-color: var(--bg-dark);
+	}
+
+	p, h1, h2, h3, h4, h5, h6{
+		color: var(--white);
+	}
 }
