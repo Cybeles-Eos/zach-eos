@@ -1,9 +1,12 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../partials/navbar.astro";
+import ScreenLoader from "../partials/screen-loader.astro";
 ---
 
 <Layout title="Zach — Portfolio" description="Software developer portfolio">
+	<ScreenLoader scope=".home" />
+
 	<main class="home">
 		<Navbar />
 
@@ -18,9 +21,9 @@ import Navbar from "../partials/navbar.astro";
 		</section>
 		<section class="section--roll"> 
 			<div class="section--roll__gallery">
-				<img src="/images/t1.png" alt="" width="400" height="400" loading="lazy" />
-				<img src="/images/t2.png" alt="" width="400" height="400" loading="lazy" />
-				<img src="/images/t3.png" alt="" width="400" height="400" loading="lazy" />
+				<img src="/images/Onboarding.png" alt="" width="400" height="400" />
+				<img src="/images/t2.png" alt="" width="400" height="400" />
+				<img src="/images/t3.png" alt="" width="400" height="400" />
 			</div>
 		</section>
 		<section class="section--about"> 

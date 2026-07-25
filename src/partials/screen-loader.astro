@@ -1,0 +1,110 @@
+---
+interface Props {
+	/** Only assets inside this selector count toward progress */
+	scope?: string;
+}
+
+const { scope = "main" } = Astro.props;
+---
+
+<div
+	class="screen-loader"
+	data-screen-loader
+	data-scope={scope}
+	role="status"
+	aria-live="polite"
+	aria-busy="true"
+>
+	<div class="screen-loader__content">
+		<img class="screen-loader__logo" src="/images/logo.svg" alt="Zach" width="85" height="37" />
+		<div class="screen-loader__spinner" aria-hidden="true"></div>
+	</div>
+	<p class="screen-loader__progress" data-loader-progress>0%</p>
+</div>
+
+<script>
+	const loaders = document.querySelectorAll("[data-screen-loader]");
+
+	loaders.forEach((loader) => {
+		const scopeSelector = loader.dataset.scope ?? "main";
+		const progressEl = loader.querySelector("[data-loader-progress]");
+		const scope = document.querySelector(scopeSelector);
+
+		if (!scope || !progressEl) {
+			dismiss(loader);
+			return;
+		}
+
+		document.body.classList.add("is-loading");
+
+		const tasks = [document.fonts.ready.then(() => undefined)];
+
+		scope.querySelectorAll("img[src]").forEach((img) => {
+			tasks.push(waitForImage(img));
+		});
+
+		scope.querySelectorAll("video").forEach((video) => {
+			tasks.push(waitForVideo(video));
+		});
+
+		let settled = 0;
+		const total = tasks.length;
+
+		const setProgress = (value) => {
+			progressEl.textContent = `${value}%`;
+		};
+
+		setProgress(0);
+
+		tasks.forEach((task) => {
+			task.finally(() => {
+				settled += 1;
+				setProgress(Math.round((settled / total) * 100));
+				if (settled === total) finish(loader, progressEl);
+			});
+		});
+
+		if (total === 0) finish(loader, progressEl);
+	});
+
+	function waitForImage(img) {
+		if (img.complete && img.naturalWidth > 0) return Promise.resolve();
+
+		return new Promise((resolve) => {
+			img.addEventListener("load", () => resolve(), { once: true });
+			img.addEventListener("error", () => resolve(), { once: true });
+		});
+	}
+
+	function waitForVideo(video) {
+		if (video.readyState >= 3) return Promise.resolve();
+
+		return new Promise((resolve) => {
+			video.addEventListener("canplaythrough", () => resolve(), { once: true });
+			video.addEventListener("error", () => resolve(), { once: true });
+		});
+	}
+
+	function finish(loader, progressEl) {
+		progressEl.textContent = "100%";
+
+		window.requestAnimationFrame(() => {
+			dismiss(loader);
+		});
+	}
+
+	function dismiss(loader) {
+		loader.classList.add("is-leaving");
+		loader.setAttribute("aria-busy", "false");
+
+		const onFadeOut = (event) => {
+			if (event.propertyName !== "opacity") return;
+
+			loader.classList.add("is-hidden");
+			loader.removeEventListener("transitionend", onFadeOut);
+			document.body.classList.remove("is-loading");
+		};
+
+		loader.addEventListener("transitionend", onFadeOut);
+	}
+</script>
