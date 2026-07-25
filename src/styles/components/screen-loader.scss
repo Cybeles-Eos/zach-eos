@@ -3,13 +3,21 @@ body.is-loading {
 	touch-action: none;
 }
 
+html:has(body.is-loading) {
+	overflow: hidden;
+}
+
 .screen-loader {
 	position: fixed;
 	inset: 0;
+	width: 100%;
+	height: 100%;
+	height: 100dvh;
 	z-index: 10000;
 	display: flex;
 	align-items: center;
 	justify-content: center;
+	overflow: hidden;
 	background-color: var(--bg-dark);
 	opacity: 1;
 	visibility: visible;
@@ -21,18 +29,24 @@ body.is-loading {
 		display: flex;
 		flex-direction: column;
 		align-items: center;
+		justify-content: center;
 		gap: 28px;
+		width: 100%;
+		max-width: 100%;
+		padding: 24px;
 	}
 
 	&__logo {
 		display: block;
-		width: 85px;
+		width: min(85px, 60vw);
 		height: auto;
+		max-width: 100%;
 	}
 
 	&__spinner {
 		width: 28px;
 		height: 28px;
+		flex-shrink: 0;
 		border: 2px solid rgba(255, 255, 255, 0.15);
 		border-top-color: var(--green-color-medium);
 		border-radius: 50%;
@@ -41,8 +55,8 @@ body.is-loading {
 
 	&__progress {
 		position: absolute;
-		left: var(--padding-inline-sm);
-		bottom: var(--padding-inline-sm);
+		left: max(var(--padding-inline-sm), env(safe-area-inset-left));
+		bottom: max(var(--padding-inline-sm), env(safe-area-inset-bottom));
 		margin: 0;
 		font-family: var(--font-satoshi);
 		font-size: var(--font-size-6s);
@@ -53,11 +67,34 @@ body.is-loading {
 
 	&.is-leaving {
 		opacity: 0;
+		pointer-events: none;
 	}
 
 	&.is-hidden {
 		visibility: hidden;
 		pointer-events: none;
+	}
+}
+
+@media (max-width: 768px) {
+	.screen-loader {
+		&__content {
+			gap: 20px;
+			padding: 20px;
+		}
+
+		&__logo {
+			width: min(72px, 55vw);
+		}
+
+		&__spinner {
+			width: 24px;
+			height: 24px;
+		}
+
+		&__progress {
+			font-size: var(--font-size-7s);
+		}
 	}
 }
 

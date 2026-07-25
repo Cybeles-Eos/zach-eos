@@ -5,6 +5,9 @@
 		
 		&--hero {
 			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
 			&__main{
 				max-width: 1400px;
 				position: relative;
@@ -28,18 +31,21 @@
 
 		}
 		&--roll {
-			height: 100vh;
+			min-height: 100vh;
+			min-height: 100dvh;
 			background-color: #e7e7e7;
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			padding: var(--padding-inline-sm) 0;
 
 			&__gallery{
 				display: flex;
+				flex-wrap: wrap;
 				align-items: center;
 				justify-content: center;
 				gap: 24px;
-				padding: 0 24px;
+				padding: 0 var(--padding-inline-sm);
 				width: 100%;
 				max-width: 1400px;
 
@@ -58,4 +64,19 @@
 		}
 	}
 
+}
+
+@media (max-width: 768px) {
+	.home .section--roll {
+		padding-block: 48px;
+
+		&__gallery {
+			flex-direction: column;
+			gap: 16px;
+
+			img {
+				max-width: min(400px, 100%);
+			}
+		}
+	}
 }

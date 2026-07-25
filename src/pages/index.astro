@@ -2,10 +2,19 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../partials/navbar.astro";
 import ScreenLoader from "../partials/screen-loader.astro";
+
+// flip to false to load the page without the preloader
+const SHOW_LOADER = true;
+
+const rollImages = ["/images/Onboarding.png", "/images/t2.png", "/images/t3.png"];
 ---
 
 <Layout title="Zach — Portfolio" description="Software developer portfolio">
-	<ScreenLoader scope=".home" />
+	{rollImages.map((src) => (
+		<link slot="head" rel="preload" as="image" href={src} />
+	))}
+
+	<ScreenLoader scope=".home" enabled={SHOW_LOADER} />
 
 	<main class="home">
 		<Navbar />
@@ -21,11 +30,12 @@ import ScreenLoader from "../partials/screen-loader.astro";
 		</section>
 		<section class="section--roll"> 
 			<div class="section--roll__gallery">
-				<img src="/images/Onboarding.png" alt="" width="400" height="400" />
-				<img src="/images/t2.png" alt="" width="400" height="400" />
-				<img src="/images/t3.png" alt="" width="400" height="400" />
+				{rollImages.map((src) => (
+					<img src={src} alt="" width="400" height="400" loading="eager" decoding="sync" />
+				))}
 			</div>
 		</section>
+
 		<section class="section--about"> 
 
 		</section>

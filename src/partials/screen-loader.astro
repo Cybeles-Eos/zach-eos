@@ -2,90 +2,123 @@
 interface Props {
 	/** Only assets inside this selector count toward progress */
 	scope?: string;
+	/** Set to false to skip the loader without removing the component */
+	enabled?: boolean;
 }
 
-const { scope = "main" } = Astro.props;
+const { scope = "main", enabled = true } = Astro.props;
 ---
 
-<div
-	class="screen-loader"
-	data-screen-loader
-	data-scope={scope}
-	role="status"
-	aria-live="polite"
-	aria-busy="true"
->
-	<div class="screen-loader__content">
-		<img class="screen-loader__logo" src="/images/logo.svg" alt="Zach" width="85" height="37" />
-		<div class="screen-loader__spinner" aria-hidden="true"></div>
-	</div>
-	<p class="screen-loader__progress" data-loader-progress>0%</p>
-</div>
+{
+	enabled && (
+		<div
+			class="screen-loader"
+			data-screen-loader
+			data-scope={scope}
+			role="status"
+			aria-live="polite"
+			aria-busy="true"
+		>
+			<div class="screen-loader__content">
+				<img
+					class="screen-loader__logo"
+					src="/images/logo.svg"
+					alt="Zach"
+					width="85"
+					height="37"
+				/>
+				<div class="screen-loader__spinner" aria-hidden="true" />
+			</div>
+			<p class="screen-loader__progress" data-loader-progress>
+				0%
+			</p>
+		</div>
+	)
+}
 
 <script>
-	const loaders = document.querySelectorAll("[data-screen-loader]");
+	const startLoader = () => {
+		document.querySelectorAll<HTMLElement>("[data-screen-loader]").forEach((loader) => {
+			const scopeSelector = loader.dataset.scope ?? "main";
+			const progressEl = loader.querySelector<HTMLElement>("[data-loader-progress]");
+			const scope = document.querySelector(scopeSelector);
 
-	loaders.forEach((loader) => {
-		const scopeSelector = loader.dataset.scope ?? "main";
-		const progressEl = loader.querySelector("[data-loader-progress]");
-		const scope = document.querySelector(scopeSelector);
+			if (!scope || !progressEl) {
+				dismiss(loader);
+				return;
+			}
 
-		if (!scope || !progressEl) {
-			dismiss(loader);
-			return;
-		}
+			window.scrollTo(0, 0);
+			document.body.classList.add("is-loading");
 
-		document.body.classList.add("is-loading");
+			const tasks: Promise<unknown>[] = [document.fonts.ready];
 
-		const tasks = [document.fonts.ready.then(() => undefined)];
-
-		scope.querySelectorAll("img[src]").forEach((img) => {
-			tasks.push(waitForImage(img));
-		});
-
-		scope.querySelectorAll("video").forEach((video) => {
-			tasks.push(waitForVideo(video));
-		});
-
-		let settled = 0;
-		const total = tasks.length;
-
-		const setProgress = (value) => {
-			progressEl.textContent = `${value}%`;
-		};
-
-		setProgress(0);
-
-		tasks.forEach((task) => {
-			task.finally(() => {
-				settled += 1;
-				setProgress(Math.round((settled / total) * 100));
-				if (settled === total) finish(loader, progressEl);
+			scope.querySelectorAll("img[src]").forEach((img) => {
+				tasks.push(waitForImage(img as HTMLImageElement));
 			});
+
+			scope.querySelectorAll("video").forEach((video) => {
+				tasks.push(waitForVideo(video));
+			});
+
+			let settled = 0;
+			const total = tasks.length;
+
+			const setProgress = (value: number) => {
+				progressEl.textContent = `${value}%`;
+			};
+
+			setProgress(0);
+
+			tasks.forEach((task) => {
+				task.finally(() => {
+					settled += 1;
+					setProgress(Math.round((settled / total) * 100));
+					if (settled === total) finish(loader, progressEl);
+				});
+			});
+
+			if (total === 0) finish(loader, progressEl);
 		});
+	};
 
-		if (total === 0) finish(loader, progressEl);
-	});
-
-	function waitForImage(img) {
-		if (img.complete && img.naturalWidth > 0) return Promise.resolve();
-
-		return new Promise((resolve) => {
-			img.addEventListener("load", () => resolve(), { once: true });
-			img.addEventListener("error", () => resolve(), { once: true });
-		});
+	if (document.readyState === "loading") {
+		document.addEventListener("DOMContentLoaded", startLoader, { once: true });
+	} else {
+		startLoader();
 	}
 
-	function waitForVideo(video) {
+	async function waitForImage(img: HTMLImageElement) {
+		if (!img.complete) {
+			await new Promise<void>((resolve) => {
+				img.addEventListener("load", () => resolve(), { once: true });
+				img.addEventListener("error", () => resolve(), { once: true });
+			});
+		}
+
+		// broken or empty src — don't block the page forever
+		if (img.naturalWidth === 0) return;
+
+		// load fires when bytes arrive; decode prepares the bitmap for paint
+		if (img.decode) {
+			try {
+				await img.decode();
+			} catch {
+				// decode can reject on corrupt images — page still continues
+			}
+		}
+	}
+
+	function waitForVideo(video: HTMLVideoElement) {
 		if (video.readyState >= 3) return Promise.resolve();
 
-		return new Promise((resolve) => {
+		return new Promise<void>((resolve) => {
 			video.addEventListener("canplaythrough", () => resolve(), { once: true });
 			video.addEventListener("error", () => resolve(), { once: true });
 		});
 	}
 
-	function finish(loader, progressEl) {
+	function finish(loader: HTMLElement, progressEl: HTMLElement) {
 		progressEl.textContent = "100%";
 
 		window.requestAnimationFrame(() => {
@@ -93,16 +126,18 @@ const { scope = "main" } = Astro.props;
 		});
 	}
 
-	function dismiss(loader) {
+	function dismiss(loader: HTMLElement) {
+		window.scrollTo(0, 0);
+		document.body.classList.remove("is-loading");
+
 		loader.classList.add("is-leaving");
 		loader.setAttribute("aria-busy", "false");
 
-		const onFadeOut = (event) => {
+		const onFadeOut = (event: TransitionEvent) => {
 			if (event.propertyName !== "opacity") return;
 
 			loader.classList.add("is-hidden");
 			loader.removeEventListener("transitionend", onFadeOut);
-			document.body.classList.remove("is-loading");
 		};
 
 		loader.addEventListener("transitionend", onFadeOut);
