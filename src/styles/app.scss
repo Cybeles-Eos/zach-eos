@@ -1,0 +1,10 @@
+// Universal styles
+@import "base/global";
+
+// Page-specific styles
+@import "pages/home";
+
+// Component-specific styles
+@import "components/header";
+@import "components/footer";
+@import "components/nav";

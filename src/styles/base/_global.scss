@@ -1,0 +1,44 @@
+*, html, body,
+*::before,
+*::after {
+	margin: 0;
+	box-sizing: border-box;
+}
+
+:root {
+	--primary-color: linear-gradient(0deg, #00A14C, #00563F);
+	--green-color-dark: #00563F;
+	--green-color-medium: #00A14C;
+	--green-color-light: #07D468;
+	--white: #FFFFFF;
+	--gray: #B4B4B4;
+	--dark: #1F1F1F;
+	--bg-dark: #191A1B;
+	--black: #14171B;
+
+
+
+	--font-size-lg: 55px;
+	--font-size-md: 45px;
+	--font-size-sm: 38px;
+	--font-size-xs: 33px;
+	--font-size-1s: 28px;
+	--font-size-2s: 24px;
+	--font-size-3s: 20px;
+	--font-size-4s: 18px;
+	--font-size-5s: 16px;
+	--font-size-6s: 14px;
+	--font-size-7s: 12px;
+	--font-size-8s: 10px;
+
+	--padding-block-lg: 112px;
+	--padding-block-md: 100px;
+	--padding-block-sm: 80px;
+	--padding-inline-lg: 40px;
+	--padding-inline-md: 30px;
+	--padding-inline-sm: 20px;
+
+	--box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
+	--border-light-mode-color: #E2E2E2;
+}
+

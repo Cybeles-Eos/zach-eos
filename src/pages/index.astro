@@ -1,142 +1,24 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import Navbar from "../partials/navbar.astro";
 ---
 
 <Layout title="Zach — Portfolio" description="Software developer portfolio">
 	<main class="home">
-		<header class="hero">
-			<p class="eyebrow">Hello, I'm</p>
-			<h1>Zach</h1>
-			<p class="tagline">I build thoughtful software on the web.</p>
-		</header>
 
-		<section class="intro">
-			<p>
-				I'm a developer focused on crafting clean, performant experiences.
-				Welcome to my corner of the internet — more projects and writing coming soon.
-			</p>
+		<section class="section--hero"> 
+
+		</section>
+		<section class="section--roll"> 
+
+		</section>
+		<section class="section--about"> 
+
 		</section>
 
-		<nav class="links" aria-label="Primary">
-			<a href="mailto:hello@example.com" class="link-card">
-				<span class="link-label">Email</span>
-				<span class="link-arrow" aria-hidden="true">→</span>
-			</a>
-			<a href="https://github.com" class="link-card" target="_blank" rel="noopener noreferrer">
-				<span class="link-label">GitHub</span>
-				<span class="link-arrow" aria-hidden="true">→</span>
-			</a>
-			<a href="https://linkedin.com" class="link-card" target="_blank" rel="noopener noreferrer">
-				<span class="link-label">LinkedIn</span>
-				<span class="link-arrow" aria-hidden="true">→</span>
-			</a>
-		</nav>
-
-		<footer class="footer">
-			<p>© {new Date().getFullYear()} Zach</p>
-		</footer>
+		<Navbar />
 	</main>
+
+	<div style="height: 100vh;"></div>
 </Layout>
 
-<style>
-	.home {
-		max-width: var(--max-width);
-		margin: 0 auto;
-		padding: var(--space-xl) var(--space-md);
-		min-height: 100dvh;
-		display: flex;
-		flex-direction: column;
-		justify-content: center;
-		gap: var(--space-lg);
-	}
-
-	.hero {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-xs);
-	}
-
-	.eyebrow {
-		font-family: var(--font-mono);
-		font-size: 0.875rem;
-		color: var(--color-accent);
-		text-transform: uppercase;
-		letter-spacing: 0.08em;
-		margin: 0;
-	}
-
-	h1 {
-		font-size: clamp(3rem, 10vw, 4.5rem);
-		font-weight: 600;
-		line-height: 1.05;
-		letter-spacing: -0.03em;
-		margin: 0;
-		background: linear-gradient(135deg, var(--color-text) 40%, var(--color-muted));
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-clip: text;
-	}
-
-	.tagline {
-		font-size: 1.25rem;
-		color: var(--color-muted);
-		margin: var(--space-sm) 0 0;
-	}
-
-	.intro p {
-		font-size: 1.0625rem;
-		color: var(--color-muted);
-		margin: 0;
-		max-width: 54ch;
-	}
-
-	.links {
-		display: flex;
-		flex-direction: column;
-		gap: var(--space-xs);
-	}
-
-	.link-card {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		padding: var(--space-sm) var(--space-md);
-		background: var(--color-surface);
-		border: 1px solid rgba(255, 255, 255, 0.06);
-		border-radius: var(--radius);
-		color: var(--color-text);
-		transition:
-			border-color 0.15s ease,
-			background 0.15s ease;
-	}
-
-	.link-card:hover {
-		border-color: rgba(110, 231, 183, 0.3);
-		background: rgba(110, 231, 183, 0.04);
-		color: var(--color-text);
-	}
-
-	.link-label {
-		font-weight: 500;
-	}
-
-	.link-arrow {
-		color: var(--color-accent);
-		transition: transform 0.15s ease;
-	}
-
-	.link-card:hover .link-arrow {
-		transform: translateX(4px);
-	}
-
-	.footer {
-		margin-top: var(--space-md);
-	}
-
-	.footer p {
-		font-family: var(--font-mono);
-		font-size: 0.8125rem;
-		color: var(--color-muted);
-		margin: 0;
-	}
-</style>
