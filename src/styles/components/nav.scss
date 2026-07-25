@@ -44,6 +44,27 @@
         font-size: 13px;
         font-weight: 400;
         line-height: 0.1px;
+        &__icon{
+            // labels win on wider screens, icons take over on phones
+            display: none;
+            align-items: center;
+            justify-content: center;
+
+            svg{
+                display: block;
+            }
+
+            // the icons ship with a hardcoded dark fill on a dimmed group, so
+            // they get re-tinted to follow the item's own colour in every state
+            svg g{
+                opacity: 1;
+            }
+
+            svg path{
+                fill: currentColor;
+            }
+        }
+
         &:hover{
           
             border-color: var(--green-color-dark) !important;
@@ -73,6 +94,23 @@
     }
 }
 
+// below this the labels no longer fit, so every item falls back to its icon
+@media (max-width: 392px) {
+    .navbar-global{
+        grid-template-columns: repeat(6, minmax(0, 1fr));
+
+        &__item{
+            &__label{
+                display: none;
+            }
+
+            &__icon{
+                display: flex;
+            }
+        }
+    }
+}
+
 [data-theme="dark"] .navbar-global{
     background-color: var(--bg-dark);
     border-color: var(--border-dark-mode-color) !important;
@@ -82,8 +120,9 @@
         border-color: var(--border-dark-mode-color);
         color: hsla(0, 0%, 100%, 0.7);
 
-        // the icons ship with a hardcoded gradient fill on the path
-        svg path{
+        // only the standalone sun/github icons, which carry a hardcoded gradient
+        // fill - the labelled items already track their own colour
+        > svg path{
             fill: var(--white);
         }
     }
