@@ -3,6 +3,7 @@
 *::after {
 	margin: 0;
 	box-sizing: border-box;
+	font-family: var(--font-satoshi);
 }
 
 :root {
@@ -42,7 +43,7 @@
 	--padding-block-sm: 80px;
 	--padding-inline-lg: 40px;
 	--padding-inline-md: 30px;
-	--padding-inline-sm: 20px;
+	--padding-inline-sm: 25px;
 
 	--box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
 	--border-light-mode-color: #E2E2E2;
@@ -50,6 +51,72 @@
 }
 
 
+h1{
+	font-size: var(--font-size-lg);
+	font-family: var(--font-gambarino);
+	font-weight: 300;
+	line-height: 130%;
+	margin-bottom: 15px;
+	span{
+		color: var(--gray);
+		font-family: var(--font-gambarino);
+		font-weight: 300;
+	}
+
+	// @media screen and (max-width: 1100px) {
+	// 	font-size: var(--font-size-md);
+	// }
+	@media screen and (max-width: 392px) {
+		font-size: var(--font-size-xs);
+	}
+}
+
+h2{
+	font-size: var(--font-size-sm);
+	font-family: var(--font-gambarino);
+	font-weight: 300;
+	line-height: 130%;
+	margin-bottom: 15px;
+	span{
+		color: var(--gray);
+		font-family: var(--font-gambarino);
+		font-weight: 300;
+	}
+
+	// @media screen and (max-width: 1100px) {
+	// 	font-size: var(--font-size-xs);
+	// }
+}
+
+p{
+	font-size: var(--font-size-5s);
+	line-height: 150%;
+	margin-bottom: 15px;
+	@media screen and (max-width: 392px) {
+		font-size: var(--font-size-6s);
+	}
+}
+
+.glb-pad-inline{
+	padding-inline: var(--padding-inline-lg);
+	
+	@media screen and (max-width: 992px) {
+		padding-inline: var(--padding-inline-md);
+	}
+	@media screen and (max-width: 392px) {
+		padding-inline: var(--padding-inline-sm);
+	}
+}
+.glb-pad-block{
+	padding-block: var(--padding-block-lg);
+
+	@media screen and (max-width: 992px) {
+		padding-block: var(--padding-block-md);
+	}
+	@media screen and (max-width: 392px) {
+		padding-block: var(--padding-block-sm);
+	}
+}
 
 body{
 	// font-family: var(--font-body);
