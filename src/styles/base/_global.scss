@@ -16,7 +16,13 @@
 	--bg-dark: #191A1B;
 	--black: #14171B;
 
+	--font-switzer: "Switzer", sans-serif;
+	--font-satoshi: "Satoshi", sans-serif;
+	--font-gambarino: "Gambarino", serif;
 
+	--font-body: var(--font-switzer);
+	--font-heading: var(--font-satoshi);
+	--font-display: var(--font-gambarino);
 
 	--font-size-lg: 55px;
 	--font-size-md: 45px;
@@ -42,3 +48,19 @@
 	--border-light-mode-color: #E2E2E2;
 }
 
+
+
+body{
+	font-family: var(--font-body);
+}
+
+button{
+	border: none;
+	cursor: pointer;
+	background-color: transparent;
+}
+
+a{
+	text-decoration: none;
+	color: inherit;
+}

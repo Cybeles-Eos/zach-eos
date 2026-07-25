@@ -1,20 +1,20 @@
 .home{
 	position: relative;
-
-	height: 1500px;
 	background-color: rgb(172, 177, 182);
+	
 	.section{
-		// &--hero {
-		// 	height: 100vh;
-		// 	background-color: #b1b1b1;
-		// }
-		// &--roll {
-		// 	height: 100vh;
-		// 	background-color: #e7e7e7;
-		// }
-		// &--about {
-		// 	height: 100vh;
-		// 	background-color: #b1b1b1;
-		// }
+		&--hero {
+			height: 100vh;
+			background-color: #fff;
+		}
+		&--roll {
+			height: 100vh;
+			background-color: #e7e7e7;
+		}
+		&--about {
+			height: 100vh;
+			background-color: #b1b1b1;
+		}
 	}
+
 }

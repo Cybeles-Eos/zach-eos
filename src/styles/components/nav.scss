@@ -1,16 +1,50 @@
-.navbar-global {
+// Zero-height anchor: sticks to the viewport bottom without taking up any
+// space in the flow, so the bar can be dropped anywhere inside its parent
+.navbar-anchor {
     position: sticky;
-    top: calc(100vh - 80px);
+    top: 100vh;
+    height: 0;
+}
+
+.navbar-global {
+    position: absolute;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%);
     width: 500px;
-    margin-inline: auto;
-    display: flex;
     height: 60px;
-    justify-content: center;
+    display: flex;
     align-items: center;
-    gap: 20px;
-    background-color: #8b0707;
-    padding: 10px;
-    border-radius: 12px;
+    gap: 8px;
+    background-color: #F9F9F9;
+    border: 1px solid #DEDEDE !important;
+    box-shadow: 0 0 8px 0 rgba(0, 0, 0, 0.08);
+    padding: 8px 8px;
+    border-radius: 8px;
     z-index: 999;
-    margin-bottom: 30px;
-}   
+
+    display: grid;
+    grid-template-columns: 42px 90px;
+
+    &__item{
+        border: none;
+        //width: 42px;
+        height: 100%;
+        border-radius: 6px;
+        background-color: var(--white-color);
+        border: 1px solid var(--border-light-mode-color);
+        transition: 0.2s ease;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        
+        font-family: var(--font-satoshi) !important;
+        font-size: var(--font-size-6s);
+        font-weight: 400;
+        
+        &:hover{
+            opacity: 0.8;
+            border-color: var(--green-color) !important;
+        }
+    }
+}
