@@ -1,20 +1,44 @@
 ---
 interface Props {
-	title: string;
+	title?: string;
 	description?: string;
+	image?: string;
+	url?: string;
 }
 
-const { title, description = "Developer portfolio" } = Astro.props;
+const {
+	title = "Zach | Creative Frontend Developer Portfolio",
+	description = "Hi, I'm Zach — a creative frontend developer. I craft clean, responsive, and user-friendly websites that bring ideas to life.",
+	image = "/meta-image-1.png",
+	url = Astro.url.href,
+} = Astro.props;
+
+const siteOrigin = Astro.site?.origin ?? Astro.url.origin;
+const imageUrl = new URL(image, siteOrigin).href;
+const pageUrl = new URL(url, siteOrigin).href;
 ---
 
 <!doctype html>
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 		<meta name="description" content={description} />
+
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="icon" href="/favicon.ico" />
+
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:image" content={imageUrl} />
+		<meta property="og:url" content={pageUrl} />
+		<meta property="og:type" content="website" />
+
+		<meta name="twitter:card" content="summary_large_image" />
+		<meta name="twitter:title" content={title} />
+		<meta name="twitter:description" content={description} />
+		<meta name="twitter:image" content={imageUrl} />
+
 		<title>{title}</title>
 		<slot name="head" />
 		<script is:inline>
@@ -30,3 +54,17 @@ const { title, description = "Developer portfolio" } = Astro.props;
 <style lang="scss" is:global>
 	@import "../styles/app.scss";
 </style>
+
+<script>
+	import Lenis from "lenis";
+	import "lenis/dist/lenis.css";
+
+	const lenis = new Lenis();
+
+	function raf(time: number) {
+		lenis.raf(time);
+		requestAnimationFrame(raf);
+	}
+
+	requestAnimationFrame(raf);
+</script>

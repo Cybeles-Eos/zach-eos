@@ -9,7 +9,7 @@ const SHOW_LOADER = true;
 const rollImages = ["/images/Onboarding.png", "/images/t2.png", "/images/t3.png"];
 ---
 
-<Layout title="Zach — Portfolio" description="Software developer portfolio">
+<Layout>
 	{rollImages.map((src) => (
 		<link slot="head" rel="preload" as="image" href={src} />
 	))}
