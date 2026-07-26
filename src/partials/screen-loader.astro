@@ -44,14 +44,20 @@ const { scope = "main", enabled = true } = Astro.props;
 			const scope = document.querySelector(scopeSelector);
 
 			if (!scope || !progressEl) {
-				dismiss(loader);
+				dismissEarly(loader);
 				return;
 			}
 
 			window.scrollTo(0, 0);
 			document.body.classList.add("is-loading");
 
-			const tasks: Promise<unknown>[] = [document.fonts.ready];
+			const tasks: Promise<unknown>[] = [
+				document.fonts.ready,
+				new Promise<void>((resolve) => {
+					if (document.readyState === "complete") resolve();
+					else window.addEventListener("load", () => resolve(), { once: true });
+				}),
+			];
 
 			scope.querySelectorAll("img[src]").forEach((img) => {
 				tasks.push(waitForImage(img as HTMLImageElement));
@@ -118,12 +124,20 @@ const { scope = "main", enabled = true } = Astro.props;
 		});
 	}
 
-	function finish(loader: HTMLElement, progressEl: HTMLElement) {
+	async function finish(loader: HTMLElement, progressEl: HTMLElement) {
 		progressEl.textContent = "100%";
 
-		window.requestAnimationFrame(() => {
-			dismiss(loader);
+		// give the browser a beat to finish paint/layout before scroll unlocks
+		await new Promise<void>((resolve) => {
+			requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
 		});
+
+		if ("requestIdleCallback" in window) {
+			await new Promise<void>((resolve) => requestIdleCallback(() => resolve()));
+		}
+
+		dismiss(loader);
+		window.dispatchEvent(new CustomEvent("loader:complete"));
 	}
 
 	function dismiss(loader: HTMLElement) {
@@ -141,5 +155,10 @@ const { scope = "main", enabled = true } = Astro.props;
 		};
 
 		loader.addEventListener("transitionend", onFadeOut);
+	}
+
+	function dismissEarly(loader: HTMLElement) {
+		dismiss(loader);
+		window.dispatchEvent(new CustomEvent("loader:complete"));
 	}
 </script>

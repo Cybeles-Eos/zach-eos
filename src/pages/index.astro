@@ -5,11 +5,13 @@ import ScreenLoader from "../partials/screen-loader.astro";
 
 // flip to false to load the page without the preloader
 const SHOW_LOADER = true;
+// flip to false to use native scroll instead of Lenis
+const SHOW_LENIS = true;
 
 const rollImages = ["/images/Onboarding.png", "/images/t2.png", "/images/t3.png"];
 ---
 
-<Layout>
+<Layout smoothScroll={SHOW_LENIS}>
 	{rollImages.map((src) => (
 		<link slot="head" rel="preload" as="image" href={src} />
 	))}

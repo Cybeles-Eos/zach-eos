@@ -3,7 +3,7 @@ import { defineConfig } from 'astro/config';
 
 // https://astro.build/config
 export default defineConfig({
-	site: "https://zach-eight.vercel.app",
+	site: "https://zach-eos.vercel.app",
 	devToolbar: {
 		enabled: false,
 	},

@@ -4,6 +4,8 @@ interface Props {
 	description?: string;
 	image?: string;
 	url?: string;
+	/** Set to false to use native scroll instead of Lenis */
+	smoothScroll?: boolean;
 }
 
 const {
@@ -11,6 +13,7 @@ const {
 	description = "Hi, I'm Zach — a creative frontend developer. I craft clean, responsive, and user-friendly websites that bring ideas to life.",
 	image = "/meta-image-1.png",
 	url = Astro.url.href,
+	smoothScroll = true,
 } = Astro.props;
 
 const siteOrigin = Astro.site?.origin ?? Astro.url.origin;
@@ -55,16 +58,32 @@ const pageUrl = new URL(url, siteOrigin).href;
 	@import "../styles/app.scss";
 </style>
 
-<script>
-	import Lenis from "lenis";
-	import "lenis/dist/lenis.css";
+{
+	smoothScroll && (
+		<script>
+			import Lenis from "lenis";
+			import "lenis/dist/lenis.css";
 
-	const lenis = new Lenis();
+			const lenis = new Lenis();
+			let rafId = 0;
 
-	function raf(time: number) {
-		lenis.raf(time);
-		requestAnimationFrame(raf);
-	}
+			const tick = (time: number) => {
+				lenis.raf(time);
+				rafId = requestAnimationFrame(tick);
+			};
 
-	requestAnimationFrame(raf);
-</script>
+			const startLenis = () => {
+				lenis.start();
+				rafId = requestAnimationFrame(tick);
+			};
+
+			// don't run smooth scroll until the preloader has fully released the page
+			if (document.querySelector("[data-screen-loader]")) {
+				lenis.stop();
+				window.addEventListener("loader:complete", startLenis, { once: true });
+			} else {
+				startLenis();
+			}
+		</script>
+	)
+}
