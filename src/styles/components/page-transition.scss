@@ -1,0 +1,83 @@
+// Page-to-page navigation is driven by the router's view transition, so every
+// route added later inherits this curtain wipe without any extra wiring.
+// The theme toggle runs its own view transition and is left untouched because
+// these rules only match while the router has flagged a navigation.
+:root {
+	--page-transition-duration: 0.7s;
+	--page-transition-ease: cubic-bezier(0.76, 0, 0.24, 1);
+}
+
+html[data-astro-transition] {
+	&::view-transition-old(root) {
+		animation: page-curtain-settle var(--page-transition-duration) var(--page-transition-ease)
+			both;
+		z-index: 0;
+	}
+
+	&::view-transition-new(root) {
+		animation: page-curtain-wipe var(--page-transition-duration) var(--page-transition-ease) both;
+		z-index: 1;
+	}
+}
+
+// going back reverses the curtain so the gesture reads as retracing your steps
+html[data-astro-transition="back"] {
+	&::view-transition-old(root) {
+		animation-name: page-curtain-settle-back;
+	}
+
+	&::view-transition-new(root) {
+		animation-name: page-curtain-wipe-back;
+	}
+}
+
+@keyframes page-curtain-wipe {
+	from {
+		clip-path: inset(100% 0 0 0);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+@keyframes page-curtain-wipe-back {
+	from {
+		clip-path: inset(0 0 100% 0);
+	}
+	to {
+		clip-path: inset(0 0 0 0);
+	}
+}
+
+// the outgoing page drifts and dims so the incoming curtain reads as a layer
+// sliding over it rather than two flat images swapping
+@keyframes page-curtain-settle {
+	from {
+		transform: translateY(0);
+		filter: brightness(1);
+	}
+	to {
+		transform: translateY(-8%);
+		filter: brightness(0.75);
+	}
+}
+
+@keyframes page-curtain-settle-back {
+	from {
+		transform: translateY(0);
+		filter: brightness(1);
+	}
+	to {
+		transform: translateY(8%);
+		filter: brightness(0.75);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	html[data-astro-transition] {
+		&::view-transition-old(root),
+		&::view-transition-new(root) {
+			animation: none;
+		}
+	}
+}

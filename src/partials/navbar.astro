@@ -86,7 +86,6 @@ const navClass = (path: string) =>
 
 <script>
 	const root = document.documentElement;
-	const toggle = document.querySelector<HTMLButtonElement>("[data-theme-toggle]");
 
 	const swapTheme = () => {
 		const theme = root.dataset.theme === "dark" ? "light" : "dark";
@@ -94,7 +93,15 @@ const navClass = (path: string) =>
 		localStorage.setItem("theme", theme);
 	};
 
-	toggle?.addEventListener("click", () => {
+	// delegated because a client-side page swap replaces the button node while
+	// this module keeps the listener it registered on the very first load
+	document.addEventListener("click", (event) => {
+		const toggle = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>(
+			"[data-theme-toggle]",
+		);
+
+		if (!toggle) return;
+
 		const startViewTransition = document.startViewTransition?.bind(document);
 
 		if (!startViewTransition || matchMedia("(prefers-reduced-motion: reduce)").matches) {

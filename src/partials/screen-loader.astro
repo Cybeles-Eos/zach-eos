@@ -94,6 +94,17 @@ const { scope = "main", enabled = true } = Astro.props;
 		startLoader();
 	}
 
+	// a client-side swap re-renders the loader markup without re-running this
+	// module, so retire it before the incoming page is painted
+	document.addEventListener("astro:after-swap", () => {
+		document.body.classList.remove("is-loading");
+
+		document.querySelectorAll<HTMLElement>("[data-screen-loader]").forEach((loader) => {
+			loader.classList.add("is-leaving", "is-hidden");
+			loader.setAttribute("aria-busy", "false");
+		});
+	});
+
 	async function waitForImage(img: HTMLImageElement) {
 		if (!img.complete) {
 			await new Promise<void>((resolve) => {

@@ -1,11 +1,33 @@
 ---
+import { ClientRouter } from "astro:transitions";
+import ScreenLoader from "../partials/screen-loader.astro";
+
+// Bundled with the page rather than imported from the client script: a dynamic
+// CSS import inside a hoisted script is preloaded but never emitted by the
+// build. Every rule is scoped to the .lenis class Lenis adds at runtime, so
+// this stays inert when smooth scrolling is switched off below.
+import "lenis/dist/lenis.css";
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Site-wide feature toggles. This block is the single source of truth: flipping
+// a value here changes every page, including any page added later.
+// ─────────────────────────────────────────────────────────────────────────────
+const FEATURES = {
+	/** Lenis smooth scrolling. false falls back to native scrolling. */
+	smoothScroll: true,
+	/** Curtain wipe between pages. false gives plain, unanimated navigation. */
+	pageTransition: true,
+	/** Preloader shown while the first page's assets download. */
+	screenLoader: true,
+	/** Theme used until the visitor picks one for themselves. */
+	defaultTheme: "light",
+};
+
 interface Props {
 	title?: string;
 	description?: string;
 	image?: string;
 	url?: string;
-	/** Set to false to use native scroll instead of Lenis */
-	smoothScroll?: boolean;
 }
 
 const {
@@ -13,7 +35,6 @@ const {
 	description = "Hi, I'm Zach — a creative frontend developer. I craft clean, responsive, and user-friendly websites that bring ideas to life.",
 	image = "/meta-image-1.png",
 	url = Astro.url.href,
-	smoothScroll = true,
 } = Astro.props;
 
 const siteOrigin = Astro.site?.origin ?? Astro.url.origin;
@@ -22,7 +43,7 @@ const pageUrl = new URL(url, siteOrigin).href;
 ---
 
 <!doctype html>
-<html lang="en">
+<html lang="en" data-smooth-scroll={String(FEATURES.smoothScroll)}>
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -44,12 +65,23 @@ const pageUrl = new URL(url, siteOrigin).href;
 
 		<title>{title}</title>
 		<slot name="head" />
-		<script is:inline>
+		{FEATURES.pageTransition && <ClientRouter />}
+		<script is:inline define:vars={{ defaultTheme: FEATURES.defaultTheme }}>
 			// runs before paint so a saved dark theme doesn't flash light first
-			document.documentElement.dataset.theme = localStorage.getItem("theme") ?? "light";
+			(() => {
+				const applyTheme = () => {
+					document.documentElement.dataset.theme = localStorage.getItem("theme") ?? defaultTheme;
+				};
+
+				applyTheme();
+				// the router rewrites every root attribute on swap, so the theme is put back
+				// while the new page is still hidden behind the transition
+				document.addEventListener("astro:after-swap", applyTheme);
+			})();
 		</script>
 	</head>
 	<body>
+		<ScreenLoader enabled={FEATURES.screenLoader} />
 		<slot />
 	</body>
 </html>
@@ -58,32 +90,59 @@ const pageUrl = new URL(url, siteOrigin).href;
 	@import "../styles/app.scss";
 </style>
 
-{
-	smoothScroll && (
-		<script>
-			import Lenis from "lenis";
-			import "lenis/dist/lenis.css";
+<script>
+	import type Lenis from "lenis";
 
-			const lenis = new Lenis();
-			let rafId = 0;
+	const root = document.documentElement;
+
+	let lenis: Lenis | null = null;
+
+	// every page opens at its hero, browser back and forward included, so no
+	// navigation can inherit the offset of the page it came from.
+	//
+	// Lenis must be stopped here rather than scrolled: scrollTo() returns early
+	// whenever the requested target already matches its own, which is always the
+	// case at this point because the router has moved the window first. A wheel
+	// animation still in flight therefore survives and drags the incoming page
+	// back down over the following frames. stop() cancels it outright, and
+	// start() resyncs Lenis to wherever the window actually ended up.
+	const scrollToTop = () => {
+		lenis?.stop();
+		window.scrollTo(0, 0);
+		lenis?.resize();
+		lenis?.start();
+	};
+
+	document.addEventListener("astro:after-swap", () => {
+		scrollToTop();
+		// once more after the incoming page has had a frame to settle its layout
+		requestAnimationFrame(scrollToTop);
+	});
+
+	if (root.dataset.smoothScroll === "true") {
+		import("lenis").then(({ default: LenisCtor }) => {
+			const instance = new LenisCtor();
+			lenis = instance;
 
 			const tick = (time: number) => {
-				lenis.raf(time);
-				rafId = requestAnimationFrame(tick);
+				instance.raf(time);
+				requestAnimationFrame(tick);
 			};
 
-			const startLenis = () => {
-				lenis.start();
-				rafId = requestAnimationFrame(tick);
+			const start = () => {
+				instance.start();
+				requestAnimationFrame(tick);
 			};
 
-			// don't run smooth scroll until the preloader has fully released the page
-			if (document.querySelector("[data-screen-loader]")) {
-				lenis.stop();
-				window.addEventListener("loader:complete", startLenis, { once: true });
+			// don't run smooth scroll until the preloader has fully released the page.
+			// aria-busy rules out a loader that already finished before Lenis arrived,
+			// which would otherwise leave us waiting on an event that has been and gone
+			if (document.querySelector('[data-screen-loader][aria-busy="true"]')) {
+				instance.stop();
+				window.addEventListener("loader:complete", start, { once: true });
 			} else {
-				startLenis();
+				start();
 			}
-		</script>
-	)
-}
+		});
+	}
+</script>

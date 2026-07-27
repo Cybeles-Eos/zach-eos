@@ -2,19 +2,12 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
-import ScreenLoader from "../partials/screen-loader.astro";
-
-const SHOW_LOADER = false;
-const SHOW_LENIS = true;
 ---
 
 <Layout
 	title="Experiences | Zach Portfolio"
 	description="Zach's professional experiences — roles, projects, and the work behind his frontend and full-stack development."
-	smoothScroll={SHOW_LENIS}
 >
-	<ScreenLoader scope=".experiences" enabled={SHOW_LOADER} />
-
 	<main class="experiences">
 		<Header />
 		<Navbar />
