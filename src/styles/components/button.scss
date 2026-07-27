@@ -1,0 +1,68 @@
+.btn {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	min-width: 200px;
+	height: 42px;
+	padding-inline: 20px;
+	border-radius: 66px;
+	font-family: var(--font-satoshi);
+	font-size: var(--font-size-6s);
+	font-weight: 400;
+	line-height: 1;
+	white-space: nowrap;
+	cursor: pointer;
+	transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+
+	svg {
+		margin-left: 5px;
+		flex-shrink: 0;
+		display: block;
+	}
+
+	&--primary {
+		color: var(--white);
+		background-color: rgba(255, 255, 255, 0.21);
+		border: 1px solid var(--border-light-mode-color);
+		backdrop-filter: blur(12px);
+		-webkit-backdrop-filter: blur(12px);
+	
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.3);
+			border-color: var(--white);
+		}
+	}
+
+	&--secondary {
+		color: var(--black);
+		background-color: var(--white);
+		border: 1px solid var(--border-light-mode-color);
+
+		&:hover {
+			border-color: var(--green-color-dark);
+			color: var(--green-color-dark);
+		}
+	}
+}
+
+[data-theme="dark"] .btn {
+	&--primary {
+		border-color: var(--border-dark-mode-color);
+		
+		&:hover {
+			border-color: rgba(255, 255, 255, 0.5);
+		}
+	}
+
+	&--secondary {
+		color: var(--white);
+		background-color: var(--dark);
+		border-color: var(--border-dark-mode-color);
+
+		&:hover {
+			border-color: var(--green-color-light);
+			color: var(--green-color-light);
+		}
+	}
+}

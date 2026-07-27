@@ -1,6 +1,7 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../partials/navbar.astro";
+import Header from "../partials/header.astro";
 import ScreenLoader from "../partials/screen-loader.astro";
 
 // flip to false to load the page without the preloader
@@ -19,6 +20,7 @@ const rollImages = ["/images/Onboarding.png", "/images/t2.png", "/images/t3.png"
 	<ScreenLoader scope=".home" enabled={SHOW_LOADER} />
 
 	<main class="home">
+		<Header />
 		<Navbar />
 
 		<section class="section--hero glb-pad-inline glb-pad-block"> 

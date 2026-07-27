@@ -82,7 +82,7 @@
 // or it overflows the screen and drags the whole page sideways
 @media (max-width: 600px) {
     .navbar-global{
-        width: calc(100% - 24px);
+        width: calc(100% - 55px);
         grid-template-columns: 36px repeat(4, minmax(0, 1fr)) 36px;
         gap: 4px;
         padding: 6px;

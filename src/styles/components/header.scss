@@ -1,0 +1,97 @@
+.main--header {
+	position: absolute;
+	top: 30px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: 100%;
+	padding: 0 50px;
+	z-index: 100;
+	pointer-events: none;
+
+	> div {
+		max-width: 1600px;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		width: 100%;
+		pointer-events: auto;
+
+        .header-logo {
+            display: inline-flex;
+        
+            img {
+                display: block;
+                height: 30px;
+                width: auto;
+            }
+        }
+
+        .btn--primary {
+            border-color: var(--white);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+        }
+	}
+
+    @media (max-width: 991px) {
+        padding: 0 20px;
+    }
+
+	@media (max-width: 392px) {
+		.btn--primary {
+			min-width: 42px;
+			width: 42px;
+			padding-inline: 0;
+			gap: 0;
+
+			.btn__label {
+				display: none;
+			}
+
+			svg {
+				margin-left: 0;
+			}
+		}
+	}
+}
+
+
+// logo.svg is white — invert it on the default light theme
+html:not([data-theme="dark"]) .main--header {
+	.header-logo img {
+		filter: brightness(0);
+	}
+
+	.btn--primary {
+		color: var(--btn-clr);
+        background-color: var(--white);
+        border-color: var(--border-light-mode-color);
+
+		svg path {
+			fill: currentColor;
+		}
+
+		&:hover {
+			background-color: var(--white);
+			border-color: var(--border-light-mode-color);
+		}
+	}
+}
+
+[data-theme="dark"] .main--header {
+	.btn--primary {
+		color: var(--white);
+		background-color: rgba(255, 255, 255, 0.21);
+		border-color: var(--white);
+
+		svg path {
+			fill: currentColor;
+		}
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.3);
+			border-color: var(--white);
+		}
+	}
+}

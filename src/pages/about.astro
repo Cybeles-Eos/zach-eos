@@ -1,0 +1,42 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Navbar from "../partials/navbar.astro";
+import Header from "../partials/header.astro";
+import ScreenLoader from "../partials/screen-loader.astro";
+
+const SHOW_LOADER = false;
+const SHOW_LENIS = true;
+---
+
+<Layout
+	title="About | Zach Portfolio"
+	description="Learn more about Zach — background, skills, and what drives his work in UI, UX, and frontend development."
+	smoothScroll={SHOW_LENIS}
+>
+	<ScreenLoader scope=".about" enabled={SHOW_LOADER} />
+
+	<main class="about">
+		<Header />
+		<Navbar />
+
+		<section class="section--hero glb-pad-inline glb-pad-block">
+			<div class="section--hero__main">
+				<h1>About <span>me</span></h1>
+				<p>
+					This is a placeholder About page. Add your story, background, and what you care about
+					building on the web.
+				</p>
+			</div>
+		</section>
+
+		<section class="section--story glb-pad-inline">
+			<div class="section--story__content">
+				<h2>My <span>story</span></h2>
+				<p>Dummy section for bio, values, or a longer introduction.</p>
+			</div>
+		</section>
+
+		<section class="section--skills"></section>
+	</main>
+	<div style="height: 100vh; width: 100%; background-color: #0d739b;"></div>
+</Layout>
