@@ -3,9 +3,7 @@
 	align-items: center;
 	justify-content: center;
 	gap: 8px;
-	min-width: 200px;
-	height: 42px;
-	padding-inline: 20px;
+	padding-inline: 15px;
 	border-radius: 66px;
 	font-family: var(--font-satoshi);
 	font-size: var(--font-size-6s);
@@ -26,6 +24,8 @@
 		background-color: rgba(255, 255, 255, 0.21);
 		border: 1px solid var(--border-light-mode-color);
 		backdrop-filter: blur(12px);
+		min-width: 180px;
+		height: 42px;
 		-webkit-backdrop-filter: blur(12px);
 	
 		&:hover {
@@ -34,15 +34,30 @@
 		}
 	}
 
-	&--secondary {
-		color: var(--black);
-		background-color: var(--white);
-		border: 1px solid var(--border-light-mode-color);
+	&--main {
+		color: var(--white);
+		background: var(--primary-color);
+		padding-left: 20px;
+		padding-right: 5px;
+		height: 45px;
+		gap: 5px;
+		transition: transform 0.2s ease;
+
+		div{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			background-color: var(--white);
+			border-radius: 65px;
+			height: 35px;
+			width: 35px;
+			margin-left: 10px;
+		}
 
 		&:hover {
-			border-color: var(--green-color-dark);
-			color: var(--green-color-dark);
+			transform: rotate(-2deg);
 		}
+
 	}
 }
 
