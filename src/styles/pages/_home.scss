@@ -17,15 +17,41 @@
 				justify-content: center;
 				flex-direction: column;
 
+				.pret{
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					gap: 8px;
+					margin-bottom: 18px;
+					font-size: 16px;
+
+					@media (max-width: 492px) {
+						margin-bottom: 10px;
+					}
+				}
+
 				h1{
 					max-width: 800px;
 					text-align: center;
+
+					.heading-img-2{
+						margin-left: 10px;
+					}
 				}
 				p{
 					font-family: var(--font-satoshi) !important;
 					max-width: 844px;
 					font-size: 18px;
 					text-align: center;
+
+					@media (max-width: 992px) {
+						font-size: 16px;
+					}
+
+					@media (max-width: 492px) {
+						font-size: 15px;
+						margin-top: 8px;
+					}
 				}
 			}
 

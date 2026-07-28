@@ -17,11 +17,24 @@ const FEATURES = {
 	smoothScroll: true,
 	/** Curtain wipe between pages. false gives plain, unanimated navigation. */
 	pageTransition: true,
-	/** Preloader shown while the first page's assets download. */
-	screenLoader: true,
+	/**
+	 * Preloader on first load for these routes only. Use "/" for home.
+	 * Leave empty to disable the loader on every page.
+	 */
+	// screenLoaderPaths: ["/", "/about"],
+	screenLoaderPaths: ["/"],
 	/** Theme used until the visitor picks one for themselves. */
 	defaultTheme: "light",
 };
+
+const normalizePath = (path: string) => {
+	const trimmed = path.replace(/\/+$/, "");
+	return trimmed === "" ? "/" : trimmed;
+};
+
+const showScreenLoader = FEATURES.screenLoaderPaths.some(
+	(path) => normalizePath(path) === normalizePath(Astro.url.pathname),
+);
 
 interface Props {
 	title?: string;
@@ -81,7 +94,7 @@ const pageUrl = new URL(url, siteOrigin).href;
 		</script>
 	</head>
 	<body>
-		<ScreenLoader enabled={FEATURES.screenLoader} />
+		<ScreenLoader enabled={showScreenLoader} />
 		<slot />
 	</body>
 </html>

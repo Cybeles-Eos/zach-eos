@@ -20,6 +20,20 @@ $font-faces: (
 	),
 );
 
+$font-faces-ttf: (
+	"Montserrat": (
+		"Thin": 100,
+		"ExtraLight": 200,
+		"Light": 300,
+		"Regular": 400,
+		"Medium": 500,
+		"SemiBold": 600,
+		"Bold": 700,
+		"ExtraBold": 800,
+		"Black": 900,
+	),
+);
+
 @each $family, $weights in $font-faces {
 	@each $name, $weight in $weights {
 		@font-face {
@@ -39,6 +53,31 @@ $font-faces: (
 		@font-face {
 			font-family: "#{$family}";
 			src: url("/fonts/#{$family}/#{$family}-#{$italic}.otf") format("opentype");
+			font-weight: $weight;
+			font-style: italic;
+			font-display: swap;
+		}
+	}
+}
+
+@each $family, $weights in $font-faces-ttf {
+	@each $name, $weight in $weights {
+		@font-face {
+			font-family: "#{$family}";
+			src: url("/fonts/#{$family}/#{$family}-#{$name}.ttf") format("truetype");
+			font-weight: $weight;
+			font-style: normal;
+			font-display: swap;
+		}
+
+		$italic: "#{$name}Italic";
+		@if $name == "Regular" {
+			$italic: "Italic";
+		}
+
+		@font-face {
+			font-family: "#{$family}";
+			src: url("/fonts/#{$family}/#{$family}-#{$italic}.ttf") format("truetype");
 			font-weight: $weight;
 			font-style: italic;
 			font-display: swap;
