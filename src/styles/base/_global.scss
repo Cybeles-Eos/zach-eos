@@ -51,6 +51,7 @@
 	--border-light-mode-color: #E2E2E2;
 	--border-dark-mode-color: #2D2D2D;
 	--hand-decor-color: #C9C9C9;
+	--page-bg: #FFFFFF;
 }
 
 
@@ -132,7 +133,7 @@ p{
 }
 
 body{
-	// font-family: var(--font-body);
+	background-color: var(--page-bg);
 }
 
 button{
@@ -167,10 +168,8 @@ p, h1, h2, h3, h4, h5, h6{
 }
 
 [data-theme="dark"]{
-	body{
-		background-color: var(--bg-dark);
-	}
-	--hand-decor-color: #4C4C4D;
+	--page-bg: #141516;
+	--hand-decor-color: #555555;
 	.pret{
 		color: var(--white);
 	}

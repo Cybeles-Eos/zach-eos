@@ -123,30 +123,82 @@
 			}
 		}
 		&--roll {
-			min-height: 100vh;
-			min-height: 100dvh;
-			background-color: #e7e7e7;
-			display: flex;
-			align-items: center;
+			width: 100%;
+			height: 110vw;
+			display: grid;
+			grid-template-columns: repeat(3, 1fr);
+			gap: 1vw;
 			justify-content: center;
-			padding: var(--padding-inline-sm) 0;
+			overflow: hidden;
+			position: relative;
+			$fade-height: 134px;
+			-webkit-mask-image: linear-gradient(
+				to bottom,
+				transparent 0,
+				rgba(0, 0, 0, 0.04) calc(#{$fade-height} * 0.12),
+				rgba(0, 0, 0, 0.18) calc(#{$fade-height} * 0.28),
+				rgba(0, 0, 0, 0.42) calc(#{$fade-height} * 0.48),
+				rgba(0, 0, 0, 0.68) calc(#{$fade-height} * 0.68),
+				rgba(0, 0, 0, 0.88) calc(#{$fade-height} * 0.86),
+				#000 #{$fade-height},
+				#000 calc(100% - #{$fade-height}),
+				rgba(0, 0, 0, 0.88) calc(100% - #{$fade-height} * 0.86),
+				rgba(0, 0, 0, 0.68) calc(100% - #{$fade-height} * 0.68),
+				rgba(0, 0, 0, 0.42) calc(100% - #{$fade-height} * 0.48),
+				rgba(0, 0, 0, 0.18) calc(100% - #{$fade-height} * 0.28),
+				rgba(0, 0, 0, 0.04) calc(100% - #{$fade-height} * 0.12),
+				transparent 100%
+			);
+			mask-image: linear-gradient(
+				to bottom,
+				transparent 0,
+				rgba(0, 0, 0, 0.04) calc(#{$fade-height} * 0.12),
+				rgba(0, 0, 0, 0.18) calc(#{$fade-height} * 0.28),
+				rgba(0, 0, 0, 0.42) calc(#{$fade-height} * 0.48),
+				rgba(0, 0, 0, 0.68) calc(#{$fade-height} * 0.68),
+				rgba(0, 0, 0, 0.88) calc(#{$fade-height} * 0.86),
+				#000 #{$fade-height},
+				#000 calc(100% - #{$fade-height}),
+				rgba(0, 0, 0, 0.88) calc(100% - #{$fade-height} * 0.86),
+				rgba(0, 0, 0, 0.68) calc(100% - #{$fade-height} * 0.68),
+				rgba(0, 0, 0, 0.42) calc(100% - #{$fade-height} * 0.48),
+				rgba(0, 0, 0, 0.18) calc(100% - #{$fade-height} * 0.28),
+				rgba(0, 0, 0, 0.04) calc(100% - #{$fade-height} * 0.12),
+				transparent 100%
+			);
 
-			&__gallery{
+			div{
 				display: flex;
-				flex-wrap: wrap;
+				gap: 1vw;
+				flex-direction: column;
 				align-items: center;
 				justify-content: center;
-				gap: 24px;
-				padding: 0 var(--padding-inline-sm);
-				width: 100%;
-				max-width: 1400px;
-
+				
 				img{
-					width: 100%;
-					max-width: 400px;
-					height: auto;
+					width: 35vw;
+				}
+			}
+			.extra-left, .extra-center{
+				display: none;
+			}
+			@media screen and (max-width: 992px) {
+				height: 85vw;
+			}
+			@media screen and (max-width: 692px) {
+				grid-template-columns: repeat(2, 1fr);
+				.last--bxob{
+					display: none;
+				}
+				div{
+					img{
+						width: 55vw;
+					}
+				}
+			}
+			@media screen and (max-width: 492px) {
+				height: 180vw;
+				.extra-left, .extra-center{
 					display: block;
-					object-fit: contain;
 				}
 			}
 		}

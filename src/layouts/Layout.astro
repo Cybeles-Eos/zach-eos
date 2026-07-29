@@ -24,7 +24,7 @@ const FEATURES = {
 	// screenLoaderPaths: ["/", "/about"],
 	screenLoaderPaths: ["/"],
 	/** Theme used until the visitor picks one for themselves. */
-	defaultTheme: "light",
+	defaultTheme: "dark",
 };
 
 const normalizePath = (path: string) => {
@@ -161,4 +161,39 @@ const pageUrl = new URL(url, siteOrigin).href;
 			}
 		});
 	}
+</script>
+
+<script is:inline src="/js/skrollr.js"></script>
+<script is:inline>
+	(function () {
+		const mobileMq = window.matchMedia("(max-width: 492px)");
+
+		// skrollr reads data-bottom-top at init — CSS media queries cannot change
+		// HTML attributes, so desktop/mobile values live in separate attributes
+		// and get copied onto data-bottom-top before init (and on resize).
+		function applyResponsiveSkrollr() {
+			document.querySelectorAll("[data-bottom-top-desktop]").forEach((el) => {
+				const keyframe = mobileMq.matches
+					? el.getAttribute("data-bottom-top-mobile")
+					: el.getAttribute("data-bottom-top-desktop");
+
+				if (keyframe) el.setAttribute("data-bottom-top", keyframe);
+			});
+		}
+
+		applyResponsiveSkrollr();
+
+		const instance = skrollr.init({
+			forceHeight: false,
+			smoothScrolling: true,
+			mobileCheck: function () {
+				return false;
+			},
+		});
+
+		mobileMq.addEventListener("change", () => {
+			applyResponsiveSkrollr();
+			instance.refresh();
+		});
+	})();
 </script>
