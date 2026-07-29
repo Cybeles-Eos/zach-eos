@@ -131,6 +131,12 @@
 			justify-content: center;
 			overflow: hidden;
 			position: relative;
+			contain: layout style;
+
+			.skrollable {
+				will-change: transform;
+				backface-visibility: hidden;
+			}
 			$fade-height: 134px;
 			-webkit-mask-image: linear-gradient(
 				to bottom,

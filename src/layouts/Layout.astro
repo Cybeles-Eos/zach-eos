@@ -106,12 +106,88 @@ const pageUrl = new URL(url, siteOrigin).href;
 	@import "../styles/app.scss";
 </style>
 
+<script is:inline src="/js/skrollr.js"></script>
 <script>
 	import type Lenis from "lenis";
 
+	declare global {
+		interface Window {
+			skrollr: {
+				init: (options?: Record<string, unknown>) => SkrollrInstance;
+				get: () => SkrollrInstance | undefined;
+			};
+		}
+	}
+
+	type SkrollrInstance = {
+		destroy: () => void;
+		refresh: () => void;
+	};
+
 	const root = document.documentElement;
+	const mobileMq = window.matchMedia("(max-width: 492px)");
+	const touchMq = window.matchMedia("(pointer: coarse)");
 
 	let lenis: Lenis | null = null;
+	let skrollrInstance: SkrollrInstance | null = null;
+
+	const useLenis =
+		root.dataset.smoothScroll === "true" && !touchMq.matches;
+
+	// skrollr reads data-bottom-top at init — CSS media queries cannot change
+	// HTML attributes, so desktop/mobile values live in separate attributes
+	// and get copied onto data-bottom-top before init (and on resize).
+	const applyResponsiveSkrollr = () => {
+		document.querySelectorAll("[data-bottom-top-desktop]").forEach((el) => {
+			const keyframe = mobileMq.matches
+				? el.getAttribute("data-bottom-top-mobile")
+				: el.getAttribute("data-bottom-top-desktop");
+
+			if (keyframe) el.setAttribute("data-bottom-top", keyframe);
+		});
+	};
+
+	const destroySkrollr = () => {
+		skrollrInstance?.destroy();
+		skrollrInstance = null;
+	};
+
+	const initSkrollr = () => {
+		destroySkrollr();
+
+		if (!document.querySelector(".skrollable")) return;
+
+		applyResponsiveSkrollr();
+
+		skrollrInstance = window.skrollr.init({
+			forceHeight: false,
+			// Lenis smooths desktop scroll; mobile uses native scroll — skrollr
+			// only needs to read position and apply transforms.
+			smoothScrolling: false,
+			mobileCheck: () => false,
+		});
+	};
+
+	// Re-init after view transitions so skrollr binds to the new DOM nodes.
+	// Layout scripts persist across swaps, so a one-time init goes stale.
+	const setupSkrollr = () => {
+		requestAnimationFrame(() => {
+			requestAnimationFrame(() => {
+				initSkrollr();
+				skrollrInstance?.refresh();
+			});
+		});
+	};
+
+	mobileMq.addEventListener("change", () => {
+		if (!skrollrInstance) return;
+
+		applyResponsiveSkrollr();
+		skrollrInstance.refresh();
+	});
+
+	document.addEventListener("astro:after-swap", setupSkrollr);
+	setupSkrollr();
 
 	// every page opens at its hero, browser back and forward included, so no
 	// navigation can inherit the offset of the page it came from.
@@ -127,6 +203,7 @@ const pageUrl = new URL(url, siteOrigin).href;
 		window.scrollTo(0, 0);
 		lenis?.resize();
 		lenis?.start();
+		skrollrInstance?.refresh();
 	};
 
 	document.addEventListener("astro:after-swap", () => {
@@ -135,10 +212,14 @@ const pageUrl = new URL(url, siteOrigin).href;
 		requestAnimationFrame(scrollToTop);
 	});
 
-	if (root.dataset.smoothScroll === "true") {
+	if (useLenis) {
 		import("lenis").then(({ default: LenisCtor }) => {
 			const instance = new LenisCtor();
 			lenis = instance;
+
+			instance.on("scroll", () => {
+				skrollrInstance?.refresh();
+			});
 
 			const tick = (time: number) => {
 				instance.raf(time);
@@ -161,39 +242,4 @@ const pageUrl = new URL(url, siteOrigin).href;
 			}
 		});
 	}
-</script>
-
-<script is:inline src="/js/skrollr.js"></script>
-<script is:inline>
-	(function () {
-		const mobileMq = window.matchMedia("(max-width: 492px)");
-
-		// skrollr reads data-bottom-top at init — CSS media queries cannot change
-		// HTML attributes, so desktop/mobile values live in separate attributes
-		// and get copied onto data-bottom-top before init (and on resize).
-		function applyResponsiveSkrollr() {
-			document.querySelectorAll("[data-bottom-top-desktop]").forEach((el) => {
-				const keyframe = mobileMq.matches
-					? el.getAttribute("data-bottom-top-mobile")
-					: el.getAttribute("data-bottom-top-desktop");
-
-				if (keyframe) el.setAttribute("data-bottom-top", keyframe);
-			});
-		}
-
-		applyResponsiveSkrollr();
-
-		const instance = skrollr.init({
-			forceHeight: false,
-			smoothScrolling: true,
-			mobileCheck: function () {
-				return false;
-			},
-		});
-
-		mobileMq.addEventListener("change", () => {
-			applyResponsiveSkrollr();
-			instance.refresh();
-		});
-	})();
 </script>
