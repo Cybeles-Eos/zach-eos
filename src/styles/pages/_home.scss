@@ -8,6 +8,9 @@
 			display: flex;
 			align-items: center;
 			justify-content: center;
+			overflow: hidden;
+			position: relative;
+			z-index: 100;
 			&__main{
 				max-width: 1400px;
 				position: relative;
@@ -60,7 +63,64 @@
 					}
 				}
 			}
+	
 
+			.hand-left,
+			.hand-right {
+				position: absolute;
+				z-index: -1;
+				display: block;
+				width: 998px;
+				aspect-ratio: 1068 / 586;
+				background-color: var(--hand-decor-color);
+				-webkit-mask-repeat: no-repeat;
+				mask-repeat: no-repeat;
+				-webkit-mask-size: contain;
+				mask-size: contain;
+				-webkit-mask-position: center;
+				mask-position: center;
+				pointer-events: none;
+			}
+
+			.hand-left {
+				left: -27rem;
+				top: -14rem;
+				-webkit-mask-image: url("/images/hand-left.svg");
+				mask-image: url("/images/hand-left.svg");
+			}
+			.hand-right {
+				right: -27rem;
+				bottom: -14rem;
+				-webkit-mask-image: url("/images/hand-right.svg");
+				mask-image: url("/images/hand-right.svg");
+			}
+
+			@media screen and (max-width: 1492px) {
+				.hand-left,
+				.hand-right {
+					width: 66vw;
+					aspect-ratio: 1068 / 586;
+				}
+			}
+
+			@media screen and (max-width: 492px) {
+				.hand-left,
+				.hand-right {
+					width: 196vw;
+					aspect-ratio: 1068 / 586;
+
+				
+				}
+				.hand-left{
+					rotate: 20deg;
+					left: -27rem;
+					top: -20rem;
+				}
+				.hand-right {
+					rotate: 20deg;
+					bottom: -19rem;
+				}
+			}
 		}
 		&--roll {
 			min-height: 100vh;

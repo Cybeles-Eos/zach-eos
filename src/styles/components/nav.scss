@@ -1,11 +1,14 @@
 // Zero-height anchor: sticks to the viewport bottom without taking up any
-// space in the flow, so the bar can be dropped anywhere inside its parent
+// space in the flow, so the bar can be dropped anywhere inside its parent.
+// z-index must live here, not only on the bar: a child z-index cannot beat a
+// sibling section that creates its own stacking context (e.g. hero z-index: 100).
 .navbar-anchor {
     position: sticky;
     top: 100vh;
     // dvh tracks the mobile URL bar, so the row never hides behind it
     top: 100dvh;
     height: 0;
+    z-index: 1000;
 }
 
 .navbar-global {
