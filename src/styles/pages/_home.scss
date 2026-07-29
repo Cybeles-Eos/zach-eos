@@ -19,15 +19,15 @@
 				align-items: center;
 				justify-content: center;
 				flex-direction: column;
-				margin-bottom: 20px;
+				// margin-bottom: 20px;
 				.pret{
 					display: flex;
 					align-items: center;
 					justify-content: center;
-					gap: 8px;
+					gap: 1px;
 					margin-bottom: 18px;
 					font-size: 16px;
-
+					opacity: 0.6;
 					@media (max-width: 492px) {
 						margin-bottom: 10px;
 					}
@@ -59,7 +59,7 @@
 
 					@media (max-width: 492px) {
 						font-size: 15px;
-						margin-top: 8px;
+						// margin-top: 8px;
 					}
 				}
 			}
