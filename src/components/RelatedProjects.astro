@@ -1,0 +1,26 @@
+---
+import ProjectCard from "./ProjectCard.astro";
+import type { Project } from "../types/content";
+
+interface Props {
+	title?: string;
+	projects: Project[];
+}
+
+const { title = "Related projects", projects } = Astro.props;
+---
+
+{
+	projects.length > 0 && (
+		<section class="section--related glb-pad-inline">
+			<div class="section--related__inner">
+				<h2>{title}</h2>
+				<div class="content-grid">
+					{projects.map((project) => (
+						<ProjectCard project={project} />
+					))}
+				</div>
+			</div>
+		</section>
+	)
+}

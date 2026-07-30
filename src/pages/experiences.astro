@@ -2,11 +2,16 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
+import ExperienceCard from "../components/ExperienceCard.astro";
+import { getExperiences } from "../lib/content";
+
+const experiences = getExperiences();
+const featuredExperiences = experiences.filter((experience) => experience.featured);
 ---
 
 <Layout
 	title="Experiences | Zach Portfolio"
-	description="Zach's professional experiences — roles, projects, and the work behind his frontend and full-stack development."
+	description="Zach's professional experiences — roles, internships, and the work behind his frontend and full-stack development."
 >
 	<main class="experiences">
 		<Header />
@@ -16,21 +21,36 @@ import Header from "../partials/header.astro";
 			<div class="section--hero__main">
 				<h1>My <span>experiences</span></h1>
 				<p>
-					This is a placeholder Experiences page. Add roles, internships, and project highlights
-					here.
+					Roles, internships, and milestones that shaped how I design and build for the web.
 				</p>
 			</div>
 		</section>
 
-		<section class="section--timeline glb-pad-inline">
-			<div class="section--timeline__content">
+		{
+			featuredExperiences.length > 0 && (
+				<section class="section--grid glb-pad-inline">
+					<div class="section--grid__header">
+						<h2>Featured <span>highlights</span></h2>
+					</div>
+					<div class="content-grid content-grid--featured">
+						{featuredExperiences.map((experience) => (
+							<ExperienceCard experience={experience} />
+						))}
+					</div>
+				</section>
+			)
+		}
+
+		<section class="section--grid glb-pad-inline">
+			<div class="section--grid__header">
 				<h2>Work <span>history</span></h2>
-				<p>Dummy section for jobs, internships, and career milestones.</p>
+				<p>Every step from internship to fullstack development.</p>
+			</div>
+			<div class="content-grid">
+				{experiences.map((experience) => (
+					<ExperienceCard experience={experience} />
+				))}
 			</div>
 		</section>
-
-		<section class="section--highlights"></section>
 	</main>
-
-	<div style="height: 100vh; width: 100%; background-color: #0d739b;"></div>
 </Layout>

@@ -1,0 +1,45 @@
+---
+import type { Experience } from "../types/content";
+import { formatContentDate, getExperienceUrl } from "../lib/content";
+
+interface Props {
+	experience: Experience;
+}
+
+const { experience } = Astro.props;
+const href = getExperienceUrl(experience.slug);
+---
+
+<article class="content-card content-card--experience">
+	<a href={href} class="content-card__link">
+		{
+			experience.cover && (
+				<div class="content-card__media">
+					<img src={experience.cover} alt="" loading="lazy" decoding="async" />
+				</div>
+			)
+		}
+		<div class="content-card__body">
+			<div class="content-card__meta">
+				<span class="content-card__category">{experience.category}</span>
+				<time datetime={experience.date}>{formatContentDate(experience.date)}</time>
+			</div>
+			<h3 class="content-card__title">{experience.title}</h3>
+			{
+				experience.company && (
+					<p class="content-card__company">{experience.company}</p>
+				)
+			}
+			<p class="content-card__description">{experience.description}</p>
+			{
+				experience.tags && experience.tags.length > 0 && (
+					<ul class="content-card__tags">
+						{experience.tags.slice(0, 4).map((tag) => (
+							<li>{tag}</li>
+						))}
+					</ul>
+				)
+			}
+		</div>
+	</a>
+</article>

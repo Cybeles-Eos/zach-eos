@@ -1,0 +1,26 @@
+---
+import ExperienceCard from "./ExperienceCard.astro";
+import type { Experience } from "../types/content";
+
+interface Props {
+	title?: string;
+	experiences: Experience[];
+}
+
+const { title = "Related experiences", experiences } = Astro.props;
+---
+
+{
+	experiences.length > 0 && (
+		<section class="section--related glb-pad-inline">
+			<div class="section--related__inner">
+				<h2>{title}</h2>
+				<div class="content-grid">
+					{experiences.map((experience) => (
+						<ExperienceCard experience={experience} />
+					))}
+				</div>
+			</div>
+		</section>
+	)
+}

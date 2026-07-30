@@ -2,6 +2,11 @@
 import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../partials/navbar.astro";
 import Header from "../../partials/header.astro";
+import CategoryFilter from "../../components/CategoryFilter.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getProjectsByCategory } from "../../lib/content";
+
+const projects = getProjectsByCategory("Fullstack");
 ---
 
 <Layout
@@ -22,12 +27,23 @@ import Header from "../../partials/header.astro";
 		</section>
 
 		<section class="section--grid glb-pad-inline">
-			<div class="section--grid__content">
+			<CategoryFilter activeCategory="fullstack" />
+
+			<div class="section--grid__header">
 				<h2>Development <span>work</span></h2>
-				<p>Project listings will go here — add your fullstack builds when ready.</p>
+				<p>{projects.length} fullstack {projects.length === 1 ? "project" : "projects"}</p>
+			</div>
+			<div class="content-grid">
+				{
+					projects.length > 0 ? (
+						projects.map((project) => (
+							<ProjectCard project={project} />
+						))
+					) : (
+						<p class="content-empty">No fullstack projects yet.</p>
+					)
+				}
 			</div>
 		</section>
 	</main>
-
-	<div style="height: 100vh; width: 100%; background-color: #0d739b;"></div>
 </Layout>

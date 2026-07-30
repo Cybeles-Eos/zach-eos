@@ -2,6 +2,14 @@
 import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../partials/navbar.astro";
 import Header from "../../partials/header.astro";
+import CategoryFilter from "../../components/CategoryFilter.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getFeaturedProjects, getProjects } from "../../lib/content";
+
+const projects = getProjects();
+const featuredProjects = getFeaturedProjects();
+const featuredSlugs = new Set(featuredProjects.map((project) => project.slug));
+const remainingProjects = projects.filter((project) => !featuredSlugs.has(project.slug));
 ---
 
 <Layout
@@ -22,12 +30,31 @@ import Header from "../../partials/header.astro";
 		</section>
 
 		<section class="section--grid glb-pad-inline">
-			<div class="section--grid__content">
-				<h2>Featured <span>work</span></h2>
-				<p>All project listings will go here — add your full portfolio when ready.</p>
+			<CategoryFilter activeCategory="all" />
+
+			{
+				featuredProjects.length > 0 && (
+					<>
+						<div class="section--grid__header">
+							<h2>Featured <span>work</span></h2>
+						</div>
+						<div class="content-grid content-grid--featured">
+							{featuredProjects.map((project) => (
+								<ProjectCard project={project} featured />
+							))}
+						</div>
+					</>
+				)
+			}
+
+			<div class="section--grid__header">
+				<h2>All <span>projects</span></h2>
+			</div>
+			<div class="content-grid">
+				{remainingProjects.map((project) => (
+					<ProjectCard project={project} />
+				))}
 			</div>
 		</section>
 	</main>
-
-	<div style="height: 100vh; width: 100%; background-color: #0d739b;"></div>
 </Layout>

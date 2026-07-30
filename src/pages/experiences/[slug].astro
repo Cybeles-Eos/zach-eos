@@ -1,0 +1,84 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../partials/navbar.astro";
+import Header from "../../partials/header.astro";
+import MarkdownBody from "../../components/MarkdownBody.astro";
+import RelatedExperiences from "../../components/RelatedExperiences.astro";
+import {
+	formatContentDate,
+	getExperiences,
+	getRelatedExperiences,
+} from "../../lib/content";
+
+export function getStaticPaths() {
+	return getExperiences().map((experience) => ({
+		params: { slug: experience.slug },
+		props: { experience },
+	}));
+}
+
+const { experience } = Astro.props;
+const related = getRelatedExperiences(experience);
+const pageTitle = `${experience.title} | Experiences | Zach Portfolio`;
+---
+
+<Layout title={pageTitle} description={experience.description}>
+	<main class="experiences experiences--detail">
+		<Header />
+		<Navbar />
+
+		<section class="section--detail-hero glb-pad-inline glb-pad-block">
+			<div class="section--detail-hero__inner">
+				<a href="/experiences" class="detail-back">← All experiences</a>
+				<div class="detail-hero__meta">
+					<span>{experience.category}</span>
+					<time datetime={experience.date}>{formatContentDate(experience.date)}</time>
+				</div>
+				<h1>{experience.title}</h1>
+				<p class="detail-hero__description">{experience.description}</p>
+				<ul class="detail-hero__facts">
+					{
+						experience.company && (
+							<li>
+								<span>Company</span>
+								<strong>{experience.company}</strong>
+							</li>
+						)
+					}
+					{
+						experience.location && (
+							<li>
+								<span>Location</span>
+								<strong>{experience.location}</strong>
+							</li>
+						)
+					}
+				</ul>
+				{
+					experience.tags && experience.tags.length > 0 && (
+						<ul class="detail-hero__tags">
+							{experience.tags.map((tag) => (
+								<li>{tag}</li>
+							))}
+						</ul>
+					)
+				}
+			</div>
+			{
+				experience.cover && (
+					<div class="section--detail-hero__cover">
+						<img src={experience.cover} alt="" />
+					</div>
+				)
+			}
+		</section>
+
+		<section class="section--detail-content glb-pad-inline">
+			<div class="section--detail-content__inner">
+				<MarkdownBody content={experience.content} />
+			</div>
+		</section>
+
+		<RelatedExperiences experiences={related} />
+	</main>
+</Layout>

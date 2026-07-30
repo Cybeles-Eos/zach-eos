@@ -2,6 +2,11 @@
 import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../partials/navbar.astro";
 import Header from "../../partials/header.astro";
+import CategoryFilter from "../../components/CategoryFilter.astro";
+import ProjectCard from "../../components/ProjectCard.astro";
+import { getProjectsByCategory } from "../../lib/content";
+
+const projects = getProjectsByCategory("UI/UX");
 ---
 
 <Layout
@@ -22,12 +27,23 @@ import Header from "../../partials/header.astro";
 		</section>
 
 		<section class="section--grid glb-pad-inline">
-			<div class="section--grid__content">
+			<CategoryFilter activeCategory="ui/ux" />
+
+			<div class="section--grid__header">
 				<h2>Design <span>work</span></h2>
-				<p>Project listings will go here — add your UI/UX case studies when ready.</p>
+				<p>{projects.length} UI/UX {projects.length === 1 ? "project" : "projects"}</p>
+			</div>
+			<div class="content-grid">
+				{
+					projects.length > 0 ? (
+						projects.map((project) => (
+							<ProjectCard project={project} />
+						))
+					) : (
+						<p class="content-empty">No UI/UX projects yet.</p>
+					)
+				}
 			</div>
 		</section>
 	</main>
-
-	<div style="height: 100vh; width: 100%; background-color: #0d739b;"></div>
 </Layout>

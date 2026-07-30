@@ -1,0 +1,38 @@
+---
+interface Props {
+	activeCategory?: string;
+}
+
+const { activeCategory } = Astro.props;
+
+const categories = [
+	{ label: "All", href: "/projects", value: "all" },
+	{ label: "Fullstack", href: "/projects/fullstack", value: "fullstack" },
+	{ label: "UI/UX", href: "/projects/ui-ux", value: "ui/ux" },
+];
+
+const isActive = (value: string) => {
+	if (!activeCategory) return value === "all";
+	return activeCategory.toLowerCase() === value;
+};
+---
+
+<nav class="category-filter" aria-label="Filter projects by category">
+	<ul class="category-filter__list">
+		{
+			categories.map(({ label, href, value }) => (
+				<li>
+					<a
+						href={href}
+						class:list={[
+							"category-filter__item",
+							{ "category-filter__item--active": isActive(value) },
+						]}
+					>
+						{label}
+					</a>
+				</li>
+			))
+		}
+	</ul>
+</nav>

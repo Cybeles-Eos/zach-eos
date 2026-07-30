@@ -30,39 +30,20 @@
 			}
 		}
 
-		&--timeline {
-			min-height: 100vh;
-			min-height: 100dvh;
+		&--grid {
+			min-height: auto;
 			background-color: #e7e7e7;
-			display: flex;
-			align-items: center;
-			justify-content: center;
 			padding-block: var(--padding-block-sm);
-
-			&__content {
-				max-width: 900px;
-				text-align: center;
-
-				h2 {
-					margin-bottom: 20px;
-				}
-
-				p {
-					font-family: var(--font-satoshi);
-					font-size: var(--font-size-5s);
-				}
-			}
 		}
 
-		&--highlights {
-			height: 100vh;
-			background-color: #b1b1b1;
+		&--detail-hero {
+			min-height: auto;
 		}
 	}
 }
 
 [data-theme="dark"] .experiences {
-	.section--timeline {
+	.section--grid {
 		background-color: var(--dark);
 	}
 }

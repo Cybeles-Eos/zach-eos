@@ -1,0 +1,42 @@
+---
+import type { Project } from "../types/content";
+import { formatContentDate, getProjectUrl } from "../lib/content";
+
+interface Props {
+	project: Project;
+	featured?: boolean;
+}
+
+const { project, featured = false } = Astro.props;
+const href = getProjectUrl(project.slug);
+const tags = project.technologies ?? project.tools ?? [];
+---
+
+<article class:list={["content-card", "content-card--project", { "content-card--featured": featured }]}>
+	<a href={href} class="content-card__link">
+		{
+			project.cover && (
+				<div class="content-card__media">
+					<img src={project.cover} alt="" loading="lazy" decoding="async" />
+				</div>
+			)
+		}
+		<div class="content-card__body">
+			<div class="content-card__meta">
+				<span class="content-card__category">{project.category}</span>
+				<time datetime={project.date}>{formatContentDate(project.date)}</time>
+			</div>
+			<h3 class="content-card__title">{project.title}</h3>
+			<p class="content-card__description">{project.description}</p>
+			{
+				tags.length > 0 && (
+					<ul class="content-card__tags">
+						{tags.slice(0, 4).map((tag) => (
+							<li>{tag}</li>
+						))}
+					</ul>
+				)
+			}
+		</div>
+	</a>
+</article>

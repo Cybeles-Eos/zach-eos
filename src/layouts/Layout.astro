@@ -218,7 +218,7 @@ const pageUrl = new URL(url, siteOrigin).href;
 			lenis = instance;
 
 			instance.on("scroll", () => {
-				skrollrInstance?.refresh();
+				if (skrollrInstance) skrollrInstance.refresh();
 			});
 
 			const tick = (time: number) => {

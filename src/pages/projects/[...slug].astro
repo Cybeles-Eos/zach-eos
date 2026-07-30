@@ -1,0 +1,90 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../partials/navbar.astro";
+import Header from "../../partials/header.astro";
+import MarkdownBody from "../../components/MarkdownBody.astro";
+import RelatedProjects from "../../components/RelatedProjects.astro";
+import {
+	formatContentDate,
+	getProjects,
+	getRelatedProjects,
+} from "../../lib/content";
+
+export function getStaticPaths() {
+	return getProjects().map((project) => ({
+		params: { slug: project.slug.replace(/^projects\//, "") },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+const related = getRelatedProjects(project);
+const tags = project.technologies ?? project.tools ?? [];
+const links = [
+	{ label: "Live demo", href: project.demo },
+	{ label: "GitHub", href: project.github },
+	{ label: "Figma", href: project.figma },
+].filter((link) => link.href);
+const pageTitle = `${project.title} | Projects | Zach Portfolio`;
+---
+
+<Layout title={pageTitle} description={project.description} image={project.cover}>
+	<main class="projects projects--detail">
+		<Header />
+		<Navbar />
+
+		<section class="section--detail-hero glb-pad-inline glb-pad-block">
+			<div class="section--detail-hero__inner">
+				<a href="/projects" class="detail-back">← All projects</a>
+				<div class="detail-hero__meta">
+					<span>{project.category}</span>
+					<time datetime={project.date}>{formatContentDate(project.date)}</time>
+				</div>
+				<h1>{project.title}</h1>
+				<p class="detail-hero__description">{project.description}</p>
+				{
+					tags.length > 0 && (
+						<ul class="detail-hero__tags">
+							{tags.map((tag) => (
+								<li>{tag}</li>
+							))}
+						</ul>
+					)
+				}
+				{
+					links.length > 0 && (
+						<div class="detail-hero__links">
+							{
+								links.map((link) => (
+									<a
+										href={link.href}
+										class="btn btn--main"
+										target="_blank"
+										rel="noopener noreferrer"
+									>
+										{link.label}
+									</a>
+								))
+							}
+						</div>
+					)
+				}
+			</div>
+			{
+				project.cover && (
+					<div class="section--detail-hero__cover">
+						<img src={project.cover} alt="" />
+					</div>
+				)
+			}
+		</section>
+
+		<section class="section--detail-content glb-pad-inline">
+			<div class="section--detail-content__inner">
+				<MarkdownBody content={project.content} />
+			</div>
+		</section>
+
+		<RelatedProjects projects={related} />
+	</main>
+</Layout>

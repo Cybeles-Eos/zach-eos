@@ -1,6 +1,12 @@
 .projects {
 	position: relative;
 
+	&:not(.projects--detail) .section--hero {
+		height: auto;
+		min-height: 55vh;
+		min-height: 55dvh;
+	}
+
 	.section {
 		&--hero {
 			height: 100vh;
@@ -31,27 +37,13 @@
 		}
 
 		&--grid {
-			min-height: 100vh;
-			min-height: 100dvh;
+			min-height: auto;
 			background-color: #e7e7e7;
-			display: flex;
-			align-items: center;
-			justify-content: center;
 			padding-block: var(--padding-block-sm);
+		}
 
-			&__content {
-				max-width: 900px;
-				text-align: center;
-
-				h2 {
-					margin-bottom: 20px;
-				}
-
-				p {
-					font-family: var(--font-satoshi);
-					font-size: var(--font-size-5s);
-				}
-			}
+		&--detail-hero {
+			min-height: auto;
 		}
 	}
 }
