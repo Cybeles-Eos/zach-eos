@@ -1,13 +1,47 @@
-<footer>
-    <div class="footer__content">
-        <div class="footer__content__left">
-            <h3>Zach</h3>
-            <p>A junior full-stack developer with a solid background in UI, UX and frontend development. I help clients and companies build clean, modern websites, portfolios and web systems.</p>
-        </div>
-        <div class="footer__content__right">
-            <h3>Contact</h3>
-            <p>Email: zach@zach.com</p>
-            <p>Phone: 123-456-7890</p>
-        </div>
-    </div>
+---
+const year = new Date().getFullYear();
+---
+
+<footer class="site-footer">
+	<div class="site-footer__inner glb-pad-inline">
+		<div class="site-footer__main">
+			<div class="site-footer__brand">
+				<a href="/" class="site-footer__logo" aria-label="Home">
+					<img src="/images/logo.svg" alt="Zach" width="80" height="30" />
+				</a>
+				<p class="site-footer__tagline">
+					A junior full-stack developer with a solid background in UI, UX and frontend development. I help clients and companies build clean, modern websites, portfolios and web systems.
+				</p>
+			</div>
+
+			<div class="site-footer__column">
+				<h3 class="site-footer__heading">Navigation</h3>
+				<nav class="site-footer__nav" aria-label="Footer navigation">
+					<a href="/">Home</a>
+					<a href="/about">About</a>
+					<a href="/experiences">Experiences</a>
+					<a href="/projects">Projects</a>
+				</nav>
+			</div>
+
+			<div class="site-footer__column">
+				<h3 class="site-footer__heading">Contact</h3>
+				<ul class="site-footer__contact">
+					<li>
+						<a href="mailto:zach@zach.com">zach@zach.com</a>
+					</li>
+					<li>
+						<a href="tel:+639125240151">(+63) 912 524 0151</a>
+					</li>
+					<li>
+						<a href="https://github.com/Cybeles-Eos" target="_blank" rel="noopener noreferrer">GitHub</a>
+					</li>
+				</ul>
+			</div>
+		</div>
+
+		<div class="site-footer__bottom">
+			<p>&copy; {year} Zach. All rights reserved.</p>
+		</div>
+	</div>
 </footer>

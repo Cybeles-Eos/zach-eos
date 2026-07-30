@@ -124,7 +124,7 @@ export const TECH_LANGUAGES: TechLanguage[] = [
 	{
 		text: "Wix",
 		svg: icon("wix.svg"),
-		badge: "Website Builder",
+		badge: "Web Builder",
 		badgeColor: "#0c6efc",
 		category: "tools",
 	},

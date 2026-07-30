@@ -1,6 +1,12 @@
 ---
 import { ClientRouter } from "astro:transitions";
 import ScreenLoader from "../partials/screen-loader.astro";
+import Footer from "../partials/footer.astro";
+
+// Frontmatter imports keep the same stylesheet on every route. A <style> block
+// in Layout can be code-split so ClientRouter drops it when leaving pages that
+// referenced it — which breaks shared UI (e.g. the footer) after view transitions.
+import "../styles/app.scss";
 
 // Bundled with the page rather than imported from the client script: a dynamic
 // CSS import inside a hoisted script is preloaded but never emitted by the
@@ -99,12 +105,9 @@ const pageUrl = new URL(url, siteOrigin).href;
 	<body>
 		<ScreenLoader enabled={showScreenLoader} />
 		<slot />
+		<Footer transition:persist />
 	</body>
 </html>
-
-<style lang="scss" is:global>
-	@import "../styles/app.scss";
-</style>
 
 <script is:inline src="/js/skrollr.js"></script>
 <script>
