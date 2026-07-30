@@ -209,14 +209,24 @@
 			}
 		}
 		&--skills {
+			--skills-section-bg: #ffffff;
+			--skills-heading-color: var(--black);
+			--skills-heading-muted: var(--gray);
+			--skills-text-color: rgba(20, 23, 27, 0.72);
+			--skills-capsule-bg: #ffffff;
+			--skills-capsule-border: var(--border-light-mode-color);
+			--skills-capsule-text: var(--black);
+			--skills-capsule-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
+
 			position: relative;
 			min-height: 100vh;
-			background-color: var(--bg-dark);
+			background-color: var(--skills-section-bg);
 			display: flex;
 			flex-direction: column;
 			align-items: center;
 			overflow: hidden;
 			padding-block: var(--padding-block-lg);
+			transition: background-color 0.2s ease;
 
 			&__hero {
 				position: relative;
@@ -233,16 +243,16 @@
 				}
 
 				h2 {
-					font-family: var(--font-heading);
+					font-family: var(--font-satoshi);
 					font-size: var(--font-size-sm);
-					font-weight: 600;
+					font-weight: 500;
 					line-height: 130%;
 					margin-bottom: 16px;
-					color: var(--white);
+					color: var(--skills-heading-color);
 
 					span {
 						display: block;
-						color: var(--gray);
+						color: var(--skills-heading-muted);
 						font-weight: 300;
 					}
 				}
@@ -251,7 +261,7 @@
 					font-family: var(--font-satoshi);
 					font-size: var(--font-size-4s);
 					line-height: 150%;
-					color: rgba(255, 255, 255, 0.72);
+					color: var(--skills-text-color);
 					max-width: 560px;
 					margin-inline: auto;
 					margin-bottom: 24px;
@@ -278,16 +288,15 @@
 				}
 			}
 
-			&__canvas-wrap {
+			&__stage {
 				position: absolute;
 				inset: 0;
 				z-index: 1;
+				overflow: hidden;
+				touch-action: none;
 
-				canvas {
-					display: block;
-					width: 100%;
-					height: 100%;
-					touch-action: none;
+				&[data-skills-mode="arranged"] {
+					cursor: default;
 				}
 			}
 
@@ -309,6 +318,17 @@
 		}
 	}
 
+}
+
+[data-theme="dark"] .home .section--skills {
+	--skills-section-bg: var(--bg-dark);
+	--skills-heading-color: var(--white);
+	--skills-heading-muted: var(--gray);
+	--skills-text-color: rgba(255, 255, 255, 0.72);
+	--skills-capsule-bg: #171818;
+	--skills-capsule-border: #191a1a;
+	--skills-capsule-text: var(--white);
+	--skills-capsule-shadow: none;
 }
 
 @media (max-width: 768px) {

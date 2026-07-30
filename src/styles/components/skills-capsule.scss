@@ -1,0 +1,44 @@
+// Skills physics capsules — uses --skills-capsule-* vars from .section--skills
+.skills-capsule {
+	position: absolute;
+	top: 0;
+	left: 0;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	min-width: 200px;
+	height: 60px;
+	padding: 7px 12px;
+	border-radius: 111px;
+	background-color: var(--skills-capsule-bg);
+	border: 1px solid var(--skills-capsule-border);
+	box-shadow: var(--skills-capsule-shadow);
+	visibility: hidden;
+	pointer-events: none;
+	will-change: transform;
+	white-space: nowrap;
+	transition:
+		background-color 0.2s ease,
+		border-color 0.2s ease,
+		box-shadow 0.2s ease,
+		color 0.2s ease;
+
+	&[data-active] {
+		visibility: visible;
+	}
+
+	&__icon {
+		flex-shrink: 0;
+		width: auto;
+		height: 56px;
+		display: block;
+	}
+
+	&__label {
+		font-family: var(--font-satoshi);
+		font-size: 20px;
+		font-weight: 400;
+		line-height: 1;
+		color: var(--skills-capsule-text);
+	}
+}

@@ -1,3 +1,7 @@
+---
+import { TECH_LANGUAGES } from "../data/techLanguages";
+---
+
 <section class="section--skills" data-skills-section>
 	<div class="section--skills__hero glb-pad-inline">
 		<h2>
@@ -25,8 +29,15 @@
 		</button>
 	</div>
 
-	<div class="section--skills__canvas-wrap">
-		<canvas id="skills-physics-canvas" aria-hidden="true"></canvas>
+	<div class="section--skills__stage" data-skills-stage>
+		{
+			TECH_LANGUAGES.map((item) => (
+				<div class="skills-capsule" data-skills-capsule>
+					<img class="skills-capsule__icon" src={item.svg} alt="" width="29" height="30" />
+					<span class="skills-capsule__label">{item.text}</span>
+				</div>
+			))
+		}
 	</div>
 </section>
 
@@ -36,18 +47,18 @@
 	let physics: ReturnType<typeof initSkillsPhysics> | null = null;
 	let arrangeBtn: HTMLButtonElement | null = null;
 
-	const onArrange = () => physics?.respawn();
+	const onArrange = () => physics?.toggleArrange();
 
 	const setup = () => {
 		physics?.destroy();
 		arrangeBtn?.removeEventListener("click", onArrange);
 
-		const canvas = document.getElementById("skills-physics-canvas");
+		const stage = document.querySelector<HTMLElement>("[data-skills-stage]");
 		const section = document.querySelector<HTMLElement>("[data-skills-section]");
 		arrangeBtn = document.querySelector<HTMLButtonElement>("[data-skills-arrange]");
-		if (!(canvas instanceof HTMLCanvasElement) || !section) return;
+		if (!stage || !section) return;
 
-		physics = initSkillsPhysics(canvas, section);
+		physics = initSkillsPhysics(stage, section);
 		arrangeBtn?.addEventListener("click", onArrange);
 	};
 

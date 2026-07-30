@@ -1,125 +1,26 @@
 import Matter from "matter-js";
 import { TECH_LANGUAGES, type TechLanguage } from "../data/techLanguages";
 
-const {
-	Engine,
-	Render,
-	Runner,
-	Bodies,
-	Body,
-	Composite,
-	Events,
-	Mouse,
-	MouseConstraint,
-	Query,
-} = Matter;
+const { Engine, Runner, Bodies, Body, Composite, Events, Mouse, MouseConstraint, Query } = Matter;
 
-const PILL_FILL = "#171818";
-const PILL_STROKE = "#191A1A";
-const PILL_STROKE_WIDTH = 1;
-const TEXT_COLOR = "#ffffff";
-const PILL_HEIGHT = 80;
-const PADDING = 7;
-const ICON_GAP = 10;
-const ICON_SIZE = 56;
-const ICON_ASPECT = 29 / 30;
-const FONT_SIZE = 26;
-const FONT_WEIGHT = "400";
-const FONT_FAMILY = "Satoshi, sans-serif";
+const MOBILE_MQ = "(max-width: 492px)";
+const GRID_GAP_X = 16;
+const GRID_GAP_Y = 16;
+const GRID_PADDING_BOTTOM = 48;
 
-const DEFAULT_SVG =
-	"data:image/svg+xml," +
-	encodeURIComponent(
-		'<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none"><path d="M8 6h8M8 12h8M8 18h8" stroke="%23ffffff" stroke-width="2" stroke-linecap="round"/></svg>',
-	);
-
-type PillPlugin = {
-	text: string;
-	svg: string;
-	fontSize: number;
-	width: number;
-	height: number;
-	contentWidth: number;
-	iconWidth: number;
-};
+type SkillsMode = "falling" | "arranged";
 
 type SkillsPhysics = {
 	destroy: () => void;
-	respawn: () => void;
+	toggleArrange: () => void;
 };
 
-const svgCache = new Map<string, HTMLImageElement>();
-
-function preloadSvg(url: string): Promise<HTMLImageElement> {
-	const cached = svgCache.get(url);
-	if (cached?.complete) return Promise.resolve(cached);
-
-	return new Promise((resolve) => {
-		const img = new Image();
-		img.crossOrigin = "anonymous";
-		img.onload = () => {
-			svgCache.set(url, img);
-			resolve(img);
-		};
-		img.onerror = () => {
-			if (url !== DEFAULT_SVG) {
-				preloadSvg(DEFAULT_SVG).then(resolve);
-				return;
-			}
-			svgCache.set(url, img);
-			resolve(img);
-		};
-		img.src = url;
-		svgCache.set(url, img);
-	});
-}
-
-function preloadAllSvgs(items: TechLanguage[]): Promise<void> {
-	const urls = [...new Set([DEFAULT_SVG, ...items.map((item) => item.svg)])];
-	return Promise.all(urls.map(preloadSvg)).then(() => undefined);
-}
-
-function measurePill(ctx: CanvasRenderingContext2D, text: string) {
-	ctx.font = `${FONT_WEIGHT} ${FONT_SIZE}px ${FONT_FAMILY}`;
-	const textWidth = ctx.measureText(text).width;
-	const iconWidth = ICON_SIZE * ICON_ASPECT;
-	const contentWidth = iconWidth + ICON_GAP + textWidth;
-	const width = Math.max(contentWidth + PADDING * 2, 236);
-	const height = PILL_HEIGHT;
-	return { width, height, contentWidth, textWidth, iconWidth };
-}
-
-function drawRoundedRect(
-	ctx: CanvasRenderingContext2D,
-	x: number,
-	y: number,
-	w: number,
-	h: number,
-	r: number,
-) {
-	const radius = Math.min(r, w / 2, h / 2);
-	ctx.beginPath();
-	ctx.moveTo(x + radius, y);
-	ctx.lineTo(x + w - radius, y);
-	ctx.quadraticCurveTo(x + w, y, x + w, y + radius);
-	ctx.lineTo(x + w, y + h - radius);
-	ctx.quadraticCurveTo(x + w, y + h, x + w - radius, y + h);
-	ctx.lineTo(x + radius, y + h);
-	ctx.quadraticCurveTo(x, y + h, x, y + h - radius);
-	ctx.lineTo(x, y + radius);
-	ctx.quadraticCurveTo(x, y, x + radius, y);
-	ctx.closePath();
-}
-
 export function initSkillsPhysics(
-	canvas: HTMLCanvasElement,
+	stage: HTMLElement,
 	section: HTMLElement,
 	items: TechLanguage[] = TECH_LANGUAGES,
 ): SkillsPhysics {
-	const wrap = canvas.parentElement;
-	if (!wrap) {
-		return { destroy: () => undefined, respawn: () => undefined };
-	}
+	const capsules = [...stage.querySelectorAll<HTMLElement>("[data-skills-capsule]")];
 
 	const engine = Engine.create();
 	engine.gravity.y = 1.1;
@@ -128,26 +29,33 @@ export function initSkillsPhysics(
 	let width = 0;
 	let height = 0;
 	let hasStarted = false;
-	let render: Matter.Render;
+	let mode: SkillsMode = "falling";
 	let runner: Matter.Runner;
 	let mouse: Matter.Mouse;
 	let mouseConstraint: Matter.MouseConstraint;
-	let drawPills: () => void;
-	let onResize: () => void;
-	let onStartDrag: (event: Matter.IEvent<Matter.MouseConstraint>) => void;
-	let onAfterUpdate: () => void;
 	let observer: IntersectionObserver | null = null;
+	const bodyToEl = new Map<number, HTMLElement>();
 
-	const getBounds = () => wrap.getBoundingClientRect();
+	const getBounds = () => stage.getBoundingClientRect();
 
-	const createPill = (x: number, y: number, item: TechLanguage) => {
-		const ctx = canvas.getContext("2d");
-		if (!ctx) return null;
+	const getColumnCount = () => (window.matchMedia(MOBILE_MQ).matches ? 2 : 3);
 
-		const { width: pillWidth, height: pillHeight, contentWidth, iconWidth } = measurePill(
-			ctx,
-			item.text,
-		);
+	const getCapsuleSize = (el: HTMLElement) => {
+		const { width: pillWidth, height: pillHeight } = el.getBoundingClientRect();
+		return {
+			width: Math.max(pillWidth, 1),
+			height: Math.max(pillHeight, 1),
+		};
+	};
+
+	const measureCapsule = (el: HTMLElement) => {
+		el.removeAttribute("data-active");
+		el.style.transform = "translate(-9999px, -9999px)";
+		return getCapsuleSize(el);
+	};
+
+	const createPill = (x: number, y: number, el: HTMLElement) => {
+		const { width: pillWidth, height: pillHeight } = measureCapsule(el);
 
 		const body = Bodies.rectangle(x, y, pillWidth, pillHeight, {
 			chamfer: { radius: pillHeight / 2 },
@@ -156,19 +64,10 @@ export function initSkillsPhysics(
 			frictionAir: 0.012,
 			density: 0.0012,
 			label: "pill",
-			render: { visible: false },
 		});
 
-		body.plugin = {
-			text: item.text,
-			svg: item.svg,
-			fontSize: FONT_SIZE,
-			width: pillWidth,
-			height: pillHeight,
-			contentWidth,
-			iconWidth,
-		} satisfies PillPlugin;
-
+		bodyToEl.set(body.id, el);
+		el.setAttribute("data-active", "");
 		return body;
 	};
 
@@ -181,7 +80,30 @@ export function initSkillsPhysics(
 		];
 	};
 
+	const syncDom = () => {
+		for (const body of Composite.allBodies(engine.world)) {
+			if (body.label !== "pill") continue;
+			const el = bodyToEl.get(body.id);
+			if (!el) continue;
+
+			const { x, y } = body.position;
+			const rotate = mode === "arranged" ? "" : ` rotate(${body.angle}rad)`;
+			el.style.transform = `translate(${x}px, ${y}px) translate(-50%, -50%)${rotate}`;
+		}
+	};
+
+	const setMode = (next: SkillsMode) => {
+		mode = next;
+		stage.dataset.skillsMode = next;
+	};
+
 	const clearDynamicBodies = () => {
+		bodyToEl.forEach((el) => {
+			el.removeAttribute("data-active");
+			el.style.transform = "translate(-9999px, -9999px)";
+		});
+		bodyToEl.clear();
+
 		Composite.allBodies(engine.world)
 			.filter((body) => body.label === "pill")
 			.forEach((body) => Composite.remove(engine.world, body));
@@ -189,41 +111,95 @@ export function initSkillsPhysics(
 
 	const spawnAll = () => {
 		clearDynamicBodies();
+		setMode("falling");
 
 		items.forEach((item, index) => {
+			const el = capsules[index];
+			if (!el) return;
+
 			const x = width * (0.12 + Math.random() * 0.76);
 			const y = -80 - index * (48 + Math.random() * 24);
-			const body = createPill(x, y, item);
-			if (!body) return;
-
+			const body = createPill(x, y, el);
 			Body.setAngularVelocity(body, (Math.random() - 0.5) * 0.12);
 			Composite.add(engine.world, body);
 		});
+
+		syncDom();
 	};
 
-	const rebuildWorld = (spawn = hasStarted) => {
+	const arrangeGrid = () => {
+		const pillBodies = Composite.allBodies(engine.world).filter((body) => body.label === "pill");
+		if (pillBodies.length === 0) return;
+
+		const cols = getColumnCount();
+		const entries = pillBodies
+			.map((body) => {
+				const el = bodyToEl.get(body.id);
+				if (!el) return null;
+				return { body, el, ...getCapsuleSize(el), index: capsules.indexOf(el) };
+			})
+			.filter((entry): entry is NonNullable<typeof entry> => entry !== null)
+			.sort((a, b) => a.index - b.index);
+
+		const rows: (typeof entries)[] = [];
+		for (let i = 0; i < entries.length; i += cols) {
+			rows.push(entries.slice(i, i + cols));
+		}
+
+		const rowHeights = rows.map((row) => Math.max(...row.map((entry) => entry.height)));
+		const totalHeight = rowHeights.reduce(
+			(sum, rowHeight, index) => sum + rowHeight + (index > 0 ? GRID_GAP_Y : 0),
+			0,
+		);
+
+		let rowTop = height - GRID_PADDING_BOTTOM - totalHeight;
+
+		rows.forEach((row, rowIndex) => {
+			const rowHeight = rowHeights[rowIndex];
+			const rowWidth = row.reduce(
+				(sum, entry, index) => sum + entry.width + (index > 0 ? GRID_GAP_X : 0),
+				0,
+			);
+			let xCursor = (width - rowWidth) / 2;
+
+			row.forEach((entry) => {
+				const x = xCursor + entry.width / 2;
+				const y = rowTop + rowHeight / 2;
+
+				Body.setStatic(entry.body, true);
+				Body.setPosition(entry.body, { x, y });
+				Body.setAngle(entry.body, 0);
+				Body.setVelocity(entry.body, { x: 0, y: 0 });
+				Body.setAngularVelocity(entry.body, 0);
+
+				xCursor += entry.width + GRID_GAP_X;
+			});
+
+			rowTop += rowHeight + GRID_GAP_Y;
+		});
+
+		setMode("arranged");
+		syncDom();
+	};
+
+	const rebuildWorld = () => {
 		const bounds = getBounds();
 		width = Math.max(Math.floor(bounds.width), 1);
 		height = Math.max(Math.floor(bounds.height), 1);
-		const pixelRatio = Math.min(window.devicePixelRatio, 2);
-
-		render.options.width = width;
-		render.options.height = height;
-		render.options.pixelRatio = pixelRatio;
-		render.canvas.width = width * pixelRatio;
-		render.canvas.height = height * pixelRatio;
-		render.canvas.style.width = `${width}px`;
-		render.canvas.style.height = `${height}px`;
-
-		mouse.pixelRatio = pixelRatio;
 
 		Composite.allBodies(engine.world)
 			.filter((body) => body.label === "wall")
 			.forEach((body) => Composite.remove(engine.world, body));
 
 		Composite.add(engine.world, buildWalls());
+	};
 
-		if (spawn) spawnAll();
+	const refreshLayout = () => {
+		rebuildWorld();
+		if (!hasStarted) return;
+
+		if (mode === "arranged") arrangeGrid();
+		else spawnAll();
 	};
 
 	const startAnimation = () => {
@@ -234,23 +210,10 @@ export function initSkillsPhysics(
 		observer = null;
 	};
 
-	render = Render.create({
-		canvas,
-		engine,
-		options: {
-			width: 1,
-			height: 1,
-			background: "transparent",
-			wireframes: false,
-			pixelRatio: 1,
-		},
-	});
-
 	runner = Runner.create();
 	Runner.run(runner, engine);
-	Render.run(render);
 
-	mouse = Mouse.create(canvas);
+	mouse = Mouse.create(stage);
 	mouseConstraint = MouseConstraint.create(engine, {
 		mouse,
 		constraint: {
@@ -261,91 +224,43 @@ export function initSkillsPhysics(
 		},
 	});
 	Composite.add(engine.world, mouseConstraint);
-	render.mouse = mouse;
 
-	drawPills = () => {
-		const ctx = render.context;
-		const pillBodies = Composite.allBodies(engine.world).filter((body) => body.label === "pill");
+	const onStartDrag = (event: Matter.IEvent<Matter.MouseConstraint>) => {
+		if (mode === "arranged") return;
 
-		pillBodies.forEach((body) => {
-			const plugin = body.plugin as PillPlugin;
-			const {
-				width: pillWidth,
-				height: pillHeight,
-				text,
-				svg,
-				iconWidth,
-			} = plugin;
-
-			const x = -pillWidth / 2;
-			const y = -pillHeight / 2;
-			const radius = pillHeight / 2;
-
-			ctx.save();
-			ctx.translate(body.position.x, body.position.y);
-			ctx.rotate(body.angle);
-
-			drawRoundedRect(ctx, x, y, pillWidth, pillHeight, radius);
-			ctx.fillStyle = PILL_FILL;
-			ctx.fill();
-
-			const inset = PILL_STROKE_WIDTH / 2;
-			drawRoundedRect(
-				ctx,
-				x + inset,
-				y + inset,
-				pillWidth - PILL_STROKE_WIDTH,
-				pillHeight - PILL_STROKE_WIDTH,
-				radius - inset,
-			);
-			ctx.strokeStyle = PILL_STROKE;
-			ctx.lineWidth = PILL_STROKE_WIDTH;
-			ctx.stroke();
-
-			const icon = svgCache.get(svg) ?? svgCache.get(DEFAULT_SVG);
-			const contentLeft = x + PADDING;
-
-			if (icon?.complete && icon.naturalWidth) {
-				ctx.drawImage(icon, contentLeft, -ICON_SIZE / 2, iconWidth, ICON_SIZE);
-			}
-
-			ctx.fillStyle = TEXT_COLOR;
-			ctx.font = `${FONT_WEIGHT} ${FONT_SIZE}px ${FONT_FAMILY}`;
-			ctx.textBaseline = "middle";
-			ctx.fillText(text, contentLeft + iconWidth + ICON_GAP, 0);
-
-			ctx.restore();
-		});
-	};
-
-	onStartDrag = (event) => {
 		const body = event.source.body;
 		if (!body || body.label !== "pill") return;
 		Body.setVelocity(body, { x: 0, y: 0 });
 		Body.setAngularVelocity(body, 0);
 	};
 
-	onAfterUpdate = () => {
+	const onAfterUpdate = () => {
+		syncDom();
+
+		if (mode === "arranged") {
+			stage.style.cursor = "default";
+			return;
+		}
+
 		const pillBodies = Composite.allBodies(engine.world).filter((body) => body.label === "pill");
 
 		if (mouseConstraint.body) {
-			canvas.style.cursor = "grabbing";
+			stage.style.cursor = "grabbing";
 			return;
 		}
 
 		if (Query.point(pillBodies, mouse.position).length > 0) {
-			canvas.style.cursor = "pointer";
+			stage.style.cursor = "pointer";
 			return;
 		}
 
-		canvas.style.cursor = "default";
+		stage.style.cursor = "default";
 	};
 
-	Events.on(render, "afterRender", drawPills);
 	Events.on(mouseConstraint, "startdrag", onStartDrag);
 	Events.on(engine, "afterUpdate", onAfterUpdate);
 
-	onResize = () => rebuildWorld();
+	const onResize = () => refreshLayout();
 	window.addEventListener("resize", onResize);
 
 	observer = new IntersectionObserver(
@@ -357,24 +272,26 @@ export function initSkillsPhysics(
 	observer.observe(section);
 
 	const ready = document.fonts?.ready ?? Promise.resolve();
-	const init = preloadAllSvgs(items).then(() => ready).then(() => rebuildWorld(false));
+	const init = ready.then(() => rebuildWorld());
 
 	return {
-		respawn: () => {
+		toggleArrange: () => {
 			if (!hasStarted) return;
-			spawnAll();
+
+			if (mode === "arranged") spawnAll();
+			else arrangeGrid();
 		},
 		destroy: () => {
 			void init;
 			observer?.disconnect();
 			window.removeEventListener("resize", onResize);
-			Events.off(render, "afterRender", drawPills);
 			Events.off(mouseConstraint, "startdrag", onStartDrag);
 			Events.off(engine, "afterUpdate", onAfterUpdate);
-			Render.stop(render);
 			Runner.stop(runner);
+			clearDynamicBodies();
 			Engine.clear(engine);
-			canvas.style.cursor = "default";
+			stage.style.cursor = "default";
+			delete stage.dataset.skillsMode;
 		},
 	};
 }
