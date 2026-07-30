@@ -1,0 +1,106 @@
+<div
+	class="resume-modal"
+	data-resume-modal
+	aria-hidden="true"
+	role="dialog"
+	aria-labelledby="resume-modal-title"
+>
+	<div class="resume-modal__backdrop" data-resume-modal-close aria-hidden="true"></div>
+
+	<div class="resume-modal__panel" id="resume-modal-panel">
+		<button
+			type="button"
+			class="resume-modal__close"
+			data-resume-modal-close
+			aria-label="Close"
+		>
+			<svg width="14" height="14" viewBox="0 0 14 14" fill="none" aria-hidden="true">
+				<path
+					d="M1 1L13 13M13 1L1 13"
+					stroke="currentColor"
+					stroke-width="1.5"
+					stroke-linecap="round"></path>
+			</svg>
+		</button>
+
+		<div class="resume-modal__header">
+			<h2 id="resume-modal-title" class="resume-modal__title">My Personal Portfolio</h2>
+			<a href="/zach_resume.pdf" download="zach_resume.pdf" class="resume-modal__download">
+				<svg width="11" height="11" viewBox="0 0 11 11" fill="none" aria-hidden="true">
+					<g clip-path="url(#clip-resume-modal-download)">
+						<path d="M7.33267 5.5C7.33267 5.5 5.98247 7.33333 5.49934 7.33333C5.01621 7.33333 3.66602 5.5 3.66602 5.5M5.49934 7.10417V1.375" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+						<path d="M7.79166 3.66663C8.80421 3.66663 9.62499 4.48744 9.62499 5.49996V6.64579C9.62499 7.71582 9.62499 8.25083 9.40852 8.65586C9.23761 8.97564 8.97567 9.23753 8.65589 9.40849C8.25091 9.62496 7.7159 9.62496 6.64582 9.62496H4.35435C3.28414 9.62496 2.74903 9.62496 2.34398 9.4084C2.0243 9.23748 1.76245 8.97568 1.59154 8.656C1.375 8.25092 1.375 7.71582 1.375 6.64561V5.4995C1.37525 4.48756 2.19536 3.6672 3.20729 3.66663H3.20833" stroke="currentColor" stroke-width="0.8" stroke-linecap="round" stroke-linejoin="round"/>
+					</g>
+					<defs>
+						<clipPath id="clip-resume-modal-download">
+							<rect width="11" height="11" fill="white"/>
+						</clipPath>
+					</defs>
+				</svg>
+				zach_resume.pdf
+			</a>
+		</div>
+
+		<div class="resume-modal__preview">
+			<iframe src="/zach_resume.pdf" title="Resume preview"></iframe>
+		</div>
+	</div>
+</div>
+
+<script>
+	const getResumeModal = () =>
+		document.querySelector<HTMLElement>("[data-resume-modal]");
+
+	const isResumeModalOpen = () =>
+		getResumeModal()?.classList.contains("is-open") ?? false;
+
+	const openResumeModal = () => {
+		const modal = getResumeModal();
+		const toggle = document.querySelector<HTMLButtonElement>(
+			"[data-resume-modal-toggle]",
+		);
+		if (!modal) return;
+
+		modal.classList.add("is-open");
+		modal.setAttribute("aria-hidden", "false");
+		toggle?.setAttribute("aria-expanded", "true");
+		document.body.style.overflow = "hidden";
+
+		modal.querySelector<HTMLButtonElement>(".resume-modal__close")?.focus();
+	};
+
+	const closeResumeModal = () => {
+		const modal = getResumeModal();
+		const toggle = document.querySelector<HTMLButtonElement>(
+			"[data-resume-modal-toggle]",
+		);
+		if (!modal || !modal.classList.contains("is-open")) return;
+
+		modal.classList.remove("is-open");
+		modal.setAttribute("aria-hidden", "true");
+		toggle?.setAttribute("aria-expanded", "false");
+		document.body.style.overflow = "";
+	};
+
+	document.addEventListener("click", (event) => {
+		const target = event.target as HTMLElement | null;
+		if (!target) return;
+
+		if (target.closest("[data-resume-modal-toggle]")) {
+			if (!isResumeModalOpen()) openResumeModal();
+			else closeResumeModal();
+			return;
+		}
+
+		if (target.closest("[data-resume-modal-close]")) {
+			closeResumeModal();
+			return;
+		}
+	});
+
+	document.addEventListener("keydown", (event) => {
+		if (event.key === "Escape") closeResumeModal();
+	});
+
+	document.addEventListener("astro:after-swap", closeResumeModal);
+</script>
