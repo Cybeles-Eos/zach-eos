@@ -1,5 +1,15 @@
 // Skills physics capsules — nested shell + split inner pill with version badge
 .skills-capsule {
+	--capsule-shell-padding: 10px;
+	--capsule-main-min-width: 220px;
+	--capsule-main-height: 55px;
+	--capsule-content-gap: 10px;
+	--capsule-content-padding: 0 14px 0 18px;
+	--capsule-icon-size: 22px;
+	--capsule-label-size: 16px;
+	--capsule-badge-size: 12px;
+	--capsule-badge-padding: 0 14px;
+
 	position: absolute;
 	top: 0;
 	left: 0;
@@ -7,7 +17,7 @@
 	width: fit-content;
 	align-items: center;
 	justify-content: center;
-	padding: 10px;
+	padding: var(--capsule-shell-padding);
 	border-radius: 140px;
 	background-color: var(--skills-capsule-shell-bg);
 	border: 1px solid var(--skills-capsule-shell-border);
@@ -27,8 +37,8 @@
 	&__main {
 		display: flex;
 		align-items: stretch;
-		min-width: 220px;
-		height: 55px;
+		min-width: var(--capsule-main-min-width);
+		height: var(--capsule-main-height);
 		border-radius: 140px;
 		overflow: hidden;
 		transition: background-color 0.2s ease;
@@ -37,9 +47,9 @@
 	&__content {
 		display: flex;
 		align-items: center;
-		gap: 10px;
+		gap: var(--capsule-content-gap);
 		flex: 1;
-		padding: 0 14px 0 18px;
+		padding: var(--capsule-content-padding);
 		background-color: var(--skills-capsule-inner-bg);
 		min-width: 0;
 	}
@@ -53,8 +63,8 @@
 
 		img {
 			display: block;
-			width: 22px;
-			height: 22px;
+			width: var(--capsule-icon-size);
+			height: var(--capsule-icon-size);
 			object-fit: contain;
 		}
 	}
@@ -65,7 +75,7 @@
 
 	&__label {
 		font-family: var(--font-satoshi);
-		font-size: 16px;
+		font-size: var(--capsule-label-size);
 		font-weight: 500;
 		line-height: 1;
 		color: var(--skills-capsule-text);
@@ -77,11 +87,11 @@
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		padding: 0 14px;
+		padding: var(--capsule-badge-padding);
 		background-color: var(--badge-color);
 		color: var(--badge-text, #ffffff);
 		font-family: var(--font-satoshi);
-		font-size: 12px;
+		font-size: var(--capsule-badge-size);
 		font-weight: 600;
 		line-height: 1;
 		white-space: nowrap;
@@ -143,6 +153,20 @@ html:not([data-theme="dark"]) .skills-capsule__icon-img--dark {
 
 .section--skills[data-skills-mode="arranged"] [data-skills-catalog] {
 	display: block !important;
+}
+
+@media screen and (max-width: 992px) {
+	.skills-capsule {
+		--capsule-shell-padding: 6px;
+		--capsule-main-min-width: 168px;
+		--capsule-main-height: 42px;
+		--capsule-content-gap: 8px;
+		--capsule-content-padding: 0 10px 0 12px;
+		--capsule-icon-size: 18px;
+		--capsule-label-size: 13px;
+		--capsule-badge-size: 10px;
+		--capsule-badge-padding: 0 10px;
+	}
 }
 
 @media screen and (max-width: 492px) {
