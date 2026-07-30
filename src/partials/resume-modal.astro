@@ -42,17 +42,35 @@
 		</div>
 
 		<div class="resume-modal__preview">
-			<iframe src="/zach_resume.pdf" title="Resume preview"></iframe>
+			<iframe data-resume-preview title="Resume preview" hidden></iframe>
+			<div class="resume-modal__mobile-fallback" data-resume-mobile-fallback hidden>
+				<p>Open your resume in the browser or PDF viewer.</p>
+				<a
+					href="/zach_resume.pdf"
+					target="_blank"
+					rel="noopener noreferrer"
+					class="resume-modal__mobile-open"
+				>
+					View resume PDF
+				</a>
+			</div>
 		</div>
 	</div>
 </div>
 
 <script>
+	const RESUME_PDF = "/zach_resume.pdf";
+
 	const getResumeModal = () =>
 		document.querySelector<HTMLElement>("[data-resume-modal]");
 
 	const isResumeModalOpen = () =>
 		getResumeModal()?.classList.contains("is-open") ?? false;
+
+	// In-app browsers (Messenger, Instagram, etc.) treat embedded PDF iframes as
+	// leaving the app. Only load the iframe on desktop after the user opens the modal.
+	const useMobileResumeFallback = () =>
+		matchMedia("(max-width: 640px), (pointer: coarse)").matches;
 
 	const openResumeModal = () => {
 		const modal = getResumeModal();
@@ -60,6 +78,20 @@
 			"[data-resume-modal-toggle]",
 		);
 		if (!modal) return;
+
+		const preview = modal.querySelector<HTMLIFrameElement>("[data-resume-preview]");
+		const mobileFallback = modal.querySelector<HTMLElement>(
+			"[data-resume-mobile-fallback]",
+		);
+
+		if (useMobileResumeFallback()) {
+			preview?.setAttribute("hidden", "");
+			mobileFallback?.removeAttribute("hidden");
+		} else {
+			mobileFallback?.setAttribute("hidden", "");
+			preview?.removeAttribute("hidden");
+			if (preview && !preview.src) preview.src = RESUME_PDF;
+		}
 
 		modal.classList.add("is-open");
 		modal.setAttribute("aria-hidden", "false");
@@ -75,6 +107,15 @@
 			"[data-resume-modal-toggle]",
 		);
 		if (!modal || !modal.classList.contains("is-open")) return;
+
+		const preview = modal.querySelector<HTMLIFrameElement>("[data-resume-preview]");
+		if (preview) {
+			preview.removeAttribute("src");
+			preview.setAttribute("hidden", "");
+		}
+		modal
+			.querySelector<HTMLElement>("[data-resume-mobile-fallback]")
+			?.setAttribute("hidden", "");
 
 		modal.classList.remove("is-open");
 		modal.setAttribute("aria-hidden", "true");
