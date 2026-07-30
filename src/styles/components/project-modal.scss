@@ -87,7 +87,8 @@
 		height: 32px;
 		margin-bottom: 14px;
 		color: var(--green-color-dark);
-
+		background-color: #D8FBE9;
+		border-radius: 8px;
 		svg {
 			display: block;
 		}
@@ -139,7 +140,7 @@
 	&__cta-title {
 		margin-bottom: 6px;
 		font-family: var(--font-satoshi);
-		font-size: var(--font-size-5s);
+		font-size: var(--font-size-6s);
 		font-weight: 500;
 		line-height: 1.3;
 		color: var(--green-color-medium);
@@ -172,9 +173,9 @@
 		}
 	}
 
-	&__cta:hover &__cta-link {
-		color: var(--green-color-light);
-	}
+	// &__cta:hover &__cta-link {
+	// 	color: var(--green-color-light);
+	// }
 
 	&__cta-decor {
 		position: absolute;
@@ -220,7 +221,11 @@
 		&__services {
 			grid-template-columns: 1fr;
 		}
-
+		
+		.project-modal__service, .project-modal__cta{
+			padding: 16px 14px 18px;
+		}
+		
 		&__cta {
 			flex-direction: column;
 			align-items: flex-start;
@@ -241,6 +246,14 @@
 	.project-modal__panel {
 		background: var(--dark);
 		border-color: var(--border-dark-mode-color);
+	}
+
+	.project-modal__service-icon{
+		background-color: #013118;
+
+		svg{
+			color: #fff;
+		}
 	}
 
 	.project-modal__service {

@@ -4,6 +4,9 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 const navClass = (path: string) =>
 	`navbar-global__item${pathname === path ? " navbar-global__item--active" : ""}`;
+
+const isProjectsActive = pathname.startsWith("/projects");
+const projectsNavClass = `navbar-global__item${isProjectsActive ? " navbar-global__item--active" : ""}`;
 ---
 
 <div class="navbar-anchor">
@@ -61,11 +64,12 @@ const navClass = (path: string) =>
             </span>
         </a>
         <button
-			class="navbar-global__item"
+			class={projectsNavClass}
 			title="My Projects"
 			data-project-modal-toggle
 			aria-expanded="false"
 			aria-controls="project-modal-panel"
+			aria-current={isProjectsActive ? "page" : undefined}
 		>
             <span class="navbar-global__item__label">Projects</span>
             <span class="navbar-global__item__icon">
