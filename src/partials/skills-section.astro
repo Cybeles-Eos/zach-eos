@@ -1,6 +1,12 @@
 ---
-import { TECH_LANGUAGES } from "../data/techLanguages";
+import { TECH_LANGUAGES, TECH_BY_CATEGORY } from "../data/techLanguages";
 import SkillsCapsule from "../components/skills-capsule.astro";
+
+const catalogGroups = [
+	{ title: "Frontend Tools", items: TECH_BY_CATEGORY.frontend },
+	{ title: "Backend Tools", items: TECH_BY_CATEGORY.backend },
+	{ title: "Tools", items: TECH_BY_CATEGORY.tools },
+];
 ---
 
 <section class="section--skills" data-skills-section>
@@ -32,6 +38,21 @@ import SkillsCapsule from "../components/skills-capsule.astro";
 
 	<div class="section--skills__stage" data-skills-stage>
 		{TECH_LANGUAGES.map((item) => <SkillsCapsule item={item} physics />)}
+	</div>
+
+	<div class="skills-catalog glb-pad-inline" data-skills-catalog hidden>
+		{
+			catalogGroups.map((group) => (
+				<div class="skills-catalog__group">
+					<h3 class="skills-catalog__title">{group.title}</h3>
+					<div class="skills-catalog__list">
+						{group.items.map((item) => (
+							<SkillsCapsule item={item} />
+						))}
+					</div>
+				</div>
+			))
+		}
 	</div>
 </section>
 

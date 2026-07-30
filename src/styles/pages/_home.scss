@@ -295,10 +295,24 @@
 				z-index: 1;
 				overflow: hidden;
 				touch-action: none;
+			}
 
-				&[data-skills-mode="arranged"] {
-					cursor: default;
+			&[data-skills-mode="falling"] {
+				min-height: 100vh;
+			}
+
+			&[data-skills-mode="arranged"] {
+				min-height: auto;
+				padding-bottom: var(--padding-block-lg);
+
+				.section--skills__stage {
+					visibility: hidden;
+					pointer-events: none;
 				}
+			}
+
+			&[data-skills-mode="falling"] [data-skills-catalog] {
+				display: none !important;
 			}
 
 			@media screen and (max-width: 492px) {

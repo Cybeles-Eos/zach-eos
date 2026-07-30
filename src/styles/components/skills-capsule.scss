@@ -100,57 +100,53 @@ html:not([data-theme="dark"]) .skills-capsule__icon-img--dark {
 	display: block;
 }
 
-.section--skills__stage[data-skills-mode="arranged"] .skills-capsule {
-	padding: 6px;
-
-	.skills-capsule__main {
-		min-width: unset;
-		height: 44px;
+// Categorized catalog — shown when arrange is clicked
+.skills-catalog {
+	position: relative;
+	z-index: 2;
+	width: 100%;
+	max-width: 1100px;
+	margin-inline: auto;
+	// padding-bottom: var(--padding-block-md);
+	margin-top: 2rem;
+	&__group {
+		&:not(:last-child) {
+			margin-bottom: 46px;
+		}
 	}
 
-	.skills-capsule__content {
-		padding: 0 10px 0 12px;
-		gap: 8px;
+	&__title {
+		font-family: var(--font-satoshi);
+		font-size: var(--font-size-3s);
+		font-weight: 600;
+		color: var(--skills-heading-color);
+		margin-bottom: 16px;
+		text-align: center;
 	}
 
-	.skills-capsule__icon img {
-		width: 18px;
-		height: 18px;
+	&__list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 10px;
+		justify-content: center;
 	}
+}
 
-	.skills-capsule__label {
-		font-size: 13px;
-	}
+.skills-catalog .skills-capsule {
+	position: relative;
+	top: auto;
+	left: auto;
+	visibility: visible;
+	pointer-events: auto;
+	will-change: auto;
+}
 
-	.skills-capsule__badge {
-		padding: 0 10px;
-		font-size: 10px;
-	}
+.section--skills[data-skills-mode="arranged"] [data-skills-catalog] {
+	display: block !important;
+}
 
-	@media screen and (max-width: 492px) {
-		padding: 5px;
-
-		.skills-capsule__main {
-			height: 38px;
-		}
-
-		.skills-capsule__content {
-			padding: 0 8px 0 10px;
-			gap: 6px;
-		}
-
-		.skills-capsule__icon img {
-			width: 16px;
-			height: 16px;
-		}
-
-		.skills-capsule__label {
-			font-size: 11px;
-		}
-
-		.skills-capsule__badge {
-			padding: 0 8px;
-			font-size: 9px;
-		}
+@media screen and (max-width: 492px) {
+	.skills-catalog__title {
+		font-size: var(--font-size-4s);
 	}
 }
