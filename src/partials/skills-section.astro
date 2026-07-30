@@ -1,5 +1,6 @@
 ---
 import { TECH_LANGUAGES } from "../data/techLanguages";
+import SkillsCapsule from "../components/skills-capsule.astro";
 ---
 
 <section class="section--skills" data-skills-section>
@@ -30,14 +31,7 @@ import { TECH_LANGUAGES } from "../data/techLanguages";
 	</div>
 
 	<div class="section--skills__stage" data-skills-stage>
-		{
-			TECH_LANGUAGES.map((item) => (
-				<div class="skills-capsule" data-skills-capsule>
-					<img class="skills-capsule__icon" src={item.svg} alt="" width="29" height="30" />
-					<span class="skills-capsule__label">{item.text}</span>
-				</div>
-			))
-		}
+		{TECH_LANGUAGES.map((item) => <SkillsCapsule item={item} physics />)}
 	</div>
 </section>
 

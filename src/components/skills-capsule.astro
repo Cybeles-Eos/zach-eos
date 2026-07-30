@@ -1,0 +1,48 @@
+---
+import type { TechLanguage } from "../data/techLanguages";
+
+interface Props {
+	item: TechLanguage;
+	physics?: boolean;
+}
+
+const { item, physics = false } = Astro.props;
+---
+
+<div class="skills-capsule" data-skills-capsule={physics ? "" : undefined}>
+	<div class="skills-capsule__main">
+		<div class="skills-capsule__content">
+			<div class="skills-capsule__icon">
+				{
+					item.svgDark ? (
+						<>
+							<img
+								class="skills-capsule__icon-img skills-capsule__icon-img--light"
+								src={item.svg}
+								alt=""
+								width="22"
+								height="22"
+							/>
+							<img
+								class="skills-capsule__icon-img skills-capsule__icon-img--dark"
+								src={item.svgDark}
+								alt=""
+								width="22"
+								height="22"
+							/>
+						</>
+					) : (
+						<img src={item.svg} alt="" width="22" height="22" />
+					)
+				}
+			</div>
+			<span class="skills-capsule__label">{item.text}</span>
+		</div>
+		<span
+			class="skills-capsule__badge"
+			style={`--badge-color: ${item.badgeColor};${item.badgeTextColor ? ` --badge-text: ${item.badgeTextColor};` : ""}`}
+		>
+			{item.badge}
+		</span>
+	</div>
+</div>

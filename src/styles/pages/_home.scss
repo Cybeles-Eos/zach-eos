@@ -213,8 +213,9 @@
 			--skills-heading-color: var(--black);
 			--skills-heading-muted: var(--gray);
 			--skills-text-color: rgba(20, 23, 27, 0.72);
-			--skills-capsule-bg: #ffffff;
-			--skills-capsule-border: var(--border-light-mode-color);
+			--skills-capsule-shell-bg: #f3f3f3;
+			--skills-capsule-shell-border: hsla(0, 0%, 18%, 0.12);
+			--skills-capsule-inner-bg: #ffffff;
 			--skills-capsule-text: var(--black);
 			--skills-capsule-shadow: 0 2px 12px rgba(0, 0, 0, 0.06);
 
@@ -325,8 +326,9 @@
 	--skills-heading-color: var(--white);
 	--skills-heading-muted: var(--gray);
 	--skills-text-color: rgba(255, 255, 255, 0.72);
-	--skills-capsule-bg: #171818;
-	--skills-capsule-border: #191a1a;
+	--skills-capsule-shell-bg: #171818;
+	--skills-capsule-shell-border: hsla(0, 0%, 18%, 0.2);
+	--skills-capsule-inner-bg: #1f1f1f;
 	--skills-capsule-text: var(--white);
 	--skills-capsule-shadow: none;
 }

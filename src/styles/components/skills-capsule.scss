@@ -1,44 +1,156 @@
-// Skills physics capsules — uses --skills-capsule-* vars from .section--skills
+// Skills physics capsules — nested shell + split inner pill with version badge
 .skills-capsule {
 	position: absolute;
 	top: 0;
 	left: 0;
-	display: inline-flex;
+	display: flex;
+	width: fit-content;
 	align-items: center;
-	gap: 10px;
-	min-width: 200px;
-	height: 60px;
-	padding: 7px 12px;
-	border-radius: 111px;
-	background-color: var(--skills-capsule-bg);
-	border: 1px solid var(--skills-capsule-border);
+	justify-content: center;
+	padding: 10px;
+	border-radius: 140px;
+	background-color: var(--skills-capsule-shell-bg);
+	border: 1px solid var(--skills-capsule-shell-border);
 	box-shadow: var(--skills-capsule-shadow);
 	visibility: hidden;
 	pointer-events: none;
 	will-change: transform;
-	white-space: nowrap;
 	transition:
 		background-color 0.2s ease,
 		border-color 0.2s ease,
-		box-shadow 0.2s ease,
-		color 0.2s ease;
+		box-shadow 0.2s ease;
 
 	&[data-active] {
 		visibility: visible;
 	}
 
+	&__main {
+		display: flex;
+		align-items: stretch;
+		min-width: 220px;
+		height: 55px;
+		border-radius: 140px;
+		overflow: hidden;
+		transition: background-color 0.2s ease;
+	}
+
+	&__content {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex: 1;
+		padding: 0 14px 0 18px;
+		background-color: var(--skills-capsule-inner-bg);
+		min-width: 0;
+	}
+
 	&__icon {
 		flex-shrink: 0;
-		width: auto;
-		height: 56px;
-		display: block;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		line-height: 0;
+
+		img {
+			display: block;
+			width: 22px;
+			height: 22px;
+			object-fit: contain;
+		}
+	}
+
+	&__icon-img--dark {
+		display: none;
 	}
 
 	&__label {
 		font-family: var(--font-satoshi);
-		font-size: 20px;
-		font-weight: 400;
+		font-size: 16px;
+		font-weight: 500;
 		line-height: 1;
 		color: var(--skills-capsule-text);
+		white-space: nowrap;
+		transition: color 0.2s ease;
+	}
+
+	&__badge {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 0 14px;
+		background-color: var(--badge-color);
+		color: var(--badge-text, #ffffff);
+		font-family: var(--font-satoshi);
+		font-size: 12px;
+		font-weight: 600;
+		line-height: 1;
+		white-space: nowrap;
+	}
+}
+
+html:not([data-theme="dark"]) .skills-capsule__icon-img--dark {
+	display: none;
+}
+
+[data-theme="dark"] .skills-capsule__icon-img--light {
+	display: none;
+}
+
+[data-theme="dark"] .skills-capsule__icon-img--dark {
+	display: block;
+}
+
+.section--skills__stage[data-skills-mode="arranged"] .skills-capsule {
+	padding: 6px;
+
+	.skills-capsule__main {
+		min-width: unset;
+		height: 44px;
+	}
+
+	.skills-capsule__content {
+		padding: 0 10px 0 12px;
+		gap: 8px;
+	}
+
+	.skills-capsule__icon img {
+		width: 18px;
+		height: 18px;
+	}
+
+	.skills-capsule__label {
+		font-size: 13px;
+	}
+
+	.skills-capsule__badge {
+		padding: 0 10px;
+		font-size: 10px;
+	}
+
+	@media screen and (max-width: 492px) {
+		padding: 5px;
+
+		.skills-capsule__main {
+			height: 38px;
+		}
+
+		.skills-capsule__content {
+			padding: 0 8px 0 10px;
+			gap: 6px;
+		}
+
+		.skills-capsule__icon img {
+			width: 16px;
+			height: 16px;
+		}
+
+		.skills-capsule__label {
+			font-size: 11px;
+		}
+
+		.skills-capsule__badge {
+			padding: 0 8px;
+			font-size: 9px;
+		}
 	}
 }
