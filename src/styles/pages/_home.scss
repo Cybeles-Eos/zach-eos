@@ -318,6 +318,11 @@
 			@media screen and (max-width: 492px) {
 				padding-block: var(--padding-block-sm);
 
+				&[data-skills-mode="falling"] {
+					min-height: 850px;
+					height: 850px;
+				}
+
 				&__hero {
 					margin-bottom: 20px;
 

@@ -146,6 +146,7 @@ html:not([data-theme="dark"]) .skills-capsule__icon-img--dark {
 	position: relative;
 	top: auto;
 	left: auto;
+	width: fit-content;
 	visibility: visible;
 	pointer-events: auto;
 	will-change: auto;
@@ -172,5 +173,25 @@ html:not([data-theme="dark"]) .skills-capsule__icon-img--dark {
 @media screen and (max-width: 492px) {
 	.skills-catalog__title {
 		font-size: var(--font-size-4s);
+	}
+
+	.skills-catalog__list {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 10px;
+	}
+
+	.skills-catalog .skills-capsule {
+		width: 100%;
+
+		.skills-capsule__main {
+			min-width: 0;
+			width: 100%;
+		}
+
+		.skills-capsule__label {
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
 	}
 }

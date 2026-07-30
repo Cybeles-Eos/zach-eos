@@ -109,7 +109,7 @@ export function initSkillsPhysics(
 		clearDynamicBodies();
 		setMode("falling");
 
-		// Wait for section to reflow back to 100vh after leaving arranged mode
+		// Wait for section to reflow after leaving arranged mode
 		requestAnimationFrame(() => {
 			rebuildWorld();
 
@@ -132,6 +132,8 @@ export function initSkillsPhysics(
 		clearDynamicBodies();
 		setMode("arranged");
 	};
+
+	setMode("falling");
 
 	const rebuildWorld = () => {
 		const bounds = getBounds();
