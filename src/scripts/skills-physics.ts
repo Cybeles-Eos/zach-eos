@@ -5,6 +5,19 @@ const { Engine, Runner, Bodies, Body, Composite, Events, Mouse, MouseConstraint,
 
 type SkillsMode = "falling" | "arranged";
 
+type MatterMouse = Matter.Mouse & {
+	mousewheel: (event: WheelEvent) => void;
+	mousemove: (event: MouseEvent | TouchEvent) => void;
+	mousedown: (event: MouseEvent | TouchEvent) => void;
+	mouseup: (event: MouseEvent | TouchEvent) => void;
+	sourceEvents: {
+		mousemove: Event | null;
+		mousedown: Event | null;
+		mouseup: Event | null;
+		mousewheel: Event | null;
+	};
+};
+
 type SkillsPhysics = {
 	destroy: () => void;
 	toggleArrange: () => void;
@@ -167,6 +180,7 @@ export function initSkillsPhysics(
 	Runner.run(runner, engine);
 
 	mouse = Mouse.create(stage);
+	const matterMouse = mouse as MatterMouse;
 	mouseConstraint = MouseConstraint.create(engine, {
 		mouse,
 		constraint: {
@@ -177,6 +191,66 @@ export function initSkillsPhysics(
 		},
 	});
 	Composite.add(engine.world, mouseConstraint);
+
+	// Matter.js prevents wheel/touch scroll on the stage by default — keep drag, allow scroll
+	stage.removeEventListener("wheel", matterMouse.mousewheel);
+
+	const setMouseFromTouch = (event: TouchEvent) => {
+		const touch = event.touches[0] ?? event.changedTouches[0];
+		if (!touch) return;
+
+		const rect = stage.getBoundingClientRect();
+		const ratio = mouse.pixelRatio || 1;
+		mouse.absolute.x = (touch.clientX - rect.left) * ratio;
+		mouse.absolute.y = (touch.clientY - rect.top) * ratio;
+		mouse.position.x = mouse.absolute.x * mouse.scale.x + mouse.offset.x;
+		mouse.position.y = mouse.absolute.y * mouse.scale.y + mouse.offset.y;
+	};
+
+	const pillAtPointer = () =>
+		Query.point(
+			Composite.allBodies(engine.world).filter((body) => body.label === "pill"),
+			mouse.position,
+		).length > 0;
+
+	const onTouchStart = (event: TouchEvent) => {
+		if (mode !== "falling") return;
+
+		setMouseFromTouch(event);
+		mouse.button = 0;
+		mouse.mousedownPosition.x = mouse.position.x;
+		mouse.mousedownPosition.y = mouse.position.y;
+		matterMouse.sourceEvents.mousedown = event;
+
+		if (pillAtPointer()) event.preventDefault();
+	};
+
+	const onTouchMove = (event: TouchEvent) => {
+		if (mode !== "falling") return;
+
+		setMouseFromTouch(event);
+		matterMouse.sourceEvents.mousemove = event;
+
+		if (mouseConstraint.body) event.preventDefault();
+	};
+
+	const onTouchEnd = (event: TouchEvent) => {
+		if (mode !== "falling") return;
+
+		setMouseFromTouch(event);
+		mouse.button = -1;
+		mouse.mouseupPosition.x = mouse.position.x;
+		mouse.mouseupPosition.y = mouse.position.y;
+		matterMouse.sourceEvents.mouseup = event;
+	};
+
+	stage.removeEventListener("touchmove", matterMouse.mousemove);
+	stage.removeEventListener("touchstart", matterMouse.mousedown);
+	stage.removeEventListener("touchend", matterMouse.mouseup);
+	stage.addEventListener("touchstart", onTouchStart, { passive: false });
+	stage.addEventListener("touchmove", onTouchMove, { passive: false });
+	stage.addEventListener("touchend", onTouchEnd, { passive: true });
+	stage.addEventListener("touchcancel", onTouchEnd, { passive: true });
 
 	const onStartDrag = (event: Matter.IEvent<Matter.MouseConstraint>) => {
 		if (mode !== "falling") return;
@@ -238,6 +312,10 @@ export function initSkillsPhysics(
 			void init;
 			observer?.disconnect();
 			window.removeEventListener("resize", onResize);
+			stage.removeEventListener("touchstart", onTouchStart);
+			stage.removeEventListener("touchmove", onTouchMove);
+			stage.removeEventListener("touchend", onTouchEnd);
+			stage.removeEventListener("touchcancel", onTouchEnd);
 			Events.off(mouseConstraint, "startdrag", onStartDrag);
 			Events.off(engine, "afterUpdate", onAfterUpdate);
 			Runner.stop(runner);

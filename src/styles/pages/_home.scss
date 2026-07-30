@@ -294,7 +294,7 @@
 				inset: 0;
 				z-index: 1;
 				overflow: hidden;
-				touch-action: none;
+				touch-action: pan-y;
 			}
 
 			&[data-skills-mode="falling"] {
