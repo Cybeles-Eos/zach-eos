@@ -27,10 +27,34 @@
             }
         }
 
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
         .btn--primary {
             border-color: var(--white);
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
+        }
+
+        .btn--resume {
+            flex-shrink: 0;
+            width: 42px;
+            height: 42px;
+            min-width: 42px;
+            padding: 0;
+            border-radius: 50%;
+            border: 1px solid var(--white);
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+
+            svg {
+                margin-left: 0;
+                width: 24px;
+                height: 24px;
+            }
         }
 	}
 
@@ -77,6 +101,17 @@ html:not([data-theme="dark"]) .main--header {
 			border-color: var(--border-light-mode-color);
 		}
 	}
+
+	.btn--resume {
+		color: var(--btn-clr);
+		background-color: var(--white);
+		border-color: var(--border-light-mode-color);
+
+		&:hover {
+			background-color: var(--white);
+			border-color: var(--border-light-mode-color);
+		}
+	}
 }
 
 [data-theme="dark"] .main--header {
@@ -88,6 +123,17 @@ html:not([data-theme="dark"]) .main--header {
 		svg path {
 			fill: currentColor;
 		}
+
+		&:hover {
+			background-color: rgba(255, 255, 255, 0.3);
+			border-color: var(--white);
+		}
+	}
+
+	.btn--resume {
+		color: var(--white);
+		background-color: rgba(255, 255, 255, 0.21);
+		border-color: var(--white);
 
 		&:hover {
 			background-color: rgba(255, 255, 255, 0.3);
