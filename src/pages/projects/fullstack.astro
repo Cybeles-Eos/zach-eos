@@ -1,0 +1,33 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../partials/navbar.astro";
+import Header from "../../partials/header.astro";
+---
+
+<Layout
+	title="Fullstack Projects | Zach Portfolio"
+	description="Fullstack development projects by Zach — responsive websites and web applications built with clean, scalable code."
+>
+	<main class="projects projects--fullstack">
+		<Header />
+		<Navbar />
+
+		<section class="section--hero glb-pad-inline glb-pad-block">
+			<div class="section--hero__main">
+				<h1>Fullstack <span>projects</span></h1>
+				<p>
+					Responsive websites and web applications built with clean, scalable, and efficient code.
+				</p>
+			</div>
+		</section>
+
+		<section class="section--grid glb-pad-inline">
+			<div class="section--grid__content">
+				<h2>Development <span>work</span></h2>
+				<p>Project listings will go here — add your fullstack builds when ready.</p>
+			</div>
+		</section>
+	</main>
+
+	<div style="height: 100vh; width: 100%; background-color: #0d739b;"></div>
+</Layout>
