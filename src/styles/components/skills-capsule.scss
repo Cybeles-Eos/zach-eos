@@ -81,6 +81,7 @@
 		color: var(--skills-capsule-text);
 		white-space: nowrap;
 		transition: color 0.2s ease;
+		user-select: none;
 	}
 
 	&__badge {
@@ -95,6 +96,7 @@
 		font-weight: 600;
 		line-height: 1;
 		white-space: nowrap;
+		user-select: none;
 	}
 }
 
