@@ -11,11 +11,20 @@
     z-index: 1000;
 }
 
-.navbar-global {
+.navbar-shell {
     position: absolute;
     bottom: 30px;
     left: 50%;
     transform: translateX(-50%);
+    width: max-content;
+    max-width: calc(100vw - 55px);
+}
+
+.navbar-global {
+    position: relative;
+    bottom: auto;
+    left: auto;
+    transform: none;
     // width: 500px;
     height: 60px;
     display: flex;
@@ -84,8 +93,12 @@
 // the fixed columns add up to ~510px, so below that the bar has to go fluid
 // or it overflows the screen and drags the whole page sideways
 @media (max-width: 600px) {
+    .navbar-shell {
+        width: calc(100vw - 55px);
+    }
+
     .navbar-global{
-        width: calc(100% - 55px);
+        width: 100%;
         grid-template-columns: 36px repeat(4, minmax(0, 1fr)) 36px;
         gap: 4px;
         padding: 6px;

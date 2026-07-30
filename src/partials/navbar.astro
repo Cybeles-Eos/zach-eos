@@ -1,4 +1,5 @@
 ---
+import ProjectModal from "./project-modal.astro";
 const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 
 const navClass = (path: string) =>
@@ -6,6 +7,7 @@ const navClass = (path: string) =>
 ---
 
 <div class="navbar-anchor">
+<div class="navbar-shell">
 <div class="navbar-global">
         <button class="navbar-global__item" title="Dark Mode" data-theme-toggle>
             <svg width="14" height="15" viewBox="0 0 14 15" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -58,7 +60,13 @@ const navClass = (path: string) =>
                 </svg>                    
             </span>
         </a>
-        <button class="navbar-global__item" title="My Projects">
+        <button
+			class="navbar-global__item"
+			title="My Projects"
+			data-project-modal-toggle
+			aria-expanded="false"
+			aria-controls="project-modal-panel"
+		>
             <span class="navbar-global__item__label">Projects</span>
             <span class="navbar-global__item__icon">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -82,10 +90,44 @@ const navClass = (path: string) =>
             </svg>                          
         </a>
     </div>
+    <ProjectModal />
+</div>
 </div>
 
 <script>
 	const root = document.documentElement;
+
+	const getProjectModal = () =>
+		document.querySelector<HTMLElement>("[data-project-modal]");
+
+	const isProjectModalOpen = () =>
+		getProjectModal()?.classList.contains("is-open") ?? false;
+
+	const openProjectModal = () => {
+		const modal = getProjectModal();
+		const toggle = document.querySelector<HTMLButtonElement>(
+			"[data-project-modal-toggle]",
+		);
+		if (!modal) return;
+
+		modal.classList.add("is-open");
+		modal.setAttribute("aria-hidden", "false");
+		toggle?.setAttribute("aria-expanded", "true");
+
+		modal.querySelector<HTMLButtonElement>(".project-modal__close")?.focus();
+	};
+
+	const closeProjectModal = () => {
+		const modal = getProjectModal();
+		const toggle = document.querySelector<HTMLButtonElement>(
+			"[data-project-modal-toggle]",
+		);
+		if (!modal || !modal.classList.contains("is-open")) return;
+
+		modal.classList.remove("is-open");
+		modal.setAttribute("aria-hidden", "true");
+		toggle?.setAttribute("aria-expanded", "false");
+	};
 
 	const swapTheme = () => {
 		const theme = root.dataset.theme === "dark" ? "light" : "dark";
@@ -96,10 +138,25 @@ const navClass = (path: string) =>
 	// delegated because a client-side page swap replaces the button node while
 	// this module keeps the listener it registered on the very first load
 	document.addEventListener("click", (event) => {
-		const toggle = (event.target as HTMLElement | null)?.closest<HTMLButtonElement>(
-			"[data-theme-toggle]",
-		);
+		const target = event.target as HTMLElement | null;
+		if (!target) return;
 
+		if (target.closest("[data-project-modal-toggle]")) {
+			if (!isProjectModalOpen()) openProjectModal();
+			else closeProjectModal();
+			return;
+		}
+
+		if (target.closest("[data-project-modal-close]")) {
+			closeProjectModal();
+			return;
+		}
+
+		if (isProjectModalOpen() && !target.closest("[data-project-modal]")) {
+			closeProjectModal();
+		}
+
+		const toggle = target.closest<HTMLButtonElement>("[data-theme-toggle]");
 		if (!toggle) return;
 
 		const startViewTransition = document.startViewTransition?.bind(document);
@@ -129,4 +186,10 @@ const navClass = (path: string) =>
 			);
 		});
 	});
+
+	document.addEventListener("keydown", (event) => {
+		if (event.key === "Escape") closeProjectModal();
+	});
+
+	document.addEventListener("astro:after-swap", closeProjectModal);
 </script>

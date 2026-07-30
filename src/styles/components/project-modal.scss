@@ -1,0 +1,247 @@
+.project-modal {
+	position: absolute;
+	bottom: calc(100% + 8px);
+	left: 0;
+	width: 100%;
+	z-index: 1;
+	pointer-events: none;
+	visibility: hidden;
+	opacity: 0;
+	transform: translateY(10px) scale(0.98);
+	transform-origin: bottom center;
+	transition:
+		opacity 0.28s ease,
+		transform 0.28s ease,
+		visibility 0.28s ease;
+
+	&.is-open {
+		pointer-events: auto;
+		visibility: visible;
+		opacity: 1;
+		transform: translateY(0) scale(1);
+	}
+
+	&__panel {
+		position: relative;
+		width: 100%;
+		padding: 8px;
+		border-radius: 16px;
+		background: var(--white);
+		border: 1px solid var(--border-light-mode-color);
+		box-shadow: 0 24px 64px rgba(0, 0, 0, 0.12);
+	}
+
+	&__close {
+		position: absolute;
+		top: 12px;
+		right: 12px;
+		z-index: 2;
+		width: 32px;
+		height: 32px;
+		display: grid;
+		place-items: center;
+		border-radius: 8px;
+		border: none;
+		background: transparent;
+		color: var(--gray);
+		cursor: pointer;
+		opacity: 0;
+		transition: opacity 0.2s ease, color 0.2s ease, background-color 0.2s ease;
+
+		.project-modal__panel:hover &,
+		.project-modal__panel:focus-within & {
+			opacity: 1;
+		}
+
+		&:hover {
+			color: var(--green-color-dark);
+			background: rgba(0, 86, 63, 0.06);
+		}
+	}
+
+	&__services {
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 8px;
+	}
+
+	&__service {
+		padding: 20px 18px 22px;
+		border-radius: 12px;
+		background: #eef7f2;
+	}
+
+	&__service-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+		margin-bottom: 14px;
+		color: var(--green-color-dark);
+
+		svg {
+			display: block;
+		}
+	}
+
+	&__service-title {
+		margin-bottom: 8px;
+		font-family: var(--font-satoshi);
+		font-size: var(--font-size-5s);
+		font-weight: 500;
+		line-height: 1.3;
+		color: var(--green-color-dark);
+	}
+
+	&__service-text {
+		margin-bottom: 0;
+		font-family: var(--font-satoshi);
+		font-size: var(--font-size-7s);
+		line-height: 1.45;
+		color: #6b8578;
+	}
+
+	&__cta {
+		position: relative;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 20px;
+		margin-top: 8px;
+		padding: 22px 24px;
+		border-radius: 12px;
+		background: #14171b;
+		overflow: hidden;
+	}
+
+	&__cta-copy {
+		position: relative;
+		z-index: 1;
+		max-width: 340px;
+	}
+
+	&__cta-title {
+		margin-bottom: 6px;
+		font-family: var(--font-satoshi);
+		font-size: var(--font-size-5s);
+		font-weight: 500;
+		line-height: 1.3;
+		color: var(--green-color-medium);
+	}
+
+	&__cta-text {
+		margin-bottom: 0;
+		font-family: var(--font-satoshi);
+		font-size: var(--font-size-7s);
+		line-height: 1.45;
+		color: rgba(255, 255, 255, 0.72);
+	}
+
+	&__cta-link {
+		position: relative;
+		z-index: 1;
+		flex-shrink: 0;
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		font-family: var(--font-satoshi);
+		font-size: var(--font-size-6s);
+		font-weight: 400;
+		color: var(--white);
+		white-space: nowrap;
+		transition: color 0.2s ease;
+
+		svg {
+			display: block;
+		}
+
+		&:hover {
+			color: var(--green-color-light);
+		}
+	}
+
+	&__cta-decor {
+		position: absolute;
+		right: 18px;
+		bottom: 0;
+		display: flex;
+		align-items: flex-end;
+		gap: 6px;
+		height: 100%;
+		pointer-events: none;
+
+		span {
+			display: block;
+			width: 28px;
+			border-radius: 6px 6px 0 0;
+			background: linear-gradient(180deg, #00a14c 0%, #00563f 100%);
+
+			&:nth-child(1) {
+				height: 42%;
+				opacity: 0.45;
+			}
+
+			&:nth-child(2) {
+				height: 62%;
+				opacity: 0.7;
+			}
+
+			&:nth-child(3) {
+				height: 88%;
+			}
+		}
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.project-modal {
+		transition: none;
+	}
+}
+
+@media (max-width: 640px) {
+	.project-modal {
+		&__services {
+			grid-template-columns: 1fr;
+		}
+
+		&__cta {
+			flex-direction: column;
+			align-items: flex-start;
+			padding: 20px 18px;
+		}
+
+		&__cta-copy {
+			max-width: none;
+		}
+
+		&__close {
+			opacity: 1;
+		}
+	}
+}
+
+[data-theme="dark"] {
+	.project-modal__panel {
+		background: var(--dark);
+		border-color: var(--border-dark-mode-color);
+	}
+
+	.project-modal__service {
+		background: rgba(0, 161, 76, 0.08);
+	}
+
+	.project-modal__service-text {
+		color: rgba(255, 255, 255, 0.55);
+	}
+
+	.project-modal__close {
+		color: rgba(255, 255, 255, 0.5);
+
+		&:hover {
+			color: var(--green-color-light);
+			background: rgba(255, 255, 255, 0.06);
+		}
+	}
+}
