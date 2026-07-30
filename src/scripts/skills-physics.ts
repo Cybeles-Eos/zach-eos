@@ -14,15 +14,18 @@ const {
 	Query,
 } = Matter;
 
-const PILL_COLOR = "#2a2a2a";
+const PILL_FILL = "#171818";
+const PILL_STROKE = "#191A1A";
+const PILL_STROKE_WIDTH = 1;
 const TEXT_COLOR = "#ffffff";
-const ICON_SIZE = 18;
-const ICON_GAP = 8;
-const FONT_SIZE = 15;
-const FONT_WEIGHT = "600";
+const PILL_HEIGHT = 80;
+const PADDING = 7;
+const ICON_GAP = 10;
+const ICON_SIZE = 56;
+const ICON_ASPECT = 29 / 30;
+const FONT_SIZE = 26;
+const FONT_WEIGHT = "400";
 const FONT_FAMILY = "Satoshi, sans-serif";
-const PADDING_X = 14;
-const PADDING_Y = 10;
 
 const DEFAULT_SVG =
 	"data:image/svg+xml," +
@@ -37,6 +40,7 @@ type PillPlugin = {
 	width: number;
 	height: number;
 	contentWidth: number;
+	iconWidth: number;
 };
 
 type SkillsPhysics = {
@@ -78,10 +82,11 @@ function preloadAllSvgs(items: TechLanguage[]): Promise<void> {
 function measurePill(ctx: CanvasRenderingContext2D, text: string) {
 	ctx.font = `${FONT_WEIGHT} ${FONT_SIZE}px ${FONT_FAMILY}`;
 	const textWidth = ctx.measureText(text).width;
-	const contentWidth = ICON_SIZE + ICON_GAP + textWidth;
-	const width = contentWidth + PADDING_X * 2;
-	const height = FONT_SIZE + PADDING_Y * 2;
-	return { width, height, contentWidth, textWidth };
+	const iconWidth = ICON_SIZE * ICON_ASPECT;
+	const contentWidth = iconWidth + ICON_GAP + textWidth;
+	const width = Math.max(contentWidth + PADDING * 2, 236);
+	const height = PILL_HEIGHT;
+	return { width, height, contentWidth, textWidth, iconWidth };
 }
 
 function drawRoundedRect(
@@ -108,6 +113,7 @@ function drawRoundedRect(
 
 export function initSkillsPhysics(
 	canvas: HTMLCanvasElement,
+	section: HTMLElement,
 	items: TechLanguage[] = TECH_LANGUAGES,
 ): SkillsPhysics {
 	const wrap = canvas.parentElement;
@@ -121,6 +127,7 @@ export function initSkillsPhysics(
 
 	let width = 0;
 	let height = 0;
+	let hasStarted = false;
 	let render: Matter.Render;
 	let runner: Matter.Runner;
 	let mouse: Matter.Mouse;
@@ -129,6 +136,7 @@ export function initSkillsPhysics(
 	let onResize: () => void;
 	let onStartDrag: (event: Matter.IEvent<Matter.MouseConstraint>) => void;
 	let onAfterUpdate: () => void;
+	let observer: IntersectionObserver | null = null;
 
 	const getBounds = () => wrap.getBoundingClientRect();
 
@@ -136,7 +144,10 @@ export function initSkillsPhysics(
 		const ctx = canvas.getContext("2d");
 		if (!ctx) return null;
 
-		const { width: pillWidth, height: pillHeight, contentWidth } = measurePill(ctx, item.text);
+		const { width: pillWidth, height: pillHeight, contentWidth, iconWidth } = measurePill(
+			ctx,
+			item.text,
+		);
 
 		const body = Bodies.rectangle(x, y, pillWidth, pillHeight, {
 			chamfer: { radius: pillHeight / 2 },
@@ -155,13 +166,14 @@ export function initSkillsPhysics(
 			width: pillWidth,
 			height: pillHeight,
 			contentWidth,
+			iconWidth,
 		} satisfies PillPlugin;
 
 		return body;
 	};
 
 	const buildWalls = () => {
-		const wallOptions = { isStatic: true, render: { visible: false } };
+		const wallOptions = { isStatic: true, label: "wall", render: { visible: false } };
 		return [
 			Bodies.rectangle(width / 2, height + 30, width + 200, 80, wallOptions),
 			Bodies.rectangle(-40, height / 2, 80, height * 2, wallOptions),
@@ -180,7 +192,7 @@ export function initSkillsPhysics(
 
 		items.forEach((item, index) => {
 			const x = width * (0.12 + Math.random() * 0.76);
-			const y = -50 - index * (34 + Math.random() * 18);
+			const y = -80 - index * (48 + Math.random() * 24);
 			const body = createPill(x, y, item);
 			if (!body) return;
 
@@ -189,7 +201,7 @@ export function initSkillsPhysics(
 		});
 	};
 
-	const rebuildWorld = () => {
+	const rebuildWorld = (spawn = hasStarted) => {
 		const bounds = getBounds();
 		width = Math.max(Math.floor(bounds.width), 1);
 		height = Math.max(Math.floor(bounds.height), 1);
@@ -206,11 +218,20 @@ export function initSkillsPhysics(
 		mouse.pixelRatio = pixelRatio;
 
 		Composite.allBodies(engine.world)
-			.filter((body) => body.isStatic)
+			.filter((body) => body.label === "wall")
 			.forEach((body) => Composite.remove(engine.world, body));
 
 		Composite.add(engine.world, buildWalls());
+
+		if (spawn) spawnAll();
+	};
+
+	const startAnimation = () => {
+		if (hasStarted) return;
+		hasStarted = true;
 		spawnAll();
+		observer?.disconnect();
+		observer = null;
 	};
 
 	render = Render.create({
@@ -248,28 +269,50 @@ export function initSkillsPhysics(
 
 		pillBodies.forEach((body) => {
 			const plugin = body.plugin as PillPlugin;
-			const { width: pillWidth, height: pillHeight, text, svg, contentWidth } = plugin;
+			const {
+				width: pillWidth,
+				height: pillHeight,
+				text,
+				svg,
+				iconWidth,
+			} = plugin;
+
+			const x = -pillWidth / 2;
+			const y = -pillHeight / 2;
+			const radius = pillHeight / 2;
 
 			ctx.save();
 			ctx.translate(body.position.x, body.position.y);
 			ctx.rotate(body.angle);
 
-			drawRoundedRect(ctx, -pillWidth / 2, -pillHeight / 2, pillWidth, pillHeight, pillHeight / 2);
-			ctx.fillStyle = PILL_COLOR;
+			drawRoundedRect(ctx, x, y, pillWidth, pillHeight, radius);
+			ctx.fillStyle = PILL_FILL;
 			ctx.fill();
 
+			const inset = PILL_STROKE_WIDTH / 2;
+			drawRoundedRect(
+				ctx,
+				x + inset,
+				y + inset,
+				pillWidth - PILL_STROKE_WIDTH,
+				pillHeight - PILL_STROKE_WIDTH,
+				radius - inset,
+			);
+			ctx.strokeStyle = PILL_STROKE;
+			ctx.lineWidth = PILL_STROKE_WIDTH;
+			ctx.stroke();
+
 			const icon = svgCache.get(svg) ?? svgCache.get(DEFAULT_SVG);
-			const contentLeft = -contentWidth / 2;
+			const contentLeft = x + PADDING;
 
 			if (icon?.complete && icon.naturalWidth) {
-				const iconY = -ICON_SIZE / 2;
-				ctx.drawImage(icon, contentLeft, iconY, ICON_SIZE, ICON_SIZE);
+				ctx.drawImage(icon, contentLeft, -ICON_SIZE / 2, iconWidth, ICON_SIZE);
 			}
 
 			ctx.fillStyle = TEXT_COLOR;
 			ctx.font = `${FONT_WEIGHT} ${FONT_SIZE}px ${FONT_FAMILY}`;
 			ctx.textBaseline = "middle";
-			ctx.fillText(text, contentLeft + ICON_SIZE + ICON_GAP, 0.5);
+			ctx.fillText(text, contentLeft + iconWidth + ICON_GAP, 0);
 
 			ctx.restore();
 		});
@@ -305,13 +348,25 @@ export function initSkillsPhysics(
 	onResize = () => rebuildWorld();
 	window.addEventListener("resize", onResize);
 
+	observer = new IntersectionObserver(
+		([entry]) => {
+			if (entry.isIntersecting) startAnimation();
+		},
+		{ threshold: 0.15 },
+	);
+	observer.observe(section);
+
 	const ready = document.fonts?.ready ?? Promise.resolve();
-	const init = preloadAllSvgs(items).then(() => ready).then(rebuildWorld);
+	const init = preloadAllSvgs(items).then(() => ready).then(() => rebuildWorld(false));
 
 	return {
-		respawn: () => spawnAll(),
+		respawn: () => {
+			if (!hasStarted) return;
+			spawnAll();
+		},
 		destroy: () => {
 			void init;
+			observer?.disconnect();
 			window.removeEventListener("resize", onResize);
 			Events.off(render, "afterRender", drawPills);
 			Events.off(mouseConstraint, "startdrag", onStartDrag);

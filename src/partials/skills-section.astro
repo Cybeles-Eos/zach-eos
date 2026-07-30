@@ -1,4 +1,4 @@
-<section class="section--skills">
+<section class="section--skills" data-skills-section>
 	<div class="section--skills__hero glb-pad-inline">
 		<h2>
 			Technologies I Use To Build
@@ -43,10 +43,11 @@
 		arrangeBtn?.removeEventListener("click", onArrange);
 
 		const canvas = document.getElementById("skills-physics-canvas");
+		const section = document.querySelector<HTMLElement>("[data-skills-section]");
 		arrangeBtn = document.querySelector<HTMLButtonElement>("[data-skills-arrange]");
-		if (!(canvas instanceof HTMLCanvasElement)) return;
+		if (!(canvas instanceof HTMLCanvasElement) || !section) return;
 
-		physics = initSkillsPhysics(canvas);
+		physics = initSkillsPhysics(canvas, section);
 		arrangeBtn?.addEventListener("click", onArrange);
 	};
 
