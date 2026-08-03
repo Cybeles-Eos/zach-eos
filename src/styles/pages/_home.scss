@@ -231,6 +231,8 @@
 				// height: 300px;
 				padding-block: 40px;
 				display: flex;
+				justify-content: space-between;
+				align-items: center;
 				gap: 50px;
 				// background-color: #b17575;
 				
@@ -292,11 +294,54 @@
 						p{
 							margin: 0;
 							font-size: 14px;
+							letter-spacing: .1px;
 						}
 					}
 				}
 				.sah-details{
+					max-width: 600px;
+					
+					span{
+						width: fit-content;
+						display: flex;
+						align-items: center;
+						justify-content: center;
+						gap: 10px;
+						text-transform: uppercase;
+						p{
+							margin: 0;
+							font-weight: 400;
+							line-height: 110%;
+							font-size: 14px;
+							opacity: .7;
+						}
+						margin-bottom: 10px;
+					}
+					h2{
+						max-width: 550px;
+					}
 
+					p {
+						font-weight: 300;
+						strong {
+							font-weight: 600;
+							color: inherit;
+							opacity: 1;
+						}
+
+						em {
+							font-style: italic;
+							color: var(--green-color-medium);
+
+						}
+
+						u {
+							text-decoration: underline;
+							text-decoration-color: var(--green-color-medium);
+							text-underline-offset: 3px;
+							text-decoration-thickness: 1px;
+						}
+					}
 				}
 
 				.vector-abt-h{

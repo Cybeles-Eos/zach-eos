@@ -59,6 +59,20 @@
 		}
 
 	}
+
+	&--secondary {
+		color: var(--white);
+		background: var(--primary-color);
+		padding-inline: 20px;
+		height: 45px;
+		gap: 5px;
+		transition: transform 0.2s ease;
+
+		&:hover {
+			opacity: .9;
+		}
+
+	}
 }
 
 [data-theme="dark"] .btn {
@@ -76,8 +90,7 @@
 		border-color: var(--border-dark-mode-color);
 
 		&:hover {
-			border-color: var(--green-color-light);
-			color: var(--green-color-light);
+			opacity: .9;
 		}
 	}
 }
