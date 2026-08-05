@@ -524,9 +524,9 @@
 
 			&__header {
 				text-align: center;
-				max-width: 720px;
+				max-width: 920px;
 				margin-inline: auto;
-				margin-bottom: 48px;
+				margin-bottom: 65px;
 
 				h2 {
 					margin-bottom: 0;
@@ -534,7 +534,7 @@
 			}
 
 			&__pret {
-				margin-bottom: 12px;
+				margin-bottom: 10px;
 				font-family: var(--font-satoshi);
 				font-size: var(--font-size-6s);
 				font-weight: 400;
@@ -563,6 +563,7 @@
 				grid-template-columns: repeat(2, minmax(0, 1fr));
 				gap: 16px;
 				flex: 1;
+				height: 420px;
 			}
 
 			&__card {
