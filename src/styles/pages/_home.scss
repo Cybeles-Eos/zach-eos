@@ -230,7 +230,7 @@
 				margin-inline: auto;
 				// height: 300px;
 				padding-block: 40px;
-				padding-bottom: 10px;
+				padding-bottom: 0px;
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
@@ -324,16 +324,18 @@
 
 					p {
 						font-weight: 300;
+						opacity: 1;
+						color: rgba(20, 23, 27, 0.8);
+
 						strong {
 							font-weight: 600;
 							color: inherit;
-							opacity: 1;
 						}
 
 						em {
 							font-style: italic;
-							color: var(--green-color-light);
-
+							color: var(--green-color-dark);
+							font-weight: 400;
 						}
 
 						u {
@@ -527,96 +529,46 @@
 				max-width: 920px;
 				margin-inline: auto;
 				margin-bottom: 65px;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				flex-direction: column;
+
+				span{
+
+					width: fit-content;
+					display: flex;
+					align-items: center;
+					justify-content: center;
+					gap: 10px;
+					text-transform: uppercase;
+					p{
+						margin: 0;
+						font-weight: 400;
+						line-height: 110%;
+						font-size: 14px;
+						opacity: .7;
+					}
+					margin-bottom: 10px;
+				}
 
 				h2 {
-					margin-bottom: 0;
-				}
-			}
-
-			&__pret {
-				margin-bottom: 10px;
-				font-family: var(--font-satoshi);
-				font-size: var(--font-size-6s);
-				font-weight: 400;
-				line-height: 110%;
-				letter-spacing: 0.12em;
-				text-transform: uppercase;
-				opacity: 0.7;
-			}
-
-			&__grid {
-				display: grid;
-				grid-template-columns: minmax(0, 1fr) minmax(0, 2fr);
-				gap: 16px;
-				align-items: stretch;
-			}
-
-			&__col {
-				display: flex;
-				flex-direction: column;
-				gap: 16px;
-				min-height: 100%;
-			}
-
-			&__row {
-				display: grid;
-				grid-template-columns: repeat(2, minmax(0, 1fr));
-				gap: 16px;
-				flex: 1;
-				height: 420px;
-			}
-
-			&__card {
-				border-radius: 12px;
-				border: 1px solid #dfdfdf;
-				background-color: transparent;
-				min-height: 200px;
-
-				&--tall {
-					min-height: 100%;
+					margin-bottom: 14px;
 				}
 
-				&--wide {
-					min-height: 325px;
+				p{
+					font-weight: 300;
 				}
 			}
 
 			@media screen and (max-width: 992px) {
 				padding-block: var(--padding-block-md);
 
-				&__header {
-					margin-bottom: 40px;
-				}
-
-				&__grid {
-					grid-template-columns: 1fr;
-				}
-
-				&__card--tall {
-					min-height: 280px;
-				}
-
-				&__card--wide {
-					min-height: 260px;
-				}
 			}
 
 			@media screen and (max-width: 492px) {
 				padding-block: var(--padding-block-sm);
 
-				&__header {
-					margin-bottom: 32px;
-				}
-
-				&__row {
-					grid-template-columns: 1fr;
-				}
-
-				&__card,
-				&__card--tall,
-				&__card--wide {
-					min-height: 220px;
-				}
 			}
 		}
 
@@ -643,6 +595,14 @@
 	.section--what-i-do__card {
 		background-color: #1f1f1f;
 		border-color: transparent;
+	}
+}
+
+[data-theme="dark"] .home .section--about .sah-details p {
+	color: rgba(255, 255, 255, 0.8);
+
+	em {
+		color: var(--green-color-light);
 	}
 }
 
