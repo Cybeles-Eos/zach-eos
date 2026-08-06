@@ -637,6 +637,10 @@
 							position: absolute;
 							bottom: 0;
 							right: 0;
+
+							@media (max-width: 1100px) {
+								height: 22.4vw;
+							}
 						}
 
 						.circle{
@@ -679,6 +683,137 @@
 						}
 					}
 
+				}
+
+				@media (max-width: 992px) {
+					flex-direction: column-reverse;
+
+					&__left{
+						width: 100%;
+						min-height: 270px;
+	
+						p{
+							max-width: 280px;
+						}
+						img{
+							bottom: -21rem;
+							left: auto;
+							right: -2rem;
+							transform: translateX(0);
+							height: 590px;
+						}
+					}
+					&__right{
+						width: 100%;
+						min-height: fit-content;
+	
+						&__top{
+							height: 270px;
+							width: 100%;
+							padding: 30px;
+	
+							img{
+								height: 250px;
+							}
+						}
+	
+						.swido-cr-bottom{
+							height: 270px;
+	
+							&__left, &__right{
+								width: 50%;
+								height: 100%;
+								padding: 20px;
+								padding-top: 20px;
+	
+								img{
+									max-width: 97%;
+									bottom: -2rem;
+								}
+							}
+						}
+					}
+				}
+
+				@media (max-width: 692px) {
+					&__right{
+						width: 100%;
+						min-height: fit-content;
+	
+						&__top{
+							height: 270px;
+							width: 100%;
+							padding: 30px;
+	
+							img{
+								height: 34vw;
+							}
+						}
+	
+						.swido-cr-bottom{
+							height: 270px;
+	
+							&__left, &__right{
+								width: 50%;
+								height: 100%;
+								padding: 20px;
+								padding-top: 20px;
+	
+								img{
+									max-width: 97%;
+									bottom: -2rem;
+								}
+							}
+						}
+					}
+				}
+
+				@media (max-width: 592px) {
+					gap: 15px;
+					&__left{
+						width: 100%;
+						min-height: 410px;
+						padding: 20px;
+						img{
+							bottom: -15rem;
+							left: 55%;
+							right: -2rem;
+							transform: translateX(-50%);
+							height: 490px;
+						}
+					}
+					&__right{
+						gap: 15px;
+
+						&__top{
+							height: 380px;
+							padding: 20px;
+	
+							img{
+								height: 240px;
+								bottom: -3rem;
+								left: 50%;
+								transform: translateX(-50%);
+							}
+						}
+	
+						.swido-cr-bottom{
+							height: 540px;
+							gap: 15px;
+							flex-direction: column;
+							&__left, &__right{
+								width: 100%;
+								height: 100%;
+								padding: 20px;
+								padding-top: 20px;
+	
+								img{
+									max-width: 97%;
+									bottom: -2rem;
+								}
+							}
+						}
+					}
 				}
 			}
 
