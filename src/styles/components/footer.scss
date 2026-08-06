@@ -7,7 +7,14 @@
 		margin: 0 auto; 
 		height: 100%;
 		border-radius: 16px;
-		background: var(--primary-color);
+		background: linear-gradient(-90deg, #00A14C, #00563F);
+		position: relative;
+		overflow: hidden;
+		img{
+			position: absolute;
+			right: -4rem;
+			bottom: -10rem;
+		}
 	}
 }
 
@@ -99,11 +106,42 @@
 
 	&__bottom {
 		padding-top: 28px;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 24px;
+		flex-wrap: wrap;
+
 		p {
 			font-family: var(--font-satoshi);
 			font-size: var(--font-size-7s);
 			color: var(--footer-muted);
 			margin-bottom: 0;
+		}
+	}
+
+	&__connect {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		flex-wrap: wrap;
+
+		&-label {
+			font-family: var(--font-satoshi);
+			font-size: var(--font-size-7s);
+			font-weight: var(--footer-weight);
+			color: var(--footer-text);
+		}
+
+		a {
+			font-family: var(--font-satoshi);
+			font-size: var(--font-size-7s);
+			color: var(--footer-muted);
+			transition: color 0.2s ease;
+
+			&:hover {
+				color: var(--green-color-light);
+			}
 		}
 	}
 
@@ -151,6 +189,9 @@
 
 		&__bottom {
 			padding-top: 22px;
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 16px;
 		}
 	}
 }
