@@ -30,7 +30,7 @@
 	--font-size-lg: 55px;
 	--font-size-md: 45px;
 	--font-size-sm: 38px;
-	--font-size-xs: 33px;
+	--font-size-xs: 34px;
 	--font-size-1s: 28px;
 	--font-size-2s: 24px;
 	--font-size-3s: 20px;
@@ -52,7 +52,7 @@
 	--border-dark-mode-color: #2D2D2D;
 	--hand-decor-color: #C9C9C9;
 	--page-bg: #f8f8f8;
-	--page-width: 1250px;
+	--page-width: calc(1250px - 80px);
 
 	--box-clr: #fff;
 	--border-box-clr: #E2E2E2;

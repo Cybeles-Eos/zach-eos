@@ -392,7 +392,9 @@
 				}
 			}
 
-
+			@media screen and (max-width: 492px) {
+				padding-bottom: 80px;
+			}
 		}
 		
 		&--skills {
@@ -831,6 +833,39 @@
 
 		&--featured-project{
 
+		}
+
+		&--featured-cls{
+			width: 100%;
+			
+			padding-bottom: 130px;
+			
+
+			&__inner{
+				max-width: var(--page-width);
+				margin-inline: auto;
+				height: 600px;
+				margin-inline: auto;
+				display: flex;
+				justify-content: space-between;
+				gap: 45px;
+			}
+
+			&__details{
+				max-width: 600px;
+
+				h2{
+					max-width: 500px;
+				}
+
+				p{
+					max-width: 550px;
+					font-weight: 300;
+				}
+				.cls-cta{
+					
+				}
+			}
 		}
 	}
 
