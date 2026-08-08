@@ -85,6 +85,29 @@ $font-faces-ttf: (
 	}
 }
 
+// Pretendard ships no italic cuts, and its folder is spelled "Pretandard"
+$pretendard-weights: (
+	"Thin": 100,
+	"ExtraLight": 200,
+	"Light": 300,
+	"Regular": 400,
+	"Medium": 500,
+	"SemiBold": 600,
+	"Bold": 700,
+	"ExtraBold": 800,
+	"Black": 900,
+);
+
+@each $name, $weight in $pretendard-weights {
+	@font-face {
+		font-family: "Pretendard";
+		src: url("/fonts/Pretandard/Pretendard-#{$name}.otf") format("opentype");
+		font-weight: $weight;
+		font-style: normal;
+		font-display: swap;
+	}
+}
+
 @font-face {
 	font-family: "Gambarino";
 	src: url("/fonts/Gambarino/Gambarino-Regular.otf") format("opentype");
