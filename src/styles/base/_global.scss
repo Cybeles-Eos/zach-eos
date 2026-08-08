@@ -15,7 +15,7 @@
 	--gray: #B4B4B4;
 	--dark: #1F1F1F;
 	--bg-dark: #191A1B;
-	--black: #14171B;
+	--black: #1D1C1A;
 	--btn-clr: #525252;
 
 	--font-switzer: "Switzer", sans-serif;
@@ -92,7 +92,7 @@ h1{
 
 h2{
 	font-size: var(--font-size-xs);
-	font-family: var(--font-satoshi);
+	font-family: var(--font-pretendard);
 	font-weight: 500;
 	line-height: 120%;
 	margin-bottom: 24px;
@@ -116,9 +116,9 @@ h2{
 
 p{
 	font-size: var(--font-size-5s);
-	line-height: 150%;
-	font-family: var(--font-switzer);
-	opacity: .8;
+	line-height: 180%;
+	font-family: var(--font-pretendard);
+	opacity: .7;
 	
 	margin-bottom: 24px;
 	letter-spacing: .2px;
