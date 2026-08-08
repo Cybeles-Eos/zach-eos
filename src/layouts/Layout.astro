@@ -29,6 +29,12 @@ const FEATURES = {
 	 */
 	// screenLoaderPaths: ["/", "/about"],
 	screenLoaderPaths: ["/"],
+	/**
+	 * Soft cursor-follower circle on these routes only. Use "/" for home.
+	 * Leave empty to disable the circle on every page.
+	 */
+	// cursorFollowerPaths: ["/", "/about"],
+	cursorFollowerPaths: ["/projects/fullstack"],
 	/** Theme used until the visitor picks one for themselves. */
 	defaultTheme: "dark",
 };
@@ -104,7 +110,13 @@ const pageUrl = new URL(url, siteOrigin).href;
 	</head>
 	<body>
 		<ScreenLoader enabled={showScreenLoader} />
-		<div class="cursor-follower" aria-hidden="true" data-cursor-follower transition:persist></div>
+		<div
+			class="cursor-follower"
+			aria-hidden="true"
+			data-cursor-follower
+			data-cursor-paths={JSON.stringify(FEATURES.cursorFollowerPaths)}
+			transition:persist
+		></div>
 		<slot />
 		<Footer transition:persist />
 	</body>
@@ -263,7 +275,24 @@ const pageUrl = new URL(url, siteOrigin).href;
 		const ease = 0.12;
 		const headingSelector = "h1, h2, h3, h4, h5, h6";
 
-		const isEnabled = () => finePointer.matches && desktopMq.matches;
+		const normalizeCursorPath = (path: string) => {
+			const trimmed = path.replace(/\/+$/, "");
+			return trimmed === "" ? "/" : trimmed;
+		};
+
+		let allowedPaths: string[] = [];
+		try {
+			allowedPaths = JSON.parse(cursor.dataset.cursorPaths || "[]") as string[];
+		} catch {
+			allowedPaths = [];
+		}
+
+		const isPathAllowed = () =>
+			allowedPaths.some(
+				(path) => normalizeCursorPath(path) === normalizeCursorPath(window.location.pathname),
+			);
+
+		const isEnabled = () => finePointer.matches && desktopMq.matches && isPathAllowed();
 
 		const setHeadingState = (active: boolean) => {
 			cursor.classList.toggle("is-heading", active);
