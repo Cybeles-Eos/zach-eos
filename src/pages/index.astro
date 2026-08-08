@@ -3,21 +3,15 @@ import Layout from "../layouts/Layout.astro";
 import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
 import SkillsSection from "../partials/skills-section.astro";
-
-const rollImages = ["/images/t2.png", "/images/t3.png"];
 ---
 
 <Layout>
-	{rollImages.map((src) => (
-		<link slot="head" rel="preload" as="image" href={src} />
-	))}
-
 	<main class="home">
 		<Header />
 		<Navbar />
 
 		<section class="section--hero glb-pad-inline glb-pad-block"> 
-			<span class="hand-left" aria-hidden="true"></span>
+			<!-- <span class="hand-left" aria-hidden="true"></span> -->
 
 			<div class="section--hero__main">
 				<div class="pret">
@@ -49,7 +43,7 @@ const rollImages = ["/images/t2.png", "/images/t3.png"];
 				</a>
 			</div>
 
-			<span class="hand-right" aria-hidden="true"></span>
+			<!-- <span class="hand-right" aria-hidden="true"></span> -->
 		</section>
 
 		<section class="section--roll"> 
@@ -244,7 +238,31 @@ const rollImages = ["/images/t2.png", "/images/t3.png"];
 				</div>
 				<div class="section--featured-project__content">
 					<img src="/images/featured-laptop.png" class="laptop-featured" alt="Local Services Booking Platform">
-
+					<div class="section--featured-project__content__roles">
+						<div>
+							<p>4 User Roles</p>
+							<svg width="21" height="21" viewBox="0 0 21 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<g clip-path="url(#clip0_2239_14627)">
+								<path d="M5.26052 12.1243C5.26275 12.1687 5.25591 12.2132 5.24042 12.2549C5.22493 12.2966 5.20111 12.3348 5.17042 12.367C5.13972 12.3992 5.10279 12.4249 5.06188 12.4424C5.02096 12.4599 4.97691 12.4689 4.9324 12.4688H1.31318C1.16506 12.469 1.02122 12.4191 0.905053 12.3273C0.788884 12.2354 0.707219 12.1069 0.673337 11.9627C0.652239 11.864 0.653212 11.7619 0.676185 11.6636C0.699158 11.5653 0.743564 11.4733 0.806227 11.3942C1.38524 10.6264 2.15344 10.0218 3.03584 9.63956C2.64842 9.28633 2.35129 8.84542 2.16932 8.35375C1.98735 7.86207 1.92584 7.33395 1.98995 6.81362C2.05405 6.29329 2.24191 5.79589 2.53777 5.36309C2.83364 4.93029 3.22891 4.57468 3.69047 4.32605C4.15203 4.07742 4.66645 3.94301 5.19064 3.93407C5.71483 3.92513 6.23353 4.04193 6.7033 4.27468C7.17307 4.50743 7.58023 4.84936 7.89068 5.27182C8.20113 5.69429 8.40583 6.18499 8.48763 6.70284C8.4982 6.77248 8.48572 6.84366 8.45211 6.90555C8.4185 6.96745 8.36558 7.01667 8.30142 7.04573C7.3912 7.46653 6.62033 8.13891 6.07977 8.98353C5.53922 9.82816 5.25154 10.8098 5.25068 11.8126C5.25068 11.9176 5.25068 12.0209 5.26052 12.1243ZM20.1902 11.3934C19.6126 10.6264 18.8461 10.0222 17.9655 9.63956C18.3529 9.28633 18.6501 8.84542 18.832 8.35375C19.014 7.86207 19.0755 7.33395 19.0114 6.81362C18.9473 6.29329 18.7595 5.79589 18.4636 5.36309C18.1677 4.93029 17.7725 4.57468 17.3109 4.32605C16.8493 4.07742 16.3349 3.94301 15.8107 3.93407C15.2865 3.92513 14.7678 4.04193 14.2981 4.27468C13.8283 4.50743 13.4211 4.84936 13.1107 5.27182C12.8002 5.69429 12.5955 6.18499 12.5137 6.70284C12.5032 6.77248 12.5156 6.84366 12.5493 6.90555C12.5829 6.96745 12.6358 7.01667 12.6999 7.04573C13.6102 7.46653 14.381 8.13891 14.9216 8.98353C15.4621 9.82816 15.7498 10.8098 15.7507 11.8126C15.7507 11.9176 15.7507 12.0209 15.7408 12.1243C15.7386 12.1687 15.7455 12.2132 15.7609 12.2549C15.7764 12.2966 15.8002 12.3348 15.8309 12.367C15.8616 12.3992 15.8986 12.4249 15.9395 12.4424C15.9804 12.4599 16.0245 12.4689 16.069 12.4688H19.6882C19.8363 12.469 19.9801 12.4191 20.0963 12.3273C20.2125 12.2354 20.2941 12.1069 20.328 11.9627C20.3493 11.8638 20.3483 11.7615 20.3251 11.663C20.302 11.5646 20.2573 11.4725 20.1943 11.3934H20.1902ZM12.8894 14.9355C13.5428 14.4351 14.023 13.7425 14.2625 12.9551C14.502 12.1676 14.4887 11.325 14.2245 10.5455C13.9603 9.76603 13.4585 9.08893 12.7896 8.60938C12.1207 8.12983 11.3184 7.87193 10.4953 7.87193C9.67232 7.87193 8.86998 8.12983 8.2011 8.60938C7.53221 9.08893 7.03041 9.76603 6.76622 10.5455C6.50203 11.325 6.48873 12.1676 6.7282 12.9551C6.96766 13.7425 7.44785 14.4351 8.10127 14.9355C6.94178 15.4379 5.97359 16.2983 5.33845 17.3907C5.28085 17.4905 5.25053 17.6036 5.25053 17.7189C5.25054 17.8341 5.28088 17.9472 5.33849 18.047C5.39611 18.1468 5.47897 18.2296 5.57875 18.2872C5.67854 18.3448 5.79172 18.3751 5.90693 18.3751H15.0944C15.2096 18.3751 15.3228 18.3448 15.4226 18.2872C15.5224 18.2296 15.6053 18.1468 15.6629 18.047C15.7205 17.9472 15.7508 17.8341 15.7508 17.7189C15.7508 17.6036 15.7205 17.4905 15.6629 17.3907C15.0264 16.2976 14.0564 15.4371 12.8952 14.9355H12.8894Z" fill="#00A14C"/>
+								</g>
+								<defs>
+								<clipPath id="clip0_2239_14627">
+								<rect width="21" height="21" fill="white"/>
+								</clipPath>
+								</defs>
+							</svg>								
+						</div>
+						<p class="section--featured-project__content__roles--p">Customer, Provider, Admin and Super Admin</p>
+					</div>
+					<div class="section--featured-project__content__sec">
+						<div>
+							<p>Secure Booking</p>
+							<svg width="20" height="19" viewBox="0 0 20 19" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M9.375 2.00079C8.87 2.09025 8.27667 2.28342 7.365 2.58029L6.8875 2.73467C4.38167 3.55008 3.12917 3.957 2.815 4.38292C2.50667 4.79933 2.5 6.02008 2.5 8.44258L9.375 6.2655V2.00079ZM9.375 7.51633L2.5 9.69342V9.85254C2.5 14.316 6.0325 16.482 8.24917 17.4019C8.67417 17.5784 8.94917 17.6924 9.375 17.7439V7.51633ZM10.625 17.7447V7.51633L17.5 9.69342V9.85254C17.5 14.316 13.9675 16.482 11.7508 17.4019C11.3258 17.5784 11.0508 17.6932 10.625 17.7447ZM10.625 6.2655V2C11.13 2.08946 11.7233 2.28262 12.635 2.5795L13.1125 2.73467C15.6183 3.54929 16.8708 3.95621 17.185 4.38212C17.4933 4.79854 17.5 6.01929 17.5 8.441L10.625 6.2655Z" fill="#00A14C"/>
+							</svg>															
+						</div>
+						<p class="section--featured-project__content__roles--p">OTP verification and status tracking</p>
+					</div>
 				</div>
 				<div class="section--featured-project__details">
 					<div>
@@ -257,7 +275,6 @@ const rollImages = ["/images/t2.png", "/images/t3.png"];
 						<p class="sfp-d-r">ServEase helps customers find trusted local service providers, compare available services, and request bookings through one organized platform. It keeps the process simple with secure accounts, clear booking updates, provider details, customer reviews, and easy communication from start to finish.</p>
 					</div>
 				</div>
-
 				<img src="/images/featured-work-svg.svg" class="featured-work-svg">
 			</div>
 		</section>
