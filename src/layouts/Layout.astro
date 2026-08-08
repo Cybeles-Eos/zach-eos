@@ -104,6 +104,7 @@ const pageUrl = new URL(url, siteOrigin).href;
 	</head>
 	<body>
 		<ScreenLoader enabled={showScreenLoader} />
+		<div class="cursor-follower" aria-hidden="true" data-cursor-follower transition:persist></div>
 		<slot />
 		<Footer transition:persist />
 	</body>
@@ -245,4 +246,91 @@ const pageUrl = new URL(url, siteOrigin).href;
 			}
 		});
 	}
+
+	// Soft peach circle that eases toward the pointer and grows over headings.
+	const initCursorFollower = () => {
+		const finePointer = window.matchMedia("(pointer: fine)");
+		const desktopMq = window.matchMedia("(min-width: 993px)");
+		const cursor = document.querySelector<HTMLElement>("[data-cursor-follower]");
+		if (!cursor) return;
+
+		let mouseX = 0;
+		let mouseY = 0;
+		let currentX = 0;
+		let currentY = 0;
+		let rafId = 0;
+		let hasMoved = false;
+		const ease = 0.12;
+		const headingSelector = "h1, h2, h3, h4, h5, h6";
+
+		const isEnabled = () => finePointer.matches && desktopMq.matches;
+
+		const setHeadingState = (active: boolean) => {
+			cursor.classList.toggle("is-heading", active);
+		};
+
+		const onPointerMove = (event: PointerEvent) => {
+			if (!isEnabled()) return;
+
+			mouseX = event.clientX;
+			mouseY = event.clientY;
+
+			if (!hasMoved) {
+				hasMoved = true;
+				currentX = mouseX;
+				currentY = mouseY;
+				cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+				cursor.classList.add("is-visible");
+			}
+		};
+
+		const onPointerOver = (event: PointerEvent) => {
+			if (!isEnabled()) return;
+			const target = event.target;
+			if (!(target instanceof Element)) return;
+			if (target.closest(headingSelector)) setHeadingState(true);
+		};
+
+		const onPointerOut = (event: PointerEvent) => {
+			if (!isEnabled()) return;
+			const target = event.target;
+			const related = event.relatedTarget;
+			if (!(target instanceof Element)) return;
+			if (!target.closest(headingSelector)) return;
+			if (related instanceof Element && related.closest(headingSelector)) return;
+			setHeadingState(false);
+		};
+
+		const animate = () => {
+			if (isEnabled() && hasMoved) {
+				currentX += (mouseX - currentX) * ease;
+				currentY += (mouseY - currentY) * ease;
+				cursor.style.transform = `translate3d(${currentX}px, ${currentY}px, 0) translate(-50%, -50%)`;
+			}
+			rafId = requestAnimationFrame(animate);
+		};
+
+		const syncAvailability = () => {
+			if (!isEnabled()) {
+				cursor.classList.remove("is-visible", "is-heading");
+				hasMoved = false;
+			}
+		};
+
+		window.addEventListener("pointermove", onPointerMove, { passive: true });
+		document.addEventListener("pointerover", onPointerOver);
+		document.addEventListener("pointerout", onPointerOut);
+		finePointer.addEventListener("change", syncAvailability);
+		desktopMq.addEventListener("change", syncAvailability);
+		document.addEventListener("astro:after-swap", () => {
+			setHeadingState(false);
+			syncAvailability();
+		});
+
+		rafId = requestAnimationFrame(animate);
+
+		return () => cancelAnimationFrame(rafId);
+	};
+
+	initCursorFollower();
 </script>

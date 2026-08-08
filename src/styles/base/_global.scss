@@ -114,6 +114,16 @@ h2{
 	// }
 }
 
+h4{
+	font-family: var(--font-pretendard);
+	font-size: var(--font-size-2s);
+
+
+	@media screen and (max-width: 992px) {
+		font-size: var(--font-size-3s);
+	}
+}
+
 p{
 	font-size: var(--font-size-5s);
 	line-height: 180%;
