@@ -3,9 +3,41 @@ import Layout from "../layouts/Layout.astro";
 import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
 import SkillsSection from "../partials/skills-section.astro";
+
+const scrollBannerPreloads = [
+	"/images/scroll-banners/banner-1.png",
+	"/images/scroll-banners/banner-2.png",
+	"/images/scroll-banners/banner-3.png",
+	"/images/scroll-banners/banner-4.png",
+	"/images/scroll-banners/banner-5.png",
+	"/images/scroll-banners/banner-6.png",
+	"/images/scroll-banners/banner-7.png",
+	"/images/scroll-banners/banner-8.png",
+	"/images/scroll-banners/banner-9.png",
+	"/images/scroll-banners/banner-10.png",
+	"/images/scroll-banners/banner-11.png",
+	"/images/scroll-banners/banner-12.png",
+	"/images/scroll-banners/banner-13.png",
+	"/images/scroll-banners/banner-14.png",
+	"/images/scroll-banners/banner-15.png",
+	"/images/scroll-banners/banner-16.png",
+	"/images/scroll-banners/banner-17.png",
+	"/images/scroll-banners/banner-18.png",
+	"/images/scroll-banners/banner-19.png",
+	"/images/scroll-banners/banner-20.png",
+	"/images/scroll-banners/banner-21.png",
+	"/images/scroll-banners/banner-22.png",
+	"/images/scroll-banners/banner-23.png",
+	"/images/scroll-banners/banner-24.png",
+];
 ---
 
 <Layout>
+	<Fragment slot="head">
+		{scrollBannerPreloads.map((href) => (
+			<link rel="preload" href={href} as="image" />
+		))}
+	</Fragment>
 	<main class="home">
 		<Header />
 		<Navbar />
