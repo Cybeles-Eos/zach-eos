@@ -16,6 +16,7 @@
     "astro": "^7.1.3",
     "lenis": "^1.3.25",
     "matter-js": "^0.20.0",
+    "pdfjs-dist": "^6.2.108",
     "sass": "^1.102.0"
   },
   "devDependencies": {

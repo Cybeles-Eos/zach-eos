@@ -109,6 +109,35 @@
 		}
 	}
 
+	&__pages {
+		height: 100%;
+		overflow: auto;
+		-webkit-overflow-scrolling: touch;
+		padding: 8px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		box-sizing: border-box;
+	}
+
+	&__page {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: 4px;
+		background: var(--white);
+		box-shadow: 0 1px 4px rgba(0, 0, 0, 0.08);
+	}
+
+	&__loading {
+		margin: auto;
+		font-family: var(--font-satoshi);
+		font-size: var(--font-size-6s);
+		color: var(--btn-clr);
+		line-height: 150%;
+		text-align: center;
+	}
+
 	&__mobile-fallback {
 		height: 100%;
 		display: flex;
@@ -190,8 +219,13 @@
 		background: #14171b;
 	}
 
-	.resume-modal__mobile-fallback p {
+	.resume-modal__mobile-fallback p,
+	.resume-modal__loading {
 		color: rgba(255, 255, 255, 0.72);
+	}
+
+	.resume-modal__page {
+		background: #1a1d21;
 	}
 
 	.resume-modal__close {

@@ -43,6 +43,7 @@
 
 		<div class="resume-modal__preview">
 			<iframe data-resume-preview title="Resume preview" hidden></iframe>
+			<div class="resume-modal__pages" data-resume-pages hidden></div>
 			<div class="resume-modal__mobile-fallback" data-resume-mobile-fallback hidden>
 				<p>Open your resume in the browser or PDF viewer.</p>
 				<a
@@ -67,10 +68,110 @@
 	const isResumeModalOpen = () =>
 		getResumeModal()?.classList.contains("is-open") ?? false;
 
-	// In-app browsers (Messenger, Instagram, etc.) treat embedded PDF iframes as
-	// leaving the app. Only load the iframe on desktop after the user opens the modal.
-	const useMobileResumeFallback = () =>
+	// Mobile browsers do not reliably embed PDFs in iframes. Use PDF.js canvas
+	// rendering there, and keep the native iframe on desktop.
+	const useMobilePdfRenderer = () =>
 		matchMedia("(max-width: 640px), (pointer: coarse)").matches;
+
+	let renderToken = 0;
+	let pdfjsReady: Promise<typeof import("pdfjs-dist")> | null = null;
+
+	const loadPdfJs = () => {
+		if (!pdfjsReady) {
+			pdfjsReady = Promise.all([
+				import("pdfjs-dist"),
+				import("pdfjs-dist/build/pdf.worker.min.mjs?url"),
+			]).then(([pdfjsLib, worker]) => {
+				pdfjsLib.GlobalWorkerOptions.workerSrc = worker.default;
+				return pdfjsLib;
+			});
+		}
+		return pdfjsReady;
+	};
+
+	const resetPreview = (modal: HTMLElement) => {
+		const preview = modal.querySelector<HTMLIFrameElement>("[data-resume-preview]");
+		const pages = modal.querySelector<HTMLElement>("[data-resume-pages]");
+		const mobileFallback = modal.querySelector<HTMLElement>(
+			"[data-resume-mobile-fallback]",
+		);
+
+		if (preview) {
+			preview.removeAttribute("src");
+			preview.setAttribute("hidden", "");
+		}
+		if (pages) {
+			pages.innerHTML = "";
+			pages.setAttribute("hidden", "");
+		}
+		mobileFallback?.setAttribute("hidden", "");
+	};
+
+	const showFallback = (modal: HTMLElement) => {
+		const pages = modal.querySelector<HTMLElement>("[data-resume-pages]");
+		const preview = modal.querySelector<HTMLIFrameElement>("[data-resume-preview]");
+		const mobileFallback = modal.querySelector<HTMLElement>(
+			"[data-resume-mobile-fallback]",
+		);
+
+		pages?.setAttribute("hidden", "");
+		preview?.setAttribute("hidden", "");
+		mobileFallback?.removeAttribute("hidden");
+	};
+
+	const renderResumePages = async (modal: HTMLElement) => {
+		const pages = modal.querySelector<HTMLElement>("[data-resume-pages]");
+		if (!pages) return;
+
+		const token = ++renderToken;
+		pages.innerHTML = "";
+		pages.removeAttribute("hidden");
+		pages.setAttribute("aria-busy", "true");
+
+		const loading = document.createElement("p");
+		loading.className = "resume-modal__loading";
+		loading.textContent = "Loading resume…";
+		pages.appendChild(loading);
+
+		try {
+			const pdfjsLib = await loadPdfJs();
+			if (token !== renderToken) return;
+
+			const pdf = await pdfjsLib.getDocument(RESUME_PDF).promise;
+			if (token !== renderToken) return;
+
+			loading.remove();
+
+			const width = pages.clientWidth || 320;
+			const pixelRatio = Math.min(window.devicePixelRatio || 1, 2);
+
+			for (let pageNumber = 1; pageNumber <= pdf.numPages; pageNumber++) {
+				if (token !== renderToken) return;
+
+				const page = await pdf.getPage(pageNumber);
+				const unscaled = page.getViewport({ scale: 1 });
+				const scale = (width / unscaled.width) * pixelRatio;
+				const viewport = page.getViewport({ scale });
+
+				const canvas = document.createElement("canvas");
+				canvas.className = "resume-modal__page";
+				canvas.width = Math.floor(viewport.width);
+				canvas.height = Math.floor(viewport.height);
+				canvas.style.width = "100%";
+				canvas.style.height = "auto";
+				pages.appendChild(canvas);
+
+				await page.render({ canvas, viewport }).promise;
+			}
+		} catch {
+			if (token !== renderToken) return;
+			showFallback(modal);
+		} finally {
+			if (token === renderToken) {
+				pages.removeAttribute("aria-busy");
+			}
+		}
+	};
 
 	const openResumeModal = () => {
 		const modal = getResumeModal();
@@ -80,15 +181,18 @@
 		if (!modal) return;
 
 		const preview = modal.querySelector<HTMLIFrameElement>("[data-resume-preview]");
+		const pages = modal.querySelector<HTMLElement>("[data-resume-pages]");
 		const mobileFallback = modal.querySelector<HTMLElement>(
 			"[data-resume-mobile-fallback]",
 		);
 
-		if (useMobileResumeFallback()) {
+		mobileFallback?.setAttribute("hidden", "");
+
+		if (useMobilePdfRenderer()) {
 			preview?.setAttribute("hidden", "");
-			mobileFallback?.removeAttribute("hidden");
+			void renderResumePages(modal);
 		} else {
-			mobileFallback?.setAttribute("hidden", "");
+			pages?.setAttribute("hidden", "");
 			preview?.removeAttribute("hidden");
 			if (preview && !preview.src) preview.src = RESUME_PDF;
 		}
@@ -108,14 +212,8 @@
 		);
 		if (!modal || !modal.classList.contains("is-open")) return;
 
-		const preview = modal.querySelector<HTMLIFrameElement>("[data-resume-preview]");
-		if (preview) {
-			preview.removeAttribute("src");
-			preview.setAttribute("hidden", "");
-		}
-		modal
-			.querySelector<HTMLElement>("[data-resume-mobile-fallback]")
-			?.setAttribute("hidden", "");
+		renderToken += 1;
+		resetPreview(modal);
 
 		modal.classList.remove("is-open");
 		modal.setAttribute("aria-hidden", "true");
@@ -145,3 +243,4 @@
 
 	document.addEventListener("astro:after-swap", closeResumeModal);
 </script>
+
