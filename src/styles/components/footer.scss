@@ -188,7 +188,7 @@
 	}
 
 	&__heading {
-		font-family: var(--font-heading);
+		font-family: var(--font-pretendard);
 		font-size: var(--font-size-7s);
 		font-weight: var(--footer-weight);
 		letter-spacing: 0.08em;
@@ -321,7 +321,7 @@
 	--footer-border: rgba(19, 18, 18, 0.096);
 	--footer-text: var(--black);
 	--footer-muted: rgba(10, 10, 10, 0.6);
-	--footer-weight: 700;
+	--footer-weight: 600;
 }
 
 [data-theme="dark"] {
