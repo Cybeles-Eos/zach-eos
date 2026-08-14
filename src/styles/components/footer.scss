@@ -180,12 +180,13 @@
 	}
 
 	&__tagline {
-		font-family: var(--font-satoshi);
+		font-family: var(--font-pretendard);
 		font-size: var(--font-size-6s);
 		line-height: 160%;
 		color: var(--footer-muted);
 		margin-bottom: 0;
 		max-width: 280px;
+		font-weight: 400;
 	}
 
 	&__heading {
@@ -208,7 +209,7 @@
 		margin: 0;
 
 		a {
-			font-family: var(--font-satoshi);
+			font-family: var(--font-pretendard);
 			font-size: var(--font-size-6s);
 			color: var(--footer-muted);
 			transition: color 0.2s ease;
@@ -234,7 +235,7 @@
 		flex-wrap: wrap;
 
 		p {
-			font-family: var(--font-satoshi);
+			font-family: var(--font-pretendard);
 			font-size: var(--font-size-7s);
 			color: var(--footer-muted);
 			margin-bottom: 0;
@@ -248,14 +249,14 @@
 		flex-wrap: wrap;
 
 		&-label {
-			font-family: var(--font-satoshi);
+			font-family: var(--font-pretendard);
 			font-size: var(--font-size-7s);
 			font-weight: var(--footer-weight);
 			color: var(--footer-text);
 		}
 
 		a {
-			font-family: var(--font-satoshi);
+			font-family: var(--font-pretendard);
 			font-size: var(--font-size-7s);
 			color: var(--footer-muted);
 			transition: color 0.2s ease;

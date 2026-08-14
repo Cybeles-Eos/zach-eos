@@ -13,8 +13,8 @@
 			height: 100vh;
 			background-color: var(--page-bg);
 			display: flex;
-			align-items: center;
-			justify-content: center;
+			// align-items: center;
+			// justify-content: center;
 			overflow: hidden;
 			position: relative;
 			z-index: 100;
@@ -28,18 +28,18 @@
 				background-image:
 					linear-gradient(to right, var(--hero-grid-line) 1px, transparent 1px),
 					linear-gradient(to bottom, var(--hero-grid-line) 1px, transparent 1px);
-				background-size: 56px 56px;
+				background-size: 45px 45px;
 				background-position: center top;
 				-webkit-mask-image: radial-gradient(
 					circle 82vmin at 50% calc(50% + var(--hero-grid-circle-y)),
 					#000 0%,
-					rgba(0, 0, 0, .8) 48%,
+					rgba(0, 0, 0, .8) 28%,
 					transparent 72%
 				);
 				mask-image: radial-gradient(
 					circle 82vmin at 50% calc(50% + var(--hero-grid-circle-y)),
 					#000 0%,
-					rgba(0, 0, 0, .8) 48%,
+					rgba(0, 0, 0, .8) 28%,
 					transparent 72%
 				);
 			}
@@ -51,7 +51,8 @@
 				margin: 0 auto;
 				display: flex;
 				align-items: center;
-				justify-content: center;
+				// justify-content: center;
+				padding-top: 130px;
 				flex-direction: column;
 				.pret{
 					display: flex;
@@ -68,11 +69,12 @@
 				h1{
 					max-width: 800px;
 					text-align: center;
-
+					
 					.heading-img-2{
 						margin-left: 10px;
 					}
 					@media (max-width: 492px) {
+						
 						.heading-img-2{
 							display: none;
 						}
@@ -80,17 +82,34 @@
 				}
 				p{
 					font-family: var(--font-satoshi) !important;
-					max-width: 824px;
+					max-width: 624px;
 					font-size: 18px;
 					text-align: center;
+					opacity: .9;
 					margin-bottom: 20px;
-
 					@media (max-width: 992px) {
 						font-size: 16px;
 					}
 
 					@media (max-width: 492px) {
 						font-size: 15px;
+					}
+				}
+				.pret-title-hero{
+					display: flex;
+					align-items: center;
+					color: var(--global-txt-clr);
+					gap: 4px;
+					margin-bottom: 10px;
+					p{
+						font-size: 16px;
+						color: var(--global-txt-clr);
+						opacity: 1;
+						margin-bottom: 1px;
+
+					}
+					@media screen and (max-width: 492px) {
+						gap: 1px;
 					}
 				}
 			}
@@ -108,21 +127,8 @@
 					background-size: 48px 48px;
 				}
 
-				&__cards {
-					bottom: -10%;
-					width: 160%;
-				}
-
-				.hero-card {
-					width: 150px;
-					height: 210px;
-					margin: 0 -18px;
-					border-radius: 18px;
-
-					&--2,
-					&--6 {
-						display: none;
-					}
+				&__main{
+					padding-top: 150px;
 				}
 			}
 		}

@@ -17,6 +17,7 @@
 	--bg-dark: #191A1B;
 	--black: #1D1C1A;
 	--btn-clr: #525252;
+	--global-txt-clr: #1D1C1A;
 
 	--font-switzer: "Switzer", sans-serif;
 	--font-satoshi: "Satoshi", sans-serif;
@@ -29,7 +30,7 @@
 	--font-heading: var(--font-montserrat);
 	--font-display: var(--font-gambarino);
 
-	--font-size-lg: 55px;
+	--font-size-lg: 50px;
 	--font-size-md: 45px;
 	--font-size-sm: 38px;
 	--font-size-xs: 34px;
@@ -63,31 +64,28 @@
 
 h1{
 	font-size: var(--font-size-lg);
-	font-family: var(--font-gambarino);
+	font-family: var(--font-pretendard);
 	font-weight: 400;
 	line-height: 120%;
 	margin-bottom: 15px;
+	letter-spacing: -1px;
 
 	span{
 		color: var(--gray);
-		font-family: var(--font-gambarino);
+		font-family: var(--font-billing-lottre);
 		font-weight: 300;
-		img{
-			// width: 120px;
-			height: 60px;
-			transform: translateY(8px);
-
-			@media (max-width: 492px) {
-				height: 40px !important;
-			}
-		}
+		font-size: 60px !important;
+		color: var(--green-color-medium);
 	}	
 
 	@media screen and (max-width: 992px) {
 		font-size: var(--font-size-md);
 	}
 	@media screen and (max-width: 392px) {
-		font-size: 36px;
+		font-size: 38px;
+		span{
+			font-size: 48px !important;
+		}	
 	}
 }
 
@@ -127,12 +125,12 @@ h4{
 
 p{
 	font-size: var(--font-size-5s);
-	line-height: 180%;
+	line-height: 170%;
 	font-family: var(--font-pretendard);
-	opacity: .7;
+	opacity: .8;
 	
 	margin-bottom: 24px;
-	letter-spacing: .2px;
+	letter-spacing: .3px;
 	@media screen and (max-width: 392px) {
 		font-size: var(--font-size-6s);
 		margin-bottom: 18px;
@@ -201,7 +199,7 @@ p, h1, h2, h3, h4, h5, h6{
 
 	--box-clr: #1F1F1F;
 	--border-box-clr: #2D2D2D;
-	
+	--global-txt-clr: #f8f8f8;
 	.pret{
 		color: var(--white);
 	}
