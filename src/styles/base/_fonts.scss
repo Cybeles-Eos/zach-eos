@@ -109,6 +109,14 @@ $pretendard-weights: (
 }
 
 @font-face {
+	font-family: "BillingLottre";
+	src: url("/fonts/Billing_Lottre/BillingLottre.ttf") format("truetype");
+	font-weight: 400;
+	font-style: normal;
+	font-display: swap;
+}
+
+@font-face {
 	font-family: "Gambarino";
 	src: url("/fonts/Gambarino/Gambarino-Regular.otf") format("opentype");
 	font-weight: 400;
