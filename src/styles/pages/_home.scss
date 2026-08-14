@@ -20,7 +20,7 @@
 			z-index: 100;
 
 			&__grid {
-				--hero-grid-circle-y: -17rem;
+				--hero-grid-circle-y: -19rem;
 
 				position: absolute;
 				inset: 0;
@@ -102,6 +102,7 @@
 					gap: 4px;
 					margin-bottom: 10px;
 					margin-top: 50px;
+					opacity: .9;
 					p{
 						font-size: 16px;
 						color: var(--global-txt-clr);
