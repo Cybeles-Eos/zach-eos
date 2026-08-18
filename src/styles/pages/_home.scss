@@ -8,7 +8,7 @@
 			--hero-card-border: rgba(0, 0, 0, 0.1);
 			--hero-card-hover: var(--black);
 
-			min-height: 678px;
+			min-height: 700px;
 			max-height: 800px;
 			height: 100vh;
 			width: 100%;
@@ -122,7 +122,6 @@
 						gap: 1px;
 					}
 				}
-
 				.banners-container{
 					position: relative;
 					// left: 50%;
@@ -139,7 +138,11 @@
 						width: 305px;
 						height: 305px;
 						pointer-events: auto;
-
+						opacity: 1;
+						scale: 1;
+						z-index: 1;
+						transition: opacity 0.35s ease, scale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+						cursor: pointer;
 						&:nth-child(1){
 							translate: -458.5px 0;
 							rotate: -19.34deg;
@@ -166,9 +169,18 @@
 							top: 75px;
 						}
 					}
+
+					&:hover img{
+						opacity: 0.7;
+					}
+
+					img:hover{
+						opacity: 1;
+						scale: 1.2;
+						z-index: 5;
+						// top: 65px;
+					}
 				}
-
-
 			}
 
 			@media screen and (max-width: 992px) {
@@ -186,6 +198,58 @@
 
 				&__main{
 					padding-top: 150px;
+				}
+			}
+			@media screen and (max-width: 492px) {
+				min-height: 800px;
+
+				&__main{
+					.banners-container{
+						position: relative;
+						// left: 50%;
+						// transform: translateX(-50%);
+						width: 100%;
+						pointer-events: none;
+	
+						img{
+							position: absolute;
+							left: 50%;
+							margin-left: -152.5px;
+							border-radius: 12px;
+							box-shadow: 0 0 8px 0 rgba(51, 51, 51, 0.095);
+							width: 305px;
+							height: 305px;
+							pointer-events: auto;
+	
+							&:nth-child(1){
+								translate: -458.5px 0;
+								rotate: -19.34deg;
+								top: 75px;
+							}
+							&:nth-child(2){
+								translate: -226.5px 0;
+								rotate: 9.37deg;
+								top: 105px;
+							}
+							&:nth-child(3){
+								translate: 13.5px 0;
+								rotate: -27.6deg;
+								top: 105px;
+							}
+							&:nth-child(4){
+								translate: 258.5px 0;
+								rotate: -19.83deg;
+								top: 115px;
+							}
+							&:nth-child(5){
+								translate: 478.5px 0;
+								rotate: 13.6deg;
+								top: 75px;
+							}
+
+
+						}
+					}
 				}
 			}
 		}
