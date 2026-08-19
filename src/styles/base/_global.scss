@@ -145,14 +145,37 @@ p{
 	}
 }
 
+// Global padding
 .glb-pad-inline{
 	padding-inline: var(--padding-inline-lg);
-	@media screen and (max-width: 392px) {
-		padding-inline: 0px;
-	}
 
+	@media screen and (max-width: 992px) {
+		padding-inline: var(--padding-inline-md);
+	}
+	@media screen and (max-width: 392px) {
+		padding-inline: var(--padding-inline-sm);
+	}
 }
-.gln-sec-pad{
+.glb-pad-block{
+	padding-block: var(--padding-block-lg);
+
+	@media screen and (max-width: 992px) {
+		padding-block: var(--padding-block-md);
+	}
+	@media screen and (max-width: 392px) {
+		padding-block: var(--padding-block-sm);
+	}
+}
+
+// For section padding
+.glb-sec-pad-out{
+	padding-inline: var(--padding-inline-lg);
+
+	@media screen and (max-width: 392px) {
+		padding-inline: 10px;
+	}
+}
+.glb-sec-pad{
 	padding: 70px !important;
 
 	@media screen and (max-width: 992px) {
@@ -167,17 +190,6 @@ p{
 		padding-bottom: 50px !important;
 	}
 }
-.glb-pad-block{
-	padding-block: var(--padding-block-lg);
-
-	@media screen and (max-width: 992px) {
-		padding-block: var(--padding-block-md);
-	}
-	@media screen and (max-width: 392px) {
-		padding-block: var(--padding-block-sm);
-	}
-}
-
 body{
 	background-color: var(--page-bg);
 }
