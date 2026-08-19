@@ -6,6 +6,7 @@
 	font-family: var(--font-pretendard);
 }
 
+
 :root {
 	--primary-color: linear-gradient(-90deg, #00563F -40%, #00A14C 100%);
 	--green-color-dark: #00563F;
@@ -50,6 +51,7 @@
 	--padding-inline-md: 30px;
 	--padding-inline-sm: 25px;
 	--padding-inline-xsm: 5px;
+	
 
 	--box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
 	--border-light-mode-color: #E2E2E2;
@@ -93,9 +95,10 @@ h1{
 h2{
 	font-size: var(--font-size-xs);
 	font-family: var(--font-pretendard);
-	font-weight: 500;
+	font-weight: 400;
 	line-height: 135%;
-	margin-bottom: 24px;
+	margin-bottom: 20px;
+	letter-spacing: -.8px;
 	span{
 		color: var(--gray);
 		font-family: var(--font-heading);
@@ -104,6 +107,9 @@ h2{
 
 	@media screen and (max-width: 992px) {
 		font-size: var(--font-size-xs);
+	}
+	@media screen and (max-width: 692px) {
+		font-size: var(--font-size-1s);
 	}
 	@media screen and (max-width: 392px) {
 		font-size: var(--font-size-1s);
@@ -141,12 +147,24 @@ p{
 
 .glb-pad-inline{
 	padding-inline: var(--padding-inline-lg);
-	
+	@media screen and (max-width: 392px) {
+		padding-inline: 0px;
+	}
+
+}
+.gln-sec-pad{
+	padding: 70px !important;
+
 	@media screen and (max-width: 992px) {
-		padding-inline: var(--padding-inline-md);
+		padding: 50px !important;
+	}
+	@media screen and (max-width: 692px) {
+		padding: 30px !important;
+		padding-bottom: 50px !important;
 	}
 	@media screen and (max-width: 392px) {
-		padding-inline: var(--padding-inline-xsm);
+		padding: 25px !important;
+		padding-bottom: 50px !important;
 	}
 }
 .glb-pad-block{
