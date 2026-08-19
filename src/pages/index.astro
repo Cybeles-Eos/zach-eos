@@ -3,6 +3,8 @@ import Layout from "../layouts/Layout.astro";
 import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
 import SkillsSection from "../partials/skills-section.astro";
+import SkillsBox from "../components/skills-box.astro";
+import { TECH_LANGUAGES } from "../data/techLanguages";
 
 const scrollBannerPreloads = [
 	"/images/scroll-banners/banner-1.png",
@@ -87,9 +89,24 @@ const scrollBannerPreloads = [
 				<div class="section--tech__main">
 					<div class="section--tech__main--title">
 						<p>My Techstack</p>
+
+						<svg width="10" height="10" viewBox="0 0 10 10" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M5.01172 10.0005L10.0039 10.0004L10.0039 -1.52588e-05L5.00781 -1.4822e-05L5.00781 4.99998L-4.37158e-07 4.99998L0 10.0005L5.01172 10.0005Z" fill="currentcolor"/>
+						</svg>
 					</div>
 					<div class="section--tech__main--list">
-
+						<div class="tech-slider__track">
+							<div class="tech-slider__group">
+								{TECH_LANGUAGES.map((item) => (
+									<SkillsBox item={item} />
+								))}
+							</div>
+							<div class="tech-slider__group" aria-hidden="true">
+								{TECH_LANGUAGES.map((item) => (
+									<SkillsBox item={item} />
+								))}
+							</div>
+						</div>
 					</div>
 				</div>
 			</div>

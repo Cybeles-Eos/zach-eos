@@ -49,6 +49,7 @@
 	--padding-inline-lg: 40px;
 	--padding-inline-md: 30px;
 	--padding-inline-sm: 25px;
+	--padding-inline-xsm: 5px;
 
 	--box-shadow: 0 0 12px 0 rgba(0, 0, 0, 0.1);
 	--border-light-mode-color: #E2E2E2;
@@ -145,7 +146,7 @@ p{
 		padding-inline: var(--padding-inline-md);
 	}
 	@media screen and (max-width: 392px) {
-		padding-inline: var(--padding-inline-sm);
+		padding-inline: var(--padding-inline-xsm);
 	}
 }
 .glb-pad-block{

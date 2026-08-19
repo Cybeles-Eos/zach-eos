@@ -1,0 +1,37 @@
+---
+import type { TechLanguage } from "../data/techLanguages";
+
+interface Props {
+	item: TechLanguage;
+}
+
+const { item } = Astro.props;
+---
+
+<div class="skills-box" style={`--skills-box-accent: ${item.badgeColor};`}>
+	<div class="skills-box__icon">
+		{
+			item.svgDark ? (
+				<>
+					<img
+						class="skills-box__icon-img skills-box__icon-img--light"
+						src={item.svg}
+						alt=""
+						width="28"
+						height="28"
+					/>
+					<img
+						class="skills-box__icon-img skills-box__icon-img--dark"
+						src={item.svgDark}
+						alt=""
+						width="28"
+						height="28"
+					/>
+				</>
+			) : (
+				<img src={item.svg} alt="" width="22" height="22" />
+			)
+		}
+	</div>
+	<span class="skills-box__label">{item.text}</span>
+</div>
