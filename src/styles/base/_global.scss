@@ -123,7 +123,7 @@ h2{
 h4{
 	font-family: var(--font-pretendard);
 	font-size: var(--font-size-2s);
-
+	font-weight: 400;
 
 	@media screen and (max-width: 992px) {
 		font-size: var(--font-size-3s);
@@ -237,7 +237,7 @@ p, h1, h2, h3, h4, h5, h6{
 }
 
 [data-theme="light"]{
-	--pre-title: #07D468;
+	--pre-title: #00A14C;
 }
 
 [data-theme="dark"]{
