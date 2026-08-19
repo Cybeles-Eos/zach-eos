@@ -3,7 +3,7 @@
 *::after {
 	margin: 0;
 	box-sizing: border-box;
-	font-family: var(--font-satoshi);
+	font-family: var(--font-pretendard);
 }
 
 :root {
@@ -127,10 +127,11 @@ p{
 	font-size: var(--font-size-5s);
 	line-height: 170%;
 	font-family: var(--font-pretendard);
-	opacity: .8;
+	opacity: .8;	
+	font-weight: 300;
 	
 	margin-bottom: 24px;
-	letter-spacing: .3px;
+	letter-spacing: .5px;
 	@media screen and (max-width: 392px) {
 		font-size: var(--font-size-6s);
 		margin-bottom: 18px;
