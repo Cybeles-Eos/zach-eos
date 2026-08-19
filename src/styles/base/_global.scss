@@ -205,6 +205,53 @@ a{
 	color: inherit;
 }
 
+// Rotating text — one span inside .text-rotate, texts passed via data-texts
+.text-rotate {
+	--text-rotate-size: 15px;
+
+	display: inline-block;
+	width: fit-content;
+	max-width: 100%;
+	vertical-align: middle;
+	color: var(--global-txt-clr);
+	font-family: var(--font-satoshi);
+	font-size: var(--text-rotate-size);
+	font-weight: 500;
+	line-height: 1.2;
+
+	span {
+		display: block;
+		white-space: nowrap;
+
+		&.is-out {
+			animation: text-rotate-out 0.45s forwards;
+		}
+
+		&.is-in {
+			animation: text-rotate-in 0.45s forwards;
+		}
+	}
+}
+
+@keyframes text-rotate-out {
+	to {
+		opacity: 0;
+		transform: translateY(10px);
+	}
+}
+
+@keyframes text-rotate-in {
+	from {
+		opacity: 0;
+		transform: translateY(-10px);
+	}
+
+	to {
+		opacity: 1;
+		transform: translateY(0);
+	}
+}
+
 p, h1, h2, h3, h4, h5, h6{
 	color: var(--black);
 }
