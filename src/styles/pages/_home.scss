@@ -284,7 +284,7 @@
 
 			}
 			&__main{
-				overflow: hidden;
+				// overflow: hidden;
 				position: relative;
 				width: 100%;
 				height: 100%;
@@ -316,8 +316,10 @@
 					svg{
 						position: absolute;
 						right: -3px;
-						bottom: -8px;
+						bottom: -3px;
 						color: var(--mbrd-green-color);
+						z-index: 3;
+						pointer-events: none;
 					}
 				}
 				&--list{
