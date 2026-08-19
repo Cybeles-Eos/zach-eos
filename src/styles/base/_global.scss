@@ -97,7 +97,7 @@ h2{
 	font-family: var(--font-pretendard);
 	font-weight: 400;
 	line-height: 135%;
-	margin-bottom: 20px;
+	margin-bottom: 15px;
 	letter-spacing: -.8px;
 	span{
 		color: var(--gray);
@@ -209,6 +209,17 @@ p, h1, h2, h3, h4, h5, h6{
 	color: var(--black);
 }
 
+.pre-title{
+	font-size: 14px !important;
+	color: var(--pre-title) !important;
+	text-transform: uppercase !important;
+	margin-bottom: 2px !important;
+	letter-spacing: .3px !important;
+	font-weight: 300 !important;
+	opacity: 1 !important;
+	text-align: center;
+}
+
 // the theme swap is animated as a circular wipe from the toggle button,
 // so the browser's default cross-fade is replaced by a plain stacked reveal
 ::view-transition-old(root),
@@ -225,6 +236,10 @@ p, h1, h2, h3, h4, h5, h6{
 	z-index: 1;
 }
 
+[data-theme="light"]{
+	--pre-title: #07D468;
+}
+
 [data-theme="dark"]{
 	--page-bg: #141516;
 	--hand-decor-color: #555555;
@@ -232,6 +247,7 @@ p, h1, h2, h3, h4, h5, h6{
 	--box-clr: #1F1F1F;
 	--border-box-clr: #2D2D2D;
 	--global-txt-clr: #f8f8f8;
+	--pre-title: #00A14C;
 	.pret{
 		color: var(--white);
 	}

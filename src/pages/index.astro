@@ -6,6 +6,13 @@ import SkillsSection from "../partials/skills-section.astro";
 import SkillsBox from "../components/skills-box.astro";
 import { TECH_LANGUAGES } from "../data/techLanguages";
 
+const heroTexts = [
+	"Real Web Industry Experience",
+	"Coding since 2022",
+	"Available For Opportunities",
+	"Full-Stack Web Projects",
+];
+
 const scrollBannerPreloads = [
 	"/images/scroll-banners/banner-1.png",
 	"/images/scroll-banners/banner-2.png",
@@ -62,7 +69,13 @@ const scrollBannerPreloads = [
 						<path d="M12.908 18.0136C12.908 18.0136 10.746 18.4083 9.29413 17.4151C7.84229 16.422 7.65039 14.4172 7.65039 14.4172C7.65039 14.4172 9.81241 14.0226 11.2643 15.0157C12.7161 16.0089 12.908 18.0136 12.908 18.0136ZM12.908 18.0136H16.4042C17.6075 18.0136 18.5831 18.906 18.5831 20.0068C18.5831 21.1076 17.6075 22 16.4042 22H14.2104" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
 						<path d="M15.0636 2.96764C13.7403 4.10058 13.7913 6.11247 13.7913 6.11247C13.7913 6.11247 15.9878 6.28752 17.3111 5.15458C18.6343 4.02165 18.5833 2.00975 18.5833 2.00975C18.5833 2.00975 16.3869 1.83471 15.0636 2.96764Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
 					</svg>		
-					<p>Real Web Industry Experience</p> 
+					<p
+						class="pret-title-hero__text"
+						data-hero-text-rotator
+						data-hero-texts={JSON.stringify(heroTexts)}
+					>
+						{heroTexts[0]}
+					</p>
 					<svg width="27" height="24" viewBox="0 0 27 24" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<path d="M16.1288 6.613C16.3619 8.25527 14.9219 9.77924 14.9219 9.77924C14.9219 9.77924 13.104 8.64055 12.8709 6.99828C12.6377 5.356 14.0777 3.83203 14.0777 3.83203C14.0777 3.83203 15.8956 4.97072 16.1288 6.613Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
 						<path d="M17.8373 12.1321C17.0764 13.6354 14.9684 14.2254 14.9684 14.2254C14.9684 14.2254 14.0942 12.3778 14.8551 10.8745C15.616 9.37118 17.724 8.78125 17.724 8.78125C17.724 8.78125 18.5982 10.6287 17.8373 12.1321Z" stroke="currentColor" stroke-width="1.1" stroke-linejoin="round"/>
@@ -166,8 +179,43 @@ const scrollBannerPreloads = [
 
 		<section class="section--what-ido glb-sec-pad-out">
 			<div class="section--what-ido__con">
-				<div class="section--what-ido__main">
-					<h2>Building reliable and user-friendly web solutions.</h2>
+				<div class="section--what-ido__main glb-sec-pad">
+					<p class="pre-title">What I Do</p>
+					<h2>Helping ideas become real web experiences.</h2>
+					<p class="section--what-ido__main--label">I build responsive full-stack sites with clean code, useful features, and practical business value!</p>
+ 
+					<div class="swido-cards">
+						<div class="swido-cards__left">
+							<h3>Full-Stack Web Development</h3>
+							<p>I build web applications with responsive interfaces, secure backends, and reliable database systems.</p>
+							
+							<img src="/images/fullstack-wid-h.png" alt="UI/UX Web Design">
+						</div>
+						<div class="swido-cards__right">
+							<div class="swido-cards__right__top">
+								<h3>UI/UX Web Design</h3>
+								<p>I design clean, responsive, and user-friendly interfaces.</p>
+								<a href="/">
+									Lets Build Your Site
+								</a>
+								<div class="circle"></div>
+								<img src="/images/uix-svg-h.svg" alt="UI/UX Web Design">
+							</div>
+							<div class="swido-cr-bottom">
+								<div class="swido-cr-bottom__left">
+									<h3>Frontend Development</h3>
+									<p>I build responsive, accessible, and modern interfaces.</p>
+									<img src="/images/frontend-wid-h.svg" alt="Frontend Development">
+								</div>
+								<div class="swido-cr-bottom__right">
+									<h3>Backend Development</h3>
+									<p>I build scalable backend systems with reliable performance.</p>
+									<img src="/images/backend-wid-h.svg" alt="Backend Development">
+								</div>
+							</div>
+						</div>
+					</div>
+
 				</div>
 				
 				<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -235,51 +283,6 @@ const scrollBannerPreloads = [
 			<img src="/images/noise.png" class="noise" alt="banners">
 		</section> -->
 
-		<section class="section--what-i-do glb-pad-inline">
-			<div class="section--what-i-do__inner">
-
-				<div class="section--what-i-do__header">
-					<span>
-						<p class="pret">What I do</p>
-					</span>
-					<h2>Building Reliable And User-Friendly Web Solutions</h2>
-					<p>I build responsive full-stack sites with clean code, useful features, and practical business value!</p>
-				</div>
-
-				<div class="swido-cards">
-					<div class="swido-cards__left">
-						<h3>Full-Stack Web Development</h3>
-						<p>I build web applications with responsive interfaces, secure backends, and reliable database systems.</p>
-						
-						<img src="/images/fullstack-wid-h.png" alt="UI/UX Web Design">
-					</div>
-					<div class="swido-cards__right">
-						<div class="swido-cards__right__top">
-							<h3>UI/UX Web Design</h3>
-							<p>I design clean, responsive, and user-friendly interfaces.</p>
-							<a href="/">
-								Lets Build Your Site
-							</a>
-							<div class="circle"></div>
-							<img src="/images/uix-svg-h.svg" alt="UI/UX Web Design">
-						</div>
-						<div class="swido-cr-bottom">
-							<div class="swido-cr-bottom__left">
-								<h3>Frontend Development</h3>
-								<p>I build responsive, accessible, and modern interfaces.</p>
-								<img src="/images/frontend-wid-h.svg" alt="Frontend Development">
-							</div>
-							<div class="swido-cr-bottom__right">
-								<h3>Backend Development</h3>
-								<p>I build scalable backend systems with reliable performance.</p>
-								<img src="/images/backend-wid-h.svg" alt="Backend Development">
-							</div>
-						</div>
-					</div>
-				</div>
-
-			</div>
-		</section>
 
 		<section class="section--featured-project glb-pad-inline glb-pad-block">
 			<div class="section--featured-project__inner">
@@ -378,4 +381,10 @@ const scrollBannerPreloads = [
 		
 	</main>
 </Layout>
+
+<script>
+	import { setupHeroTextRotate } from "../scripts/hero-text-rotate";
+
+	setupHeroTextRotate();
+</script>
 
