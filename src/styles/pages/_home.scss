@@ -516,11 +516,11 @@
 				.vector-abt-h{
 					position: absolute;
 					top: -8rem;
-					transform: translateX(-50%);
 					right: -49rem;
-					rotate: -12deg;
 					z-index: 5;
-					
+					transform: translateX(-50%) rotate(-12deg);
+					transform-origin: center;
+					pointer-events: none;
 				}
 				@media screen and (max-width: 992px) {
 					padding-top: 90px !important;
@@ -532,12 +532,10 @@
 						}
 					}
 					.vector-abt-h{
-						top: -39rem;
-						rotate: 90deg;
+						top: -59rem;
 						left: 55%;
-						right: 0;
-						transform: translateX(-50%);
-
+						right: auto;
+						transform: translateX(-50%) rotate(90deg);
 					}
 				}
 			}
