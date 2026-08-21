@@ -95,7 +95,7 @@ h1{
 h2{
 	font-size: var(--font-size-xs);
 	font-family: var(--font-pretendard);
-	font-weight: 400;
+	font-weight: var(--font-hw-weight);
 	line-height: 135%;
 	margin-bottom: 15px;
 	letter-spacing: -.8px;
@@ -285,6 +285,7 @@ p, h1, h2, h3, h4, h5, h6{
 
 [data-theme="light"]{
 	--pre-title: #00A14C;
+	--font-hw-weight: 500;
 }
 
 [data-theme="dark"]{
@@ -295,6 +296,9 @@ p, h1, h2, h3, h4, h5, h6{
 	--border-box-clr: #2D2D2D;
 	--global-txt-clr: #f8f8f8;
 	--pre-title: #00A14C;
+
+	--font-hw-weight: 400;
+
 	.pret{
 		color: var(--white);
 	}
