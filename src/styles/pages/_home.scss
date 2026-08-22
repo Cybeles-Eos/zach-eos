@@ -1204,7 +1204,7 @@
 				overflow: hidden;
 				position: relative;
 				width: 100%;
-				height: 100%;
+				height: auto;
 				display: flex;
 				flex-direction: column;
 				gap: 65px;
@@ -1245,12 +1245,14 @@
 				width: 100%;
 				display: grid;
 				grid-template-columns: repeat(3, minmax(0, min(var(--box-max), calc(100% / 3))));
-				gap: -2px !important;
+				grid-auto-rows: auto;
+				gap: 0;
 
 				border: 1px solid var(--main-brd-clr);
 				border-bottom: none;
 				&--box{
-					aspect-ratio: 1 / 1;
+					height: auto;
+					min-height: 0;
 					border-right: 1px solid var(--main-brd-clr);
 					border-bottom: 1px solid var(--main-brd-clr);
 					display: flex;
@@ -1275,11 +1277,12 @@
 							margin: 0;
 							font-weight: 500;
 							opacity: .5;
+							font-size: 12px;
 						}
 						span{
 							display: inline-block;
-							width: 6px;
-							height: 6px;
+							min-width: 6px;
+							min-height: 6px;
 							border-radius: 55px;
 							background-color: var(--mbrd-green-color);
 						}
@@ -1290,29 +1293,34 @@
 
 						h3{
 							color: var(--full-clr-txt);
-							margin-bottom: 10px;
-							font-size: 24px;
-							font-weight: 400;
+							margin-bottom: 20px;
+							font-size: 22px;
+							font-weight: 600;
 						}
 						p{
 							margin-bottom: 0;
 							font-size: 14px;
+							font-weight: 300;
+							// display: -webkit-box;
+							// -webkit-line-clamp: 2; 
+							// -webkit-box-orient: vertical;
+							// overflow: hidden;
 						}
 					}
 					&--labels{
 						display: flex;
 						gap: 6px;
 						flex-wrap: wrap;
-
+						margin-bottom: 45px;
 						span{
-							padding: 5px 15px;
+							padding: 4px 18px;
 							border-radius: 50px;
-							min-height: 40px;
+							min-height: 35px;
 							display: flex;
-							color:  var(--full-clr-txt);
+							color:  var(--labels-process);
 							align-items: center;
 							justify-content: center;
-							font-size: 12px;
+							font-size: 11px;
 							border: 1px solid var(--main-brd-clr);
 						}
 					}
@@ -2020,6 +2028,8 @@
 
 	--full-clr-txt: #141516;
 	--process-box: #fff;
+
+	--labels-process: rgb(160, 160, 160);
 }
 
 [data-theme="dark"]{
@@ -2032,6 +2042,7 @@
 
 	--full-clr-txt: #fff;
 	--process-box: #141414;
+	--labels-process: #D0D0D0;
 }
 
 [data-theme="dark"] .home .section--hero {
