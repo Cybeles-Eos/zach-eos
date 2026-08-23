@@ -286,6 +286,11 @@ p, h1, h2, h3, h4, h5, h6{
 	z-index: 1;
 }
 
+::selection {
+	background: #00A14C;
+	color: #ffffff;
+}
+
 [data-theme="light"]{
 	--pre-title: #00A14C;
 	--font-hw-weight: 500;

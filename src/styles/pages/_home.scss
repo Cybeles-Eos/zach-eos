@@ -1672,7 +1672,7 @@
 		&--testimonial{
 			width: 100%;
 			border-bottom: 1px solid var(--main-brd-clr);
-			height: 620px;
+			// height: 620px;
 			position: relative;
 
 			&__con{
@@ -1703,9 +1703,81 @@
 				width: 100%;
 				height: 100%;
 				display: flex;
+				flex-direction: column;
 				align-items: center;
-				justify-content: center;
 
+				h2{
+					max-width: 900px;
+					text-align: center;
+				}
+				&--label{
+					text-align: center;
+					max-width: 630px;
+					margin: 0;
+				}
+			}
+			&__tcon{
+				display: flex;
+				gap: 20px;
+				margin-top: 60px;
+				&--box{
+					width: 600px;
+					// height: 280px;
+					border: 1px solid var(--main-brd-clr);
+					border-radius: 2px;
+					padding: 30px;
+					position: relative;
+					display: flex;
+					flex-direction: column;
+					overflow: hidden;
+					gap: 30px;
+					&::before{
+						content: "";
+						position: absolute;
+						inset: 0;
+						background-image: url("/images/noise.png");
+						background-position: center;
+						background-size: cover;
+						opacity: 0.5;
+						pointer-events: none;
+					}
+					svg{
+						position: absolute;
+						bottom: -22rem;
+						right: -18rem;
+					}
+					&--p{
+						
+					}
+				}
+				&--prof{
+					display: flex;
+					align-items: center;
+					gap: 12px;
+
+					img{
+						width: 45px;
+						height: 45px;
+						border-radius: 200px;
+						object-fit: cover;
+					}
+
+					p{
+						font-size: 16px;
+						color: var(--full-clr-txt);
+						opacity: 1;
+						margin: 0;
+						margin-bottom: 2px !important;
+						line-height: 100%;
+						font-weight: 400;
+					}
+					span{
+						font-size: 14px;
+						margin: 0;
+						color: var(--full-clr-txt);
+						opacity: .6;
+					}
+				}
 			}
 
 		}
