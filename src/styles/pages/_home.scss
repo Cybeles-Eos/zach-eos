@@ -1749,6 +1749,9 @@
 					&--p{
 						
 					}
+					@media (max-width: 992px) {
+						width: 100%;
+					}
 				}
 				&--prof{
 					display: flex;
