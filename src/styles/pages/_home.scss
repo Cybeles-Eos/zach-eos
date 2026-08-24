@@ -1588,6 +1588,16 @@
 						}
 					}
 				}
+				.cls-cta-box{
+					display: flex;
+					align-items: center;
+					gap: 24px;
+					&__a{
+						color: var(--full-clr-txt);
+						font-weight: 300;
+						text-decoration: underline;
+					}
+				}
 				.cls-cta{
 					--cls-cta-bg: transparent;
 					--cls-cta-border: #E3E3E3;
@@ -1599,7 +1609,7 @@
 					display: inline-flex;
 					align-items: center;
 					gap: 14px;
-					padding: 10px 22px 10px 10px;
+					padding: 9px 22px 9px 9px;
 					margin-top: 0px;
 					border-radius: 6px;
 					border: 1px solid var(--cls-cta-border);
@@ -1611,23 +1621,24 @@
 						display: inline-flex;
 						align-items: center;
 						justify-content: center;
-						width: 40px;
-						height: 40px;
+						width: 35px;
+						height: 35px;
 						flex-shrink: 0;
-						border-radius: 6px;
+						border-radius: 4px;
 						background-color: var(--cls-cta-icon-bg);
 						color: var(--cls-cta-icon-color);
 						transition: background-color 0.25s ease, color 0.25s ease;
 
 						svg{
 							display: block;
+							width: 23px;
+							height: 23px;
 						}
 					}
-
 					&__text{
 						display: flex;
 						flex-direction: column;
-						gap: 2px;
+						gap: 1px;
 					}
 
 					&__title{
@@ -1847,7 +1858,43 @@
 				}
 			}
 		}
+		&--experiences{
+			width: 100%;
+			border-bottom: 1px solid var(--main-brd-clr);
+			height: 520px;
+			position: relative;
 
+			&__con{
+				position: relative;
+				max-width: var(--page-width);
+				margin-inline: auto;
+				height: 100%;
+				border-inline: 1px solid var(--main-brd-clr);
+
+				.left-trb-vec{
+					position: absolute;
+					left: -3px;
+					top: -8px;
+					color: var(--mbrd-green-color);
+				}
+				.right-tlb-vec{
+					position: absolute;
+					right: -3px;
+					top: -8px;
+					color: var(--mbrd-green-color);
+				}
+			}
+			&__main{
+				overflow: hidden;
+				position: relative;
+				width: 100%;
+				height: auto;
+				display: flex;
+				flex-direction: column;
+
+		
+			}
+		}
 
 		// Style For Section Not Use
 		&--roll {

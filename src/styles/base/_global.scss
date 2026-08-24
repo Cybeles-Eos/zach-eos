@@ -132,6 +132,7 @@ h4{
 
 p{
 	font-size: var(--font-size-5s);
+	// font-size: clamp(1rem, .26vw + .941rem, 1.125rem);
 	line-height: 170%;
 	font-family: var(--font-pretendard);
 	opacity: .8;	
