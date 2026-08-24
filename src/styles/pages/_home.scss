@@ -1711,7 +1711,7 @@
 				&--label{
 					text-align: center;
 					max-width: 630px;
-					margin: 0;
+					// margin: 0;
 				}
 			}
 			.main-thcon{
@@ -1774,6 +1774,7 @@
 						bottom: -2.5rem;
 						right: -1rem;
 						z-index: 1;
+						opacity: .1;
 					}
 					&--p, p{
 						position: relative;
