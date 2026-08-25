@@ -101,9 +101,11 @@ h2{
 	letter-spacing: -.8px;
 	span{
 		color: var(--gray);
-		font-family: var(--font-heading);
+		font-family: var(--font-billing-lottre);
 		font-weight: 300;
-	}
+		font-size: calc(var(--font-size-xs) + 10px) !important; 
+		color: var(--green-color-medium);
+	}	
 
 	@media screen and (max-width: 992px) {
 		font-size: var(--font-size-xs);
