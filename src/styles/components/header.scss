@@ -55,26 +55,21 @@
             backdrop-filter: none;
             -webkit-backdrop-filter: none;
 			overflow: hidden;
-
-			div{
-				height: 80px;
-				width: 25px;
-				display: flex;
-				justify-content: space-between;
-				align-items: center;
-				flex-direction: column;
-				transform: translateY(-1.75rem);
-				transition: transform 0.2s ease;
-				// &:hover{
-				// 	transform: translateY(1.7rem);
-				// }
-			}
+			display: flex;
+			justify-content: center;
+			align-items: center;
+	
             svg {
                 margin-left: 0;
                 width: 24px;
                 height: 24px;
             }
-
+			span{
+				font-weight: 500;
+				letter-spacing: 1px;
+				margin: 0;
+				margin-top: 2px;
+			}
 
         }
 	}
