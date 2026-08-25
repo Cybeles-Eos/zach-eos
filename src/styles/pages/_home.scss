@@ -1519,7 +1519,12 @@
 							justify-items: space-between;
 							
 							gap: 70px;
-							margin-top: 20px;
+							margin-top: 0;
+							max-height: 0;
+							opacity: 0;
+							overflow: hidden;
+							pointer-events: none;
+							transition: max-height 0.55s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.35s ease, margin-top 0.4s ease;
 							@media screen and (max-width: 1110px) {
 								grid-template-columns: 1.4fr 1.9fr .2fr ;
 								gap: 45px;
@@ -1621,6 +1626,14 @@
 									opacity: .5;
 								}
 							}
+						}
+
+						&.is-open .prj-h-box__body{
+							max-height: 1400px;
+							opacity: 1;
+							margin-top: 20px;
+							overflow: visible;
+							pointer-events: auto;
 						}
 					}
                 }
