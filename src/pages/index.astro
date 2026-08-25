@@ -1070,148 +1070,188 @@ const scrollBannerPreloads = [
 </Layout>
 
 <script>
-	const selectedProjects = document.querySelector("[data-selected-projects]");
-	if (selectedProjects) {
-		const boxes = [...selectedProjects.querySelectorAll(".prj-h-box")];
-		const openBox = (box) => {
-			boxes.forEach((item) => item.classList.toggle("is-open", item === box));
-		};
+	// ClientRouter keeps this module alive and does not re-run it on return visits.
+	// Bind to the new home DOM after each swap, and drop listeners/timers first.
+	let teardown = () => {};
 
-		boxes.forEach((box) => {
-			box.addEventListener("pointerenter", (event) => {
-				if (event.pointerType !== "touch") openBox(box);
-			});
+	const setupHomeInteractions = () => {
+		teardown();
+		const cleanups: Array<() => void> = [];
 
-			box.addEventListener("click", (event) => {
-				if (event.target.closest("a")) return;
-				openBox(box);
-			});
-		});
-	}
+		const selectedProjects = document.querySelector("[data-selected-projects]");
+		if (selectedProjects) {
+			const boxes = [...selectedProjects.querySelectorAll<HTMLElement>(".prj-h-box")];
+			const openBox = (box: HTMLElement) => {
+				boxes.forEach((item) => item.classList.toggle("is-open", item === box));
+			};
 
-	const root = document.querySelector("[data-text-rotate]");
-	if (root && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-		const line = root.querySelector("span");
-		const texts = JSON.parse(root.dataset.texts || "[]");
-		if (line && texts.length > 1) {
-			let i = 0;
-			setInterval(() => {
-				line.classList.add("is-out");
-				setTimeout(() => {
-					i = (i + 1) % texts.length;
-					line.textContent = texts[i];
-					line.classList.remove("is-out");
-					line.classList.add("is-in");
-					line.onanimationend = () => line.classList.remove("is-in");
-				}, 450);
-			}, 3200);
-		}
-	}
+			boxes.forEach((box) => {
+				const onEnter = (event: PointerEvent) => {
+					if (event.pointerType !== "touch") openBox(box);
+				};
+				const onClick = (event: MouseEvent) => {
+					if (event.target instanceof Element && event.target.closest("a")) return;
+					openBox(box);
+				};
 
-	const slider = document.querySelector("[data-testimonial-slider]");
-	if (slider) {
-		const track = slider.querySelector(".thcon");
-		const nav = slider.querySelector(".thcon-nav");
-		const boxes = [...track.querySelectorAll(".thcon--box")];
-		let index = 0;
-		let startX = 0;
-		let dragX = 0;
-		let dragging = false;
-		let dots = [];
-
-		const perView = () => (window.matchMedia("(max-width: 692px)").matches ? 1 : 2);
-		const pages = () => Math.max(1, Math.ceil(boxes.length / perView()));
-		const cardWidth = () => boxes[0]?.getBoundingClientRect().width || 0;
-		const step = () => cardWidth() * perView();
-		const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-		let timer = null;
-
-		const wrap = (next) => {
-			const total = pages();
-			return ((next % total) + total) % total;
-		};
-
-		const stopAuto = () => {
-			if (timer) {
-				clearInterval(timer);
-				timer = null;
-			}
-		};
-
-		const startAuto = () => {
-			stopAuto();
-			if (reduceMotion || pages() < 2) return;
-			timer = window.setInterval(() => {
-				if (dragging) return;
-				dragX = 0;
-				goTo(index + 1);
-			}, 4000);
-		};
-
-		const renderDots = () => {
-			nav.replaceChildren();
-			for (let i = 0; i < pages(); i++) {
-				const button = document.createElement("button");
-				button.type = "button";
-				button.setAttribute("aria-label", `Show testimonials page ${i + 1}`);
-				button.addEventListener("click", () => {
-					dragX = 0;
-					goTo(i);
-					startAuto();
+				box.addEventListener("pointerenter", onEnter);
+				box.addEventListener("click", onClick);
+				cleanups.push(() => {
+					box.removeEventListener("pointerenter", onEnter);
+					box.removeEventListener("click", onClick);
 				});
-				nav.appendChild(button);
+			});
+		}
+
+		const root = document.querySelector<HTMLElement>("[data-text-rotate]");
+		if (root && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+			const line = root.querySelector("span");
+			const texts = JSON.parse(root.dataset.texts || "[]") as string[];
+			if (line && texts.length > 1) {
+				let i = 0;
+				const timer = window.setInterval(() => {
+					line.classList.add("is-out");
+					setTimeout(() => {
+						i = (i + 1) % texts.length;
+						line.textContent = texts[i];
+						line.classList.remove("is-out");
+						line.classList.add("is-in");
+						line.onanimationend = () => line.classList.remove("is-in");
+					}, 450);
+				}, 3200);
+				cleanups.push(() => clearInterval(timer));
 			}
-			dots = [...nav.querySelectorAll("button")];
-		};
+		}
 
-		const goTo = (next, animate = true) => {
-			index = wrap(next);
-			track.style.transition = animate ? "transform 0.4s ease" : "none";
-			track.style.transform = `translate3d(${-index * step() + dragX}px, 0, 0)`;
-			dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
-		};
+		const slider = document.querySelector("[data-testimonial-slider]");
+		const track = slider?.querySelector<HTMLElement>(".thcon");
+		const nav = slider?.querySelector(".thcon-nav");
+		if (slider && track && nav) {
+			const boxes = [...track.querySelectorAll(".thcon--box")];
+			let index = 0;
+			let startX = 0;
+			let dragX = 0;
+			let dragging = false;
+			let dots: HTMLButtonElement[] = [];
+			let timer: number | null = null;
 
-		track.addEventListener("pointerdown", (event) => {
-			if (event.pointerType === "mouse" && event.button !== 0) return;
-			dragging = true;
-			stopAuto();
-			startX = event.clientX;
-			dragX = 0;
-			track.classList.add("is-grabbing");
-			track.setPointerCapture(event.pointerId);
-			track.style.transition = "none";
-		});
+			const perView = () => (window.matchMedia("(max-width: 692px)").matches ? 1 : 2);
+			const pages = () => Math.max(1, Math.ceil(boxes.length / perView()));
+			const cardWidth = () => boxes[0]?.getBoundingClientRect().width || 0;
+			const step = () => cardWidth() * perView();
+			const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
-		track.addEventListener("pointermove", (event) => {
-			if (!dragging) return;
-			dragX = event.clientX - startX;
-			track.style.transform = `translate3d(${-index * step() + dragX}px, 0, 0)`;
-		});
+			const wrap = (next: number) => {
+				const total = pages();
+				return ((next % total) + total) % total;
+			};
 
-		const endDrag = () => {
-			if (!dragging) return;
-			dragging = false;
-			track.classList.remove("is-grabbing");
-			const moved = dragX;
-			dragX = 0;
-			if (Math.abs(moved) > 50) goTo(index + (moved < 0 ? 1 : -1));
-			else goTo(index);
-			startAuto();
-		};
+			const stopAuto = () => {
+				if (timer) {
+					clearInterval(timer);
+					timer = null;
+				}
+			};
 
-		track.addEventListener("pointerup", endDrag);
-		track.addEventListener("pointercancel", endDrag);
-		slider.addEventListener("mouseenter", stopAuto);
-		slider.addEventListener("mouseleave", startAuto);
-		window.addEventListener("resize", () => {
+			const startAuto = () => {
+				stopAuto();
+				if (reduceMotion || pages() < 2) return;
+				timer = window.setInterval(() => {
+					if (dragging) return;
+					dragX = 0;
+					goTo(index + 1);
+				}, 4000);
+			};
+
+			const renderDots = () => {
+				nav.replaceChildren();
+				for (let i = 0; i < pages(); i++) {
+					const button = document.createElement("button");
+					button.type = "button";
+					button.setAttribute("aria-label", `Show testimonials page ${i + 1}`);
+					button.addEventListener("click", () => {
+						dragX = 0;
+						goTo(i);
+						startAuto();
+					});
+					nav.appendChild(button);
+				}
+				dots = [...nav.querySelectorAll("button")];
+			};
+
+			const goTo = (next: number, animate = true) => {
+				index = wrap(next);
+				track.style.transition = animate ? "transform 0.4s ease" : "none";
+				track.style.transform = `translate3d(${-index * step() + dragX}px, 0, 0)`;
+				dots.forEach((dot, i) => dot.classList.toggle("is-active", i === index));
+			};
+
+			const onPointerDown = (event: PointerEvent) => {
+				if (event.pointerType === "mouse" && event.button !== 0) return;
+				dragging = true;
+				stopAuto();
+				startX = event.clientX;
+				dragX = 0;
+				track.classList.add("is-grabbing");
+				track.setPointerCapture(event.pointerId);
+				track.style.transition = "none";
+			};
+
+			const onPointerMove = (event: PointerEvent) => {
+				if (!dragging) return;
+				dragX = event.clientX - startX;
+				track.style.transform = `translate3d(${-index * step() + dragX}px, 0, 0)`;
+			};
+
+			const endDrag = () => {
+				if (!dragging) return;
+				dragging = false;
+				track.classList.remove("is-grabbing");
+				const moved = dragX;
+				dragX = 0;
+				if (Math.abs(moved) > 50) goTo(index + (moved < 0 ? 1 : -1));
+				else goTo(index);
+				startAuto();
+			};
+
+			const onResize = () => {
+				renderDots();
+				goTo(index, false);
+				startAuto();
+			};
+
+			track.addEventListener("pointerdown", onPointerDown);
+			track.addEventListener("pointermove", onPointerMove);
+			track.addEventListener("pointerup", endDrag);
+			track.addEventListener("pointercancel", endDrag);
+			slider.addEventListener("mouseenter", stopAuto);
+			slider.addEventListener("mouseleave", startAuto);
+			window.addEventListener("resize", onResize);
+
 			renderDots();
-			goTo(index, false);
+			goTo(0, false);
 			startAuto();
-		});
 
-		renderDots();
-		goTo(0, false);
-		startAuto();
-	}
+			cleanups.push(() => {
+				stopAuto();
+				track.removeEventListener("pointerdown", onPointerDown);
+				track.removeEventListener("pointermove", onPointerMove);
+				track.removeEventListener("pointerup", endDrag);
+				track.removeEventListener("pointercancel", endDrag);
+				slider.removeEventListener("mouseenter", stopAuto);
+				slider.removeEventListener("mouseleave", startAuto);
+				window.removeEventListener("resize", onResize);
+			});
+		}
+
+		teardown = () => {
+			cleanups.forEach((fn) => fn());
+			teardown = () => {};
+		};
+	};
+
+	setupHomeInteractions();
+	document.addEventListener("astro:before-swap", () => teardown());
+	document.addEventListener("astro:after-swap", setupHomeInteractions);
 </script>
 
