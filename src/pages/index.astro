@@ -1003,7 +1003,14 @@ const scrollBannerPreloads = [
 		};
 
 		boxes.forEach((box) => {
-			box.addEventListener("pointerenter", () => openBox(box));
+			box.addEventListener("pointerenter", (event) => {
+				if (event.pointerType !== "touch") openBox(box);
+			});
+
+			box.addEventListener("click", (event) => {
+				if (event.target.closest("a")) return;
+				openBox(box);
+			});
 		});
 	}
 
