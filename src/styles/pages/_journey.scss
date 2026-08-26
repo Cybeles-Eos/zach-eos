@@ -2,31 +2,103 @@
 	position: relative;
 
 	.section {
-		&--hero {
-			height: 100vh;
-			display: flex;
-			align-items: center;
-			justify-content: center;
 
-			&__main {
-				max-width: 1400px;
-				margin: 0 auto;
+		&--hero{
+			width: 100%;
+			border-bottom: 1px solid var(--main-brd-clr);
+			height: 580px;
+			position: relative;
+			overflow: hidden;
+
+			&::before{
+				content: "";
+				position: absolute;
+				inset: 0;
+				background-image: url("/images/noise.png");
+				background-position: center;
+				background-size: cover;
+				opacity: 0.5;
+				pointer-events: none;
+			}
+
+			.vector-svg-jny{
+				position: absolute; 
+				right: -12rem;
+				bottom: -8rem;
+				user-select: none;
+				-webkit-user-drag: none;
+
+			}
+
+			&__con{
+				position: relative;
+				max-width: var(--page-width);
+				margin-inline: auto;
+				height: 100%;
+				
+			}
+			&__main{
+				overflow: visible;
+				position: relative;
+				width: 100%;
+				height: 100%;
+				padding: var(--section-padding);
+				display: flex;
+				flex-direction: column;
+				align-items: flex-start;
+				justify-content: center;
+
+				h1{
+					max-width: 800px;
+				}
+				p{
+					max-width: 455px;
+				}
+
+			}
+		}
+
+		&--story{
+			width: 100%;
+			border-bottom: 1px solid var(--main-brd-clr);
+			height: 820px;
+			position: relative;
+	
+			&__con{
+				position: relative;
+				max-width: var(--page-width);
+				margin-inline: auto;
+				height: 100%;
+				border-inline: 1px solid var(--main-brd-clr);
+				border-style: dashed;
+				border-block: none;
+
+				.left-trb-vec{
+					position: absolute;
+					left: -6px;
+					top: -6px;
+					color: var(--mbrd-green-color);
+					rotate: 90deg;
+				}
+				.right-tlb-vec{
+					position: absolute;
+					right: -6px;
+					top: -6px;
+					color: var(--mbrd-green-color);
+					rotate: -90deg;
+				}
+			}
+			&__main{
+				overflow: hidden;
+				position: relative;
+				width: 100%;
+				height: 100%;
+				padding: var(--section-padding);
 				display: flex;
 				align-items: center;
-				justify-content: center;
-				flex-direction: column;
 
-				h1 {
-					max-width: 800px;
-					text-align: center;
-				}
+				
 
-				p {
-					font-family: var(--font-satoshi) !important;
-					max-width: 844px;
-					font-size: 18px;
-					text-align: center;
-				}
 			}
 		}
 
