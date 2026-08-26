@@ -5,6 +5,9 @@ const pathname = Astro.url.pathname.replace(/\/$/, "") || "/";
 const navClass = (path: string) =>
 	`navbar-global__item${pathname === path ? " navbar-global__item--active" : ""}`;
 
+const isJourneyActive = pathname.startsWith("/journey");
+const journeyNavClass = `navbar-global__item${isJourneyActive ? " navbar-global__item--active" : ""}`;
+
 const isProjectsActive = pathname.startsWith("/projects");
 const projectsNavClass = `navbar-global__item${isProjectsActive ? " navbar-global__item--active" : ""}`;
 ---
@@ -52,7 +55,7 @@ const projectsNavClass = `navbar-global__item${isProjectsActive ? " navbar-globa
                 </svg>                    
             </span>
         </a>
-        <a href="/journey" class={navClass("/journey")} title="My Journey">
+        <a href="/journey" class={journeyNavClass} title="My Journey">
             <span class="navbar-global__item__label">Journey</span>
             <span class="navbar-global__item__icon">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">

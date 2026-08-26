@@ -1,0 +1,172 @@
+.journey {
+	position: relative;
+
+	.section {
+		&--hero {
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			&__main {
+				max-width: 1400px;
+				margin: 0 auto;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+
+				h1 {
+					max-width: 800px;
+					text-align: center;
+				}
+
+				p {
+					font-family: var(--font-satoshi) !important;
+					max-width: 844px;
+					font-size: 18px;
+					text-align: center;
+				}
+			}
+		}
+
+		&--list {
+			min-height: 100vh;
+			min-height: 100dvh;
+			background-color: #e7e7e7;
+			display: flex;
+			align-items: flex-start;
+			justify-content: center;
+			padding-block: var(--padding-block-sm);
+
+			&__content {
+				width: 100%;
+				max-width: 900px;
+
+				h2 {
+					margin-bottom: 12px;
+					text-align: center;
+				}
+
+				> p {
+					font-family: var(--font-satoshi);
+					font-size: var(--font-size-5s);
+					text-align: center;
+					margin-bottom: 40px;
+				}
+			}
+		}
+	}
+}
+
+.journey-cards {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+	display: grid;
+	gap: 16px;
+}
+
+.journey-card {
+	display: block;
+	padding: 24px;
+	background: var(--box-clr);
+	border: 1px solid var(--border-box-clr);
+	border-radius: 16px;
+	text-decoration: none;
+	color: inherit;
+	transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+	&:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--box-shadow);
+	}
+
+	&__category {
+		display: inline-block;
+		font-size: var(--font-size-7s);
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--green-color-medium);
+		margin-bottom: 10px;
+	}
+
+	h3 {
+		font-size: var(--font-size-2s);
+		font-weight: 500;
+		margin-bottom: 8px;
+	}
+
+	p {
+		font-family: var(--font-satoshi);
+		font-size: var(--font-size-5s);
+		line-height: 1.5;
+		opacity: 0.8;
+	}
+}
+
+.journey-detail {
+	max-width: 720px;
+	margin: 0 auto;
+	padding-top: 140px;
+	padding-bottom: var(--padding-block-sm);
+	min-height: 100vh;
+
+	&__back {
+		display: inline-block;
+		margin-bottom: 28px;
+		font-size: var(--font-size-6s);
+		color: var(--green-color-medium);
+		text-decoration: none;
+	}
+
+	&__category {
+		font-size: var(--font-size-7s);
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--green-color-medium);
+		margin-bottom: 12px;
+	}
+
+	h1 {
+		margin-bottom: 12px;
+	}
+
+	&__lead {
+		font-family: var(--font-satoshi);
+		font-size: 18px;
+		line-height: 1.6;
+		opacity: 0.8;
+		margin-bottom: 32px;
+	}
+
+	&__body {
+		font-family: var(--font-satoshi);
+		font-size: var(--font-size-5s);
+		line-height: 1.7;
+
+		p,
+		ul {
+			margin-bottom: 16px;
+		}
+
+		ul {
+			padding-left: 1.2em;
+		}
+
+		strong {
+			font-weight: 600;
+		}
+	}
+}
+
+[data-theme="dark"] .journey {
+	.section--list {
+		background-color: var(--dark);
+	}
+
+	.journey-card {
+		background: var(--bg-dark);
+		border-color: var(--border-dark-mode-color);
+	}
+}

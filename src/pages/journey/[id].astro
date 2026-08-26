@@ -1,0 +1,46 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../partials/navbar.astro";
+import Header from "../../partials/header.astro";
+
+export async function getStaticPaths() {
+	const journeys = await getCollection("journeys");
+
+	return journeys.map((entry: CollectionEntry<"journeys">) => ({
+		params: { id: entry.id },
+		props: { entry },
+	}));
+}
+
+interface Props {
+	entry: CollectionEntry<"journeys">;
+}
+
+const { entry } = Astro.props;
+const { Content } = await render(entry);
+---
+
+<Layout
+	title={`${entry.data.title} | Journey`}
+	description={entry.data.description}
+>
+	<main class="journey journey--detail">
+		<Header />
+		<Navbar />
+
+		<article class="journey-detail glb-pad-inline">
+			<a class="journey-detail__back" href="/journey">Back to journey</a>
+			<p class="journey-detail__category">{entry.data.category}</p>
+			<h1>{entry.data.title}</h1>
+			<p class="journey-detail__lead">{entry.data.description}</p>
+			<div class="journey-detail__body">
+				{entry.data.banner && (
+					<img src={entry.data.banner} alt="banner" />
+				)}
+				<Content />
+			</div>
+		</article>
+	</main>
+</Layout>

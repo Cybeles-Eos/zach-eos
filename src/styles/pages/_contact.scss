@@ -1,0 +1,63 @@
+.contact {
+	position: relative;
+
+	.section {
+		&--hero {
+			height: 100vh;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+
+			&__main {
+				max-width: 1400px;
+				margin: 0 auto;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+				flex-direction: column;
+
+				h1 {
+					max-width: 800px;
+					text-align: center;
+				}
+
+				p {
+					font-family: var(--font-satoshi) !important;
+					max-width: 844px;
+					font-size: 18px;
+					text-align: center;
+				}
+			}
+		}
+
+		&--story {
+			min-height: 100vh;
+			min-height: 100dvh;
+			background-color: #e7e7e7;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			padding-block: var(--padding-block-sm);
+
+			&__content {
+				max-width: 900px;
+				text-align: center;
+
+				h2 {
+					margin-bottom: 20px;
+				}
+
+				p {
+					font-family: var(--font-satoshi);
+					font-size: var(--font-size-5s);
+				}
+			}
+		}
+	}
+}
+
+[data-theme="dark"] .about {
+	.section--story {
+		background-color: var(--dark);
+	}
+}

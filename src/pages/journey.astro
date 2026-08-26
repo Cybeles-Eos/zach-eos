@@ -1,14 +1,18 @@
 ---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
+
+const journeys = await getCollection("journeys");
 ---
 
 <Layout
 	title="Journey | Zach Portfolio"
-	description="Zach's professional Journey — roles, projects, and the work behind his frontend and full-stack development."
+	description="Zach's professional journey — roles, projects, and the work behind his frontend and full-stack development."
 >
-	<main class="experiences">
+	<main class="journey">
 		<Header />
 		<Navbar />
 
@@ -16,18 +20,34 @@ import Header from "../partials/header.astro";
 			<div class="section--hero__main">
 				<h1>My <span>Journey</span></h1>
 				<p>
-					This is a placeholder Journey page. Add roles, internships, and project highlights
-					here.
+					Roles, freelance work, and the steps that shaped how I build websites.
 				</p>
 			</div>
 		</section>
 
-		<section class="section--timeline glb-pad-inline">
-			<div class="section--timeline__content">
-				<h2>Work <span>history</span></h2>
-				<p>Dummy section for jobs, internships, and career milestones.</p>
+		<section class="section--list glb-pad-inline">
+			<div class="section--list__content">
+				<h2>All <span>steps</span></h2>
+				<p>Each card is a markdown file. Open one to read the full story.</p>
+
+				<pre>{JSON.stringify(journeys, null, 2)}</pre>
+
+				<ul class="journey-cards">
+					{journeys.map((entry: CollectionEntry<"journeys">) => (
+						<li>
+
+							<a class="journey-card" href={`/journey/${entry.id}`}>
+							{entry.data.banner && (
+								<img src={entry.data.banner} alt="banner" />
+							)}
+								<span class="journey-card__category">{entry.data.category}</span>
+								<h3>{entry.data.title}</h3>
+								<p>{entry.data.description}</p>
+							</a>
+						</li>
+					))}
+				</ul>
 			</div>
 		</section>
-
 	</main>
 </Layout>
