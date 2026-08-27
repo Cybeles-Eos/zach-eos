@@ -4,7 +4,7 @@
 	.section {
 
 		&--hero{
-			--hero-grid-line: rgba(230, 224, 224, 0.103);
+			--hero-grid-line: rgba(0, 0, 0, 0.1);
 			--hero-card-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
 			--hero-card-border: rgba(0, 0, 0, 0.1);
 			--hero-card-hover: var(--black);
@@ -323,4 +323,11 @@
 		background: var(--bg-dark);
 		border-color: var(--border-dark-mode-color);
 	}
+}
+
+[data-theme="dark"] .journey .section--hero {
+	--hero-grid-line: rgba(255, 255, 255, 0.055);
+	--hero-card-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+	--hero-card-border: rgba(255, 255, 255, 0.08);
+	--hero-card-hover: var(--white);
 }
