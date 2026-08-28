@@ -143,7 +143,7 @@
 		&--story{
 			width: 100%;
 			border-bottom: 1px solid var(--main-brd-clr);
-			height: 820px;
+			height: 420px;
 			position: relative;
 	
 			&__con{
@@ -184,6 +184,111 @@
 			}
 		}
 
+		&--main{
+			width: 100%;
+			border-bottom: 1px solid var(--main-brd-clr);
+			height: 820px;
+			position: relative;
+	
+			&__con{
+				position: relative;
+				max-width: var(--page-width);
+				margin-inline: auto;
+				height: 100%;
+				border-inline: 1px solid var(--main-brd-clr);
+				border-style: dashed;
+				border-block: none;
+
+				.left-trb-vec{
+					position: absolute;
+					left: -3px;
+					top: -8px;
+					color: var(--mbrd-green-color);
+				}
+				.right-tlb-vec{
+					position: absolute;
+					right: -3px;
+					top: -8px;
+					color: var(--mbrd-green-color);
+				}
+			}
+			&__main{
+				overflow: hidden;
+				position: relative;
+				width: 100%;
+				height: 100%;
+				padding: var(--section-padding);
+
+
+				img{
+					max-width: 400px;
+					height: auto;
+				}
+			}
+			&__contents{
+				display: grid;
+				grid-template-columns: 1fr 1fr 1fr;
+				gap: 0px;
+
+				.mmc-box-j{
+					display: flex;
+					flex-direction: column;
+					gap: 0px;
+					border: 1px solid var(--main-brd-clr);
+					transform: translateY(-1px);
+
+					&:first-child{
+						border-left: none;
+					}
+					&:last-child{
+						border-right: none;
+					}
+
+					&--img{
+						width: 100%;
+						height: 285px;
+						padding: 8px;
+						img{
+							width: 100%;
+							height: 100%;
+							object-fit: cover;
+							object-position: center;
+						}
+					}
+					&__txt{
+						padding: 15px;
+
+						&--category{
+							display: block;
+							font-size: var(--font-size-7s);
+							color: var(--green-color-medium);
+							letter-spacing: 0.06em;
+							text-transform: uppercase;
+							margin-bottom: 10px !important;
+						}
+						&--title{
+							margin-bottom: 10px !important;
+							line-height: 145%;
+						}
+						&--p{
+							font-size: var(--font-size-5s);
+							font-weight: var(--font-hw-weight-p);
+							opacity: 0.8;
+							margin-bottom: 10px !important;
+						}
+						&--date{
+							font-size: var(--font-size-6s);
+							font-weight: var(--font-hw-weight-p);
+							opacity: 0.6;
+							text-align: right;
+							margin-bottom: 0px;
+						}
+					}
+
+				}
+			}
+		}
+
 		&--list {
 			min-height: 100vh;
 			min-height: 100dvh;
@@ -213,106 +318,6 @@
 	}
 }
 
-.journey-cards {
-	list-style: none;
-	padding: 0;
-	margin: 0;
-	display: grid;
-	gap: 16px;
-}
-
-.journey-card {
-	display: block;
-	padding: 24px;
-	background: var(--box-clr);
-	border: 1px solid var(--border-box-clr);
-	border-radius: 16px;
-	text-decoration: none;
-	color: inherit;
-	transition: transform 0.2s ease, box-shadow 0.2s ease;
-
-	&:hover {
-		transform: translateY(-2px);
-		box-shadow: var(--box-shadow);
-	}
-
-	&__category {
-		display: inline-block;
-		font-size: var(--font-size-7s);
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: var(--green-color-medium);
-		margin-bottom: 10px;
-	}
-
-	h3 {
-		font-size: var(--font-size-2s);
-		font-weight: 500;
-		margin-bottom: 8px;
-	}
-
-	p {
-		font-family: var(--font-satoshi);
-		font-size: var(--font-size-5s);
-		line-height: 1.5;
-		opacity: 0.8;
-	}
-}
-
-.journey-detail {
-	max-width: 720px;
-	margin: 0 auto;
-	padding-top: 140px;
-	padding-bottom: var(--padding-block-sm);
-	min-height: 100vh;
-
-	&__back {
-		display: inline-block;
-		margin-bottom: 28px;
-		font-size: var(--font-size-6s);
-		color: var(--green-color-medium);
-		text-decoration: none;
-	}
-
-	&__category {
-		font-size: var(--font-size-7s);
-		letter-spacing: 0.06em;
-		text-transform: uppercase;
-		color: var(--green-color-medium);
-		margin-bottom: 12px;
-	}
-
-	h1 {
-		margin-bottom: 12px;
-	}
-
-	&__lead {
-		font-family: var(--font-satoshi);
-		font-size: 18px;
-		line-height: 1.6;
-		opacity: 0.8;
-		margin-bottom: 32px;
-	}
-
-	&__body {
-		font-family: var(--font-satoshi);
-		font-size: var(--font-size-5s);
-		line-height: 1.7;
-
-		p,
-		ul {
-			margin-bottom: 16px;
-		}
-
-		ul {
-			padding-left: 1.2em;
-		}
-
-		strong {
-			font-weight: 600;
-		}
-	}
-}
 
 [data-theme="dark"] .journey {
 	.section--list {

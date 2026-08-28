@@ -62,6 +62,8 @@
 
 	--box-clr: #fff;
 	--border-box-clr: #E2E2E2;
+
+	--font-hw-weight-p: 200;
 }
 
 
@@ -129,6 +131,7 @@ h4{
 	font-family: var(--font-pretendard);
 	font-size: var(--font-size-2s);
 	font-weight: 400;
+	
 
 	@media screen and (max-width: 992px) {
 		font-size: var(--font-size-3s);
@@ -300,6 +303,8 @@ p, h1, h2, h3, h4, h5, h6{
 [data-theme="light"]{
 	--pre-title: #00A14C;
 	--font-hw-weight: 500;
+
+	--font-hw-weight-p: 300;
 }
 
 [data-theme="dark"]{
