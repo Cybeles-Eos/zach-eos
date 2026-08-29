@@ -161,6 +161,7 @@
 					top: -6px;
 					color: var(--mbrd-green-color);
 					rotate: 90deg;
+					z-index: 5;
 				}
 				.right-tlb-vec{
 					position: absolute;
@@ -168,6 +169,7 @@
 					top: -6px;
 					color: var(--mbrd-green-color);
 					rotate: -90deg;
+					z-index: 5;
 				}
 			}
 			&__main{
@@ -310,12 +312,14 @@
 					left: -3px;
 					top: -8px;
 					color: var(--mbrd-green-color);
+					z-index: 5;
 				}
 				.right-tlb-vec{
 					position: absolute;
 					right: -3px;
 					top: -8px;
 					color: var(--mbrd-green-color);
+					z-index: 5;
 				}
 			}
 			&__main{

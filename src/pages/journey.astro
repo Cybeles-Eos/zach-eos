@@ -6,6 +6,7 @@ import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
 
 const journeys = await getCollection("journeys");
+
 ---
 
 <Layout
@@ -88,7 +89,7 @@ const journeys = await getCollection("journeys");
 				<div class="section--main__main ">
 
 					<div class="section--main__contents">
-						<a href="#" class="mmc-box-j">
+						<!-- <a href="#" class="mmc-box-j">
 							<div class="mmc-box-j--img">
 								<img src="/images/def.png" alt="Journey Image" />
 							</div>
@@ -120,7 +121,25 @@ const journeys = await getCollection("journeys");
 								<p class="mmc-box-j__txt--p">My first real-world role learning how teams ship websites, not just how to code them.</p>
 								<p class="mmc-box-j__txt--date">Aug 20, 2026</p>
 							</div>
-						</a>
+						</a> -->
+						{journeys.map((entry: CollectionEntry<"journeys">) => (
+							
+							<a href={`/journey/${entry.id}`} class="mmc-box-j">
+								<div class="mmc-box-j--img">
+									{entry.data.banner ? (
+										<img src={entry.data.banner} alt="banner" />
+									) : (
+										<img src="/images/def.png" alt="Journey Image" />
+									)}
+								</div>
+								<div class="mmc-box-j__txt">
+									<span class="mmc-box-j__txt--category">{entry.data.category}</span>
+									<h4 class="mmc-box-j__txt--title">{entry.data.title}</h4>
+									<p class="mmc-box-j__txt--p">{entry.data.description}</p>
+									<p class="mmc-box-j__txt--date">Aug 20, 2026</p>
+								</div>
+							</a>
+						))}
 					</div>
 					<!-- <ul class="journey-cards">
 						{journeys.map((entry: CollectionEntry<"journeys">) => (
