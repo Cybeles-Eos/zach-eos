@@ -230,7 +230,7 @@
 						padding: 40px;
 						position: relative;
 						z-index: 3;
-
+						flex-wrap: wrap;
 						&__left{
 							display: flex;
 							flex-direction: column;
@@ -269,6 +269,20 @@
 							opacity: 0.6;
 							text-align: right;
 							margin-bottom: 0px;
+							
+						}
+						@media (max-width: 992px) {
+							padding: 20px !important;
+							&__right{
+								width: 100%;
+								display: flex;
+								justify-content: flex-end;
+								margin-top: 20px;
+							}
+
+							&--category{
+								margin-bottom: 5px !important;
+							}
 						}
 					}
 
