@@ -26,11 +26,66 @@ const { Content } = await render(entry);
 	title={`${entry.data.title} | Journey`}
 	description={entry.data.description}
 >
-	<main class="journey journey--detail">
+	<main class="journey-detail">
 		<Header />
 		<Navbar />
 
-		<article class="journey-detail glb-pad-inline">
+		<section class="section--hero glb-sec-pad-out">
+			<div class="section--hero__grid" aria-hidden="true"></div>
+			<div class="section--hero__con">
+				<div class="section--hero__main glb-sec-pad">
+					<span>INTERNSHIP</span>
+					<h1>My internship experience as a visual and web developer</h1>
+					<p>Explore the projects, achievements, lessons, and experiences that shaped my skills in design, development, and creating digital experiences.</p>
+
+					<svg width="2158" height="2158" class="section--hero--svg" viewBox="0 0 2158 2158" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<g opacity="0.2" filter="url(#filter0_f_2690_2519)">
+						<circle cx="1078.62" cy="1078.62" r="523.621" fill="#00A14C"/>
+						</g>
+						<g opacity="0.2" filter="url(#filter1_f_2690_2519)">
+						<circle cx="1115.2" cy="1071.25" r="412.48" fill="#07D468"/>
+						</g>
+						<g opacity="0.2" filter="url(#filter2_f_2690_2519)">
+						<circle cx="1115.2" cy="1049.99" r="290.366" fill="white"/>
+						</g>
+						<defs>
+						<filter id="filter0_f_2690_2519" x="0" y="0" width="2157.24" height="2157.24" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+						<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+						<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+						<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_2690_2519"/>
+						</filter>
+						<filter id="filter1_f_2690_2519" x="147.716" y="103.766" width="1934.96" height="1934.96" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+						<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+						<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+						<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_2690_2519"/>
+						</filter>
+						<filter id="filter2_f_2690_2519" x="269.831" y="204.621" width="1690.73" height="1690.73" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+						<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+						<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+						<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_2690_2519"/>
+						</filter>
+						</defs>
+					</svg>		
+				</div>
+			</div>
+		</section>
+
+		<section class="section--details glb-sec-pad-out">
+			<div class="section--details__con">
+				<div class="section--details__main ">
+				
+				</div>
+				
+				<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
+				</svg>
+				<svg width="10" height="16" class="right-tlb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
+				</svg>
+			</div>
+		</section>
+
+		<!-- <article class="journey-detail glb-pad-inline">
 			<a class="journey-detail__back" href="/journey">Back to journey</a>
 			<p class="journey-detail__category">{entry.data.category}</p>
 			<h1>{entry.data.title}</h1>
@@ -41,6 +96,6 @@ const { Content } = await render(entry);
 				)}
 				<Content />
 			</div>
-		</article>
+		</article> -->
 	</main>
 </Layout>

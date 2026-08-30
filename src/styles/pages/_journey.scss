@@ -622,6 +622,182 @@
 	}
 }
 
+.journey-detail{
+	position: relative;
+
+	.section {
+
+		&--hero{
+			--hero-grid-line: rgba(0, 0, 0, 0.1);
+			--hero-card-shadow: 0 18px 50px rgba(0, 0, 0, 0.12);
+			--hero-card-border: rgba(0, 0, 0, 0.1);
+			--hero-card-hover: var(--black);
+
+			width: 100%;
+			border-bottom: 1px solid var(--main-brd-clr);
+			height: 560px;
+			position: relative;
+			overflow: hidden;
+
+			&::before{
+				content: "";
+				position: absolute;
+				inset: 0;
+				background-image: url("/images/noise.png");
+				background-position: center;
+				background-size: cover;
+				opacity: 0.5;
+				pointer-events: none;
+				z-index: 2;
+			}
+			&__grid {
+				--hero-grid-circle-y: -19rem;
+
+				position: absolute;
+				inset: 0;
+				z-index: 1;
+				pointer-events: none;
+				background-image:
+					linear-gradient(to right, var(--hero-grid-line) 1px, transparent 1px),
+					linear-gradient(to bottom, var(--hero-grid-line) 1px, transparent 1px);
+				background-size: 45px 45px;
+				background-position: center top;
+				-webkit-mask-image: radial-gradient(
+					circle 82vmin at 50% calc(50% + var(--hero-grid-circle-y)),
+					#000 0%,
+					rgba(0, 0, 0, .8) 28%,
+					transparent 72%
+				);
+				mask-image: radial-gradient(
+					circle 82vmin at 50% calc(50% + var(--hero-grid-circle-y)),
+					#000 0%,
+					rgba(0, 0, 0, .8) 28%,
+					transparent 72%
+				);
+			}
+			&--svg{
+				position: absolute;
+				left: 50%;
+				transform: translateX(-50%);
+				bottom: -100rem;
+				z-index: 1;
+				user-select: none;
+				-webkit-user-drag: none;
+
+				@media (max-width: 492px) {
+					bottom: -110rem;
+				}
+			}
+
+			&__con{
+				position: relative;
+				max-width: var(--page-width);
+				margin-inline: auto;
+				height: 100%;
+				
+			}
+			&__main{
+				overflow: visible;
+				position: relative;
+				width: 100%;
+				height: 100%;
+				padding: var(--section-padding);
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				justify-content: center;
+				
+				span{
+					display: block;
+					font-size: var(--font-size-5s);
+					color: var(--green-color-medium);
+					letter-spacing: 0.06em;
+					text-transform: uppercase;
+					margin-bottom: 10px !important;
+					text-align: center;
+				}
+				h1{
+					max-width: 700px !important;
+					// margin-top: 50px;
+					text-align: center;
+				}
+				p{
+					max-width: 655px;
+					text-align: center;
+				}
+
+				@media (max-width: 992px) {
+					padding-right: 250px !important;
+				}
+				@media (max-width: 692px) {
+					padding-right: 25px !important;
+					align-items: center;
+					text-align: center;
+					h1{
+						margin-top: 0;
+						max-width: 100% !important;
+					}
+					p{
+						max-width: 100%;
+					}
+				}
+
+			}
+			@media (max-width: 692px) {
+				height: fit-content;
+				padding-top: 80px;
+				padding-bottom: 80px;
+			}
+
+		}
+
+		&--details{
+			width: 100%;
+			border-bottom: 1px solid var(--main-brd-clr);
+			height: 820px;
+			position: relative;
+	
+			&__con{
+				position: relative;
+				max-width: var(--page-width);
+				margin-inline: auto;
+				height: 100%;
+				border-inline: 1px solid var(--main-brd-clr);
+				border-style: dashed;
+				border-block: none;
+
+				.left-trb-vec{
+					position: absolute;
+					left: -6px;
+					top: -6px;
+					color: var(--mbrd-green-color);
+					rotate: 90deg;
+					z-index: 5;
+				}
+				.right-tlb-vec{
+					position: absolute;
+					right: -6px;
+					top: -6px;
+					color: var(--mbrd-green-color);
+					rotate: -90deg;
+					z-index: 5;
+				}
+			}
+			&__main{
+				overflow: hidden;
+				position: relative;
+				width: 100%;
+				height: 100%;
+				padding: var(--section-padding);
+				display: flex;
+				align-items: center;
+
+
+			}
+		}
+	}
+}
+
 
 [data-theme="dark"] .journey {
 	.section--list {
@@ -635,6 +811,13 @@
 }
 
 [data-theme="dark"] .journey .section--hero {
+	--hero-grid-line: rgba(255, 255, 255, 0.055);
+	--hero-card-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+	--hero-card-border: rgba(255, 255, 255, 0.08);
+	--hero-card-hover: var(--white);
+}
+
+[data-theme="dark"] .journey-detail .section--hero {
 	--hero-grid-line: rgba(255, 255, 255, 0.055);
 	--hero-card-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
 	--hero-card-border: rgba(255, 255, 255, 0.08);
