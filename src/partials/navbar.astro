@@ -10,9 +10,17 @@ const journeyNavClass = `navbar-global__item${isJourneyActive ? " navbar-global_
 
 const isProjectsActive = pathname.startsWith("/projects");
 const projectsNavClass = `navbar-global__item${isProjectsActive ? " navbar-global__item--active" : ""}`;
+
+interface Props {
+	sty?: boolean;
+}
+
+const {
+	sty = false
+} = Astro.props;
 ---
 
-<div class="navbar-anchor">
+<div class={`navbar-anchor ${sty ? "disable-nav-g" : ""}`}>
 <div class="navbar-shell">
 <div class="navbar-global">
         <button class="navbar-global__item" title="Dark Mode" data-theme-toggle>
@@ -42,8 +50,8 @@ const projectsNavClass = `navbar-global__item${isProjectsActive ? " navbar-globa
                 </svg>                    
             </span>
         </a>
-        <a href="/about" class={navClass("/about")} title="About Me">
-            <span class="navbar-global__item__label">About</span>
+        <a href="/contact" class={navClass("/contact")} title="About Me">
+            <span class="navbar-global__item__label">Contact</span>
             <span class="navbar-global__item__icon">
                 <svg width="16" height="19" viewBox="0 0 16 19" fill="none" xmlns="http://www.w3.org/2000/svg">
                     <g opacity="0.5">

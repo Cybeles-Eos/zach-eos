@@ -624,7 +624,6 @@
 
 .journey-detail{
 	position: relative;
-
 	.section {
 
 		&--hero{
@@ -751,7 +750,7 @@
 		&--details{
 			width: 100%;
 			border-bottom: 1px solid var(--main-brd-clr);
-			height: 2220px;
+			// height: 1520px;
 			position: relative;
 	
 			&__con{
@@ -778,6 +777,20 @@
 					color: var(--mbrd-green-color);
 					rotate: -90deg;
 					z-index: 5;
+				}
+				.left-trb-vec-btm {
+					position: absolute;
+					left: -5px;
+					bottom: -6px;
+					color: var(--mbrd-green-color);
+					rotate: -90deg;
+				}
+				.right-tlb-vec-btm {
+					position: absolute;
+					right: -5px;
+					bottom: -6px;
+					color: var(--mbrd-green-color);
+					rotate: 90deg;
 				}
 			}
 			&__main{
@@ -968,9 +981,6 @@
 				}
 				.jddm-c-box-list{
 					margin-block: 20px !important;
-					p{
-						margin-bottom: 20px !important;
-					}
 					ul{
 						margin: 0;
 						padding: 0;
@@ -989,6 +999,12 @@
 						}
 					}
 				}
+				.jddm-c-closing{
+					margin-top: 20px !important;
+					p{
+						margin-bottom: 0px !important;
+					}
+				}
 			}
 		}
 
@@ -996,12 +1012,13 @@
 			width: 100%;
 			height: 120px;
 			position: relative;
+			z-index: -1;
 			&__con{
 				position: relative;
 				max-width: var(--page-width);
 				margin-inline: auto;
 				height: 100%;
-
+		
 				.left-trb-vec{
 					position: absolute;
 					left: -5px;
@@ -1034,6 +1051,8 @@
 		}
 	}
 }
+
+
 
 
 [data-theme="dark"] .journey {

@@ -10,7 +10,11 @@
     height: 0;
     z-index: 1000;
 }
-
+.disable-nav-g{
+    @media screen and (min-width: 992px) {
+        position: static;
+    }
+}
 .navbar-shell {
     position: absolute;
     bottom: 30px;

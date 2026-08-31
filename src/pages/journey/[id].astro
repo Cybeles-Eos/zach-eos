@@ -28,7 +28,7 @@ const { Content } = await render(entry);
 >
 	<main class="journey-detail">
 		<Header />
-		<Navbar />
+		<Navbar sty={true} />
 
 		<section class="section--hero glb-sec-pad-out">
 			<div class="section--hero__grid" aria-hidden="true"></div>
@@ -89,15 +89,15 @@ const { Content } = await render(entry);
 					</div>
 					<div class="jddm-content">
 						<div class="jddm-content__head">
-							<a href="#">Home</a>
+							<a href="/">Home</a>
 							<svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M0.384766 0.320312L2.88477 3.32031L0.384766 6.32031" stroke="#07D468"/>
 							</svg>
-							<a href="javascript:history.back()">Journeys</a>
+							<a href="/journey">Journeys</a>
 							<svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
 								<path d="M0.384766 0.320312L2.88477 3.32031L0.384766 6.32031" stroke="#07D468"/>
 							</svg>
-							<a href="#" class="jddm-content__head--active">My internship experience as a visual and web developer</a>
+							<a href="" class="jddm-content__head--active">My internship experience as a visual and web developer</a>
 						</div>
 						<img src="/images/def.png" class="jddm-content__banner" alt="Main Banner">
 						<div class="jddm-content__info">
@@ -155,6 +155,10 @@ const { Content } = await render(entry);
 									</li>
 								</ul>
 							</div>
+							<div class="jddm-c-closing">
+								<h3>Building a structure that can grow with the project</h3>
+								<p>During my internship, I learned that clean code is more than making a project look organized. It makes development easier to understand, debug, and improve. By following consistent naming, formatting, and structure, I became more confident when working on unfamiliar code and collaborating with other developers.</p>
+							</div>
 						</div>
 
 					</div>
@@ -166,6 +170,12 @@ const { Content } = await render(entry);
 				<svg width="10" height="16" class="right-tlb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
 				</svg>
+				<svg width="10" height="16" class="left-trb-vec-btm" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
+				</svg>
+				<svg width="10" height="16" class="right-tlb-vec-btm" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
+				</svg>
 			</div>
 		</section>
 
@@ -174,13 +184,6 @@ const { Content } = await render(entry);
 				<div class="section--cls__main">
 
 				</div>
-				
-				<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
-				</svg>
-				<svg width="10" height="16" class="right-tlb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
-				</svg>
 			</div>
 		</section>
 		<!-- <article class="journey-detail glb-pad-inline">
