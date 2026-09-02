@@ -15,7 +15,7 @@ const journeys = await getCollection("journeys");
 >
 	<main class="journey">
 		<Header />
-		<Navbar />
+		<Navbar sty={true} />
 
 		<section class="section--hero glb-sec-pad-out">
 			<div class="section--hero__grid" aria-hidden="true"></div>
@@ -56,106 +56,236 @@ const journeys = await getCollection("journeys");
 			</div>
 		</section>
 
-		<section class="section--story glb-sec-pad-out">
-			<div class="section--story__con">
-				<div class="section--story__main ">
-					<a href="#">
-						<img src="/images/research-def-banner.png" alt="featured image" />
-
-						<div class="con-details-f">
-							<div class="con-details-f__left">
-								<p class="con-details-f--category">INTERNSHIP</p>
-								<h2 class="con-details-f--title">My internship experience as a visual and web developer</h2>
-								<p class="con-details-f--p">Explore the projects, achievements, lessons, and experiences that shaped my skills in design, development, and creating digital experiences.</p>
-							</div>
-							<div class="con-details-f__right">
-								<p class="con-details-f--date">Aug 20, 2026</p>
-							</div>
-						</div>
-					</a>
-				</div>
-				
-				<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
-				</svg>
-				<svg width="10" height="16" class="right-tlb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
-				</svg>
-			</div>
-		</section>
-
-		<section class="section--main glb-sec-pad-out">
-			<div class="section--main__con">
-				<div class="section--main__main ">
-
-					<div class="section--main__contents">
-						<!-- <a href="#" class="mmc-box-j">
-							<div class="mmc-box-j--img">
-								<img src="/images/def.png" alt="Journey Image" />
-							</div>
-							<div class="mmc-box-j__txt">
-								<span class="mmc-box-j__txt--category">INTERNSHIP</span>
-								<h4 class="mmc-box-j__txt--title">My internship experience as a visual and web developer</h4>
-								<p class="mmc-box-j__txt--p">My first real-world role learning how teams ship websites, not just how to code them.</p>
-								<p class="mmc-box-j__txt--date">Aug 20, 2026</p>
-							</div>
-						</a>
-						<a href="#" class="mmc-box-j">
-							<div class="mmc-box-j--img">
-								<img src="/images/def.png" alt="Journey Image" />
-							</div>
-							<div class="mmc-box-j__txt">
-								<span class="mmc-box-j__txt--category">INTERNSHIP</span>
-								<h4 class="mmc-box-j__txt--title">My internship experience as a visual and web developer</h4>
-								<p class="mmc-box-j__txt--p">My first real-world role learning how teams ship websites, not just how to code them.</p>
-								<p class="mmc-box-j__txt--date">Aug 20, 2026</p>
-							</div>
-						</a>
-						<a href="#" class="mmc-box-j">
-							<div class="mmc-box-j--img">
-								<img src="/images/def.png" alt="Journey Image" />
-							</div>
-							<div class="mmc-box-j__txt">
-								<span class="mmc-box-j__txt--category">INTERNSHIP</span>
-								<h4 class="mmc-box-j__txt--title">My internship experience as a visual and web developer</h4>
-								<p class="mmc-box-j__txt--p">My first real-world role learning how teams ship websites, not just how to code them.</p>
-								<p class="mmc-box-j__txt--date">Aug 20, 2026</p>
-							</div>
-						</a> -->
-						{journeys.map((entry: CollectionEntry<"journeys">) => (
-							
-							<a href={`/journey/${entry.id}`} class="mmc-box-j">
-								<div class="mmc-box-j--img">
-									{entry.data.banner ? (
-										<img src={entry.data.banner} alt="banner" />
-									) : (
-										<img src="/images/def.png" alt="Journey Image" />
-									)}
-								</div>
-								<div class="mmc-box-j__txt">
-									<span class="mmc-box-j__txt--category">{entry.data.category}</span>
-									<h4 class="mmc-box-j__txt--title">{entry.data.title}</h4>
-									<p class="mmc-box-j__txt--p">{entry.data.description}</p>
-									<p class="mmc-box-j__txt--date">Aug 20, 2026</p>
-								</div>
-							</a>
-						))}
-					</div>
-					<!-- <ul class="journey-cards">
-						{journeys.map((entry: CollectionEntry<"journeys">) => (
+		<section class="section--details glb-sec-pad-out">
+			<div class="section--details__con">
+				<div class="section--details__main ">
+					<div class="jddm-navs">
+						<h3>Inside This Journey</h3>
+						<ul>
 							<li>
-
-								<a class="journey-card" href={`/journey/${entry.id}`}>
-								{entry.data.banner && (
-									<img src={entry.data.banner} alt="banner" />
-								)}
-									<span class="journey-card__category">{entry.data.category}</span>
-									<h3>{entry.data.title}</h3>
-									<p>{entry.data.description}</p>
+								<a href="#">
+									<span>300 Hours of Learning, Building, and Growing at JAEhub</span>
+									<div class="foo-a-itj">
+										<span>Internship</span>
+										<span>Aug 20, 2026</span>
+									</div>
 								</a>
 							</li>
-						))}
-					</ul> -->
+							<li>
+								<a href="#">
+									<span>Why clean code became one of my biggest lessons</span>
+									<div class="foo-a-itj">
+										<span>Internship</span>
+										<span>Aug 20, 2026</span>
+									</div>
+								</a>
+							</li>
+						</ul>
+						<a href="#"><img src="/images/img-cta.png" alt="cta"></a>
+					</div>
+					<div class="jddm-content">
+						<div class="jddm-content__head">
+							<a href="/">Home</a>
+							<svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M0.384766 0.320312L2.88477 3.32031L0.384766 6.32031" stroke="#07D468"/>
+							</svg>
+							<a href="/journey" class="jddm-content__head--active">Journeys</a>
+						</div>
+						
+						<div class="jddm-c-contents">
+
+
+							<!-- All Contents -->
+							<div class="jddm-c-check-style"
+								data-category="Internship"
+								data-date="Aug 20, 2026"
+							>
+								<img src="/images/def.png" alt="Banner">
+								<h3 class="main-headline-jry">A 300-Hour Internship Filled With New Skills and Real Projects</h3>
+								<p>During my internship, I learned that clean code is more than keeping a project organized. It makes code easier to read, debug, update, and understand. I practiced using clear names, consistent formatting, and proper file structures. These habits helped me work with unfamiliar code, fix issues faster, and collaborate better with other developers.</p>
+								<span class="jddm-c-check-style__title">What I Learned:</span>
+								<ul>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										Frontend development and website structure
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										Using CapCut for video editing
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										Basic image and content editing
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										Managing tasks and meeting project needs
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										Communicating and working with a team
+									</li>
+								</ul>
+								<p>During my internship, I worked on website projects and created UI/UX mockups. I also helped with content and video editing using tools like CapCut. Each task gave me more practice and helped me understand how different parts of a digital project work together.</p>
+								<h3 class="h3-sub">Every Task Helped Me Build Skills I’ll Use in Future Projects</h3>
+								<p>My time at JAEhub taught me how to learn while working on real projects. The experience improved my design, development, editing, and teamwork skills. It also gave me more confidence in handling future projects.</p>
+							</div>
+
+							<div class="line-c-j"></div>
+
+							<div class="jddm-c-check-style"
+								data-category="Capstone"
+								data-date="Aug 25, 2026"
+							>
+								<img src="/images/def.png" alt="Banner">
+								<h3 class="main-headline-jry">From Our Capstone Idea to a Working Local Service Booking Platform</h3>
+								<p>Servease was created as our capstone project by a team of five members. We wanted to build a local service booking platform where customers could find services and connect with providers. As the team leader, I handled much of the coding, helped plan the development stages, reviewed our progress, and guided the team as we worked through each part of the system.</p>
+								<p>We started with our capstone idea and planned the features based on the needs of our users. We created the UI/UX mockups in Figma before starting development. Our team reviewed the designs during QA, discussed what needed to change, and improved the user flow. We then moved from static frontend development to Laravel, database logic, CMS features, authentication, testing, and deployment.</p>
+								<span class="jddm-c-check-style__title">Tools We Used:</span>
+								<ul>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										Laravel for backend development
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										SCSS for website styling
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										JavaScript for frontend features
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										jQuery for interactive functions
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										SQL for database management
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										Figma for UI/UX mockups
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										Brevo for email verification
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										GoDaddy for hosting and deployment
+									</li>
+									<li>
+										<svg width="16" height="16" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<path d="M6.36641 12.0001L2.56641 8.20007L3.51641 7.25007L6.36641 10.1001L12.4831 3.9834L13.4331 4.9334L6.36641 12.0001Z" fill="currentColor"/>
+										</svg>	
+										Cron Job for automated booking updates
+									</li>
+								</ul>
+								<h3 class="h3-sub">How We Built Servease From Our First Capstone Idea</h3>
+								<p>We started by planning the purpose, users, and main features of Servease. After defining the system flow, we created the UI/UX mockups and reviewed them as a team. Once we agreed on the design, we built the static frontend, connected Laravel with SQL, added the backend logic and CMS, then tested each feature before deployment.</p>
+								<h3 class="h3-sub">A Service Booking Platform With Four User Roles</h3>
+								<p>Servease has four main roles. Customers search for services and create bookings. Providers manage their services and booking requests. System admins handle daily platform activities. Super admins manage users, system settings, and higher-level access. Each role has specific features based on its responsibilities.</p>
+								<h3 class="h3-sub">Brevo Helped Us Add Email Verification to Our Capstone System</h3>
+								<p>We used Brevo’s free SMTP service to handle email verification and authentication emails. The free plan provides up to 300 emails per day, which suited our capstone needs. We connected it to Servease so users could receive verification emails during account registration and authentication.</p>
+								<h3 class="h3-sub">Process Flow:</h3>
+								<div class="jddm-c-process-flow">
+									<div class="jddm-c-process-flow__item"> 
+										<span class="jddm-c-process-flow__number">01</span> 
+										<span class="jddm-c-process-flow__title">Capstone Idea</span> 
+									</div>
+									<div class="jddm-c-process-flow__item">
+										<span class="jddm-c-process-flow__number">02</span>
+										<span class="jddm-c-process-flow__title">Feature Planning</span>
+									</div>
+
+									<div class="jddm-c-process-flow__item">
+										<span class="jddm-c-process-flow__number">03</span>
+										<span class="jddm-c-process-flow__title">UI/UX Mockup</span>
+									</div>
+
+									<div class="jddm-c-process-flow__item">
+										<span class="jddm-c-process-flow__number">04</span>
+										<span class="jddm-c-process-flow__title">Team QA</span>
+									</div>
+
+									<div class="jddm-c-process-flow__item">
+										<span class="jddm-c-process-flow__number">05</span>
+										<span class="jddm-c-process-flow__title">Design Revisions</span>
+									</div>
+
+									<div class="jddm-c-process-flow__item">
+										<span class="jddm-c-process-flow__number">06</span>
+										<span class="jddm-c-process-flow__title">Static Frontend</span>
+									</div>
+
+									<div class="jddm-c-process-flow__item">
+										<span class="jddm-c-process-flow__number">07</span>
+										<span class="jddm-c-process-flow__title">Laravel Development</span>
+									</div>
+
+									<div class="jddm-c-process-flow__item">
+										<span class="jddm-c-process-flow__number">08</span>
+										<span class="jddm-c-process-flow__title">SQL Database</span>
+									</div>
+
+									<div class="jddm-c-process-flow__item">
+										<span class="jddm-c-process-flow__number">09</span>
+										<span class="jddm-c-process-flow__title">CMS Development</span>
+									</div>
+
+									<div class="jddm-c-process-flow__item">
+										<span class="jddm-c-process-flow__number">10</span>
+										<span class="jddm-c-process-flow__title">Authentication</span>
+									</div>
+
+									<div class="jddm-c-process-flow__item">
+										<span class="jddm-c-process-flow__number">11</span>
+										<span class="jddm-c-process-flow__title">System Testing</span>
+									</div>
+
+									<div class="jddm-c-process-flow__item">
+										<span class="jddm-c-process-flow__number">12</span>
+										<span class="jddm-c-process-flow__title">Deployment</span>
+									</div>
+								</div>
+								<p>We added a cron job to help manage unfinished bookings. The system checks booking records and looks for completed bookings left without a proper status update. After 16 hours, the system automatically closes the booking. This keeps the booking records updated without requiring manual action.</p>
+								<p>As the team leader, I helped organize the development process and guided our five-member team. I handled much of the coding, reviewed features, helped solve technical issues, and joined the team during UI/UX reviews and QA. I also helped make sure our final system followed our planned capstone requirements.</p>
+								<h3 class="h3-sub">Capstone Defense:</h3>
+								<p>After completing the system, our team successfully defended the Servease capstone project. We presented our system, explained our development process, demonstrated its features, and answered questions about the decisions behind our project.</p>
+								<p>Building Servease gave me experience in leading a team while developing a complete system. It helped me improve my coding, UI/UX, testing, deployment, and problem-solving skills through a real capstone project.</p>
+							</div>
+
+
+						</div>
+
+					</div>
 				</div>
 				
 				<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -224,6 +354,12 @@ const journeys = await getCollection("journeys");
 				<svg width="10" height="16" class="right-tlb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
 				</svg>
+				<svg width="10" height="16" class="left-trb-n-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
+				</svg>
+				<svg width="10" height="16" class="right-tlb-n-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
+				</svg>
 			</div>
 		</section>
 
@@ -232,40 +368,144 @@ const journeys = await getCollection("journeys");
 				<div class="section--cls__main">
 
 				</div>
-				
-				<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
-				</svg>
-				<svg width="10" height="16" class="right-tlb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
-				</svg>
 			</div>
 		</section>
-
-
-		<!-- <section class="section--list glb-pad-inline">
-			<div class="section--list__content">
-				<h2>All <span>steps</span></h2>
-				<p>Each card is a markdown file. Open one to read the full story.</p>
-
-				<pre>{JSON.stringify(journeys, null, 2)}</pre>
-
-				<ul class="journey-cards">
-					{journeys.map((entry: CollectionEntry<"journeys">) => (
-						<li>
-
-							<a class="journey-card" href={`/journey/${entry.id}`}>
-							{entry.data.banner && (
-								<img src={entry.data.banner} alt="banner" />
-							)}
-								<span class="journey-card__category">{entry.data.category}</span>
-								<h3>{entry.data.title}</h3>
-								<p>{entry.data.description}</p>
-							</a>
-						</li>
-					))}
-				</ul>
-			</div>
-		</section> -->
 	</main>
 </Layout>
+<!-- <script>
+	const contents = document.querySelector('.jddm-c-contents')
+	const nav = document.querySelector('.jddm-navs ul')
+
+	if (contents && nav) {
+		const journeyContents = contents.querySelectorAll('.jddm-c-check-style')
+
+		// Clear the existing placeholder navigation
+		nav.innerHTML = ''
+
+		journeyContents.forEach((journey, index) => {
+			const heading = journey.querySelector('.main-headline-jry')
+
+			if (!heading) return
+
+			// Create an ID for each heading
+			const id = `heading-${index + 1}`
+			heading.id = id
+
+			// Get journey metadata
+			const category = journey.dataset.category || ''
+			const date = journey.dataset.date || ''
+
+			const li = document.createElement('li')
+
+			li.innerHTML = `
+				<a href="#${id}">
+					<span>${heading.textContent.trim()}</span>
+
+					<div class="foo-a-itj">
+						<span>${category}</span>
+						<span>${date}</span>
+					</div>
+				</a>
+			`
+
+			nav.appendChild(li)
+		})
+	}
+</script> -->
+
+
+<script>
+	const contents = document.querySelector('.jddm-c-contents')
+	const nav = document.querySelector('.jddm-navs ul')
+
+	if (contents && nav) {
+		const journeyContents = contents.querySelectorAll('.jddm-c-check-style')
+
+		// Clear existing navigation
+		nav.innerHTML = ''
+
+		journeyContents.forEach((journey, index) => {
+			const heading = journey.querySelector('.main-headline-jry')
+
+			if (!heading) return
+
+			// Create an ID for each heading
+			const id = `heading-${index + 1}`
+			heading.id = id
+
+			// Get journey metadata
+			const category = journey.dataset.category || ''
+			const date = journey.dataset.date || ''
+
+			// Create navigation item
+			const li = document.createElement('li')
+
+			li.innerHTML = `
+				<a href="#${id}">
+					<span>${heading.textContent.trim()}</span>
+
+					<div class="foo-a-itj">
+						<span>${category}</span>
+						<span>${date}</span>
+					</div>
+				</a>
+			`
+
+			nav.appendChild(li)
+		})
+
+
+		//---------------- for active nav link on scroll 
+
+		const navLinks = nav.querySelectorAll('a')
+		const headings = contents.querySelectorAll('.main-headline-jry')
+
+		const updateActiveNav = () => {
+			let activeIndex = 0
+			const offset = 700
+
+			headings.forEach((heading, index) => {
+				const rect = heading.getBoundingClientRect()
+
+				if (rect.top <= offset) {
+					activeIndex = index
+				}
+			})
+
+			navLinks.forEach((link, index) => {
+				link.classList.toggle(
+					'active-link-j',
+					index === activeIndex
+				)
+			})
+		}
+
+		navLinks.forEach((link) => {
+			link.addEventListener('click', (event) => {
+				event.preventDefault()
+
+				const targetId = link.getAttribute('href')
+				const target = document.querySelector(targetId)
+
+				if (!target) return
+
+				const offset = 400
+
+				const targetPosition =
+					target.getBoundingClientRect().top +
+					window.scrollY -
+					offset
+
+				window.scrollTo({
+					top: targetPosition,
+					behavior: 'smooth'
+				})
+			})
+		})
+
+		window.addEventListener('scroll', updateActiveNav)
+		window.addEventListener('resize', updateActiveNav)
+
+		updateActiveNav()
+	}
+</script>
