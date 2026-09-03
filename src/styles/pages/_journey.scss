@@ -140,6 +140,8 @@
 
 		}
 
+
+
 		&--details{
 			width: 100%;
 			border-bottom: 1px solid var(--main-brd-clr);
@@ -369,6 +371,12 @@
 					}
 					p{
 						margin-bottom: 25px !important;
+
+						@media (max-width: 1400px) {
+							font-size: 15px;
+							line-height: 180%;
+							
+						}
 					}
 					&__title{
 						display: block;

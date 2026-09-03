@@ -2,6 +2,8 @@
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
+
+import { TECH_LANGUAGES } from "../data/techLanguages";
 ---
 
 <Layout
@@ -12,20 +14,168 @@ import Header from "../partials/header.astro";
 		<Header />
 		<Navbar />
 
-		<section class="section--hero glb-pad-inline glb-pad-block">
-			<div class="section--hero__main">
-				<h1>About <span>me</span></h1>
-				<p>
-					This is a placeholder About page. Add your story, background, and what you care about
-					building on the web.
-				</p>
+		<section class="section--hero glb-sec-pad-out">
+			<div class="section--hero__con">
+				<div class="section--hero__main glb-sec-pad">
+					<div class="con-abt-h">
+						<div>
+							<!-- <h1>Building websites and growing through every project</h1> -->
+							<h1>A Motivated Web Developer </h1>
+							<p>Hi, my name is Zach. I’m a Junior Full-Stack Developer who enjoys building websites and creating UI/UX designs.</p>
+						</div>
+
+						<div class="con-abt-h-showcase">
+							<img src="/images/about-banner.png" alt="Zach Portfolio" />
+							<div>
+								<p>Beyond The Code</p>
+								<span>From learning code to building experiences.</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
 			</div>
 		</section>
 
-		<section class="section--story glb-pad-inline">
-			<div class="section--story__content">
-				<h2>My <span>story</span></h2>
-				<p>Dummy section for bio, values, or a longer introduction.</p>
+		<!-- <section class="section--roll"> 
+			<div
+				class="skrollable"
+				data-bottom-top-desktop="transform: translateY(-4rem);"
+				data-bottom-top-mobile="transform: translateY(-15rem);"
+				data-top-bottom="transform: translateY(-45rem);"
+			>
+				<img src="/images/scroll-banners/banner-1.png" alt="banners">
+				<img src="/images/scroll-banners/banner-2.png" alt="banners">
+				<img src="/images/scroll-banners/banner-3.png" alt="banners">
+				<img src="/images/scroll-banners/banner-4.png" alt="banners">
+				<img src="/images/scroll-banners/banner-5.png" alt="banners">
+				<img src="/images/scroll-banners/banner-9.png" alt="banners">
+				<img src="/images/scroll-banners/banner-19.png" alt="banners">
+				<img src="/images/scroll-banners/banner-20.png" alt="banners">
+				<img src="/images/scroll-banners/banner-6.png" alt="banners">
+				<img src="/images/scroll-banners/banner-17.png" class="extra-left" alt="banners">
+				<img src="/images/scroll-banners/banner-18.png" class="extra-left" alt="banners">
+				<img src="/images/scroll-banners/banner-23.png" class="extra-left" alt="banners">
+				<img src="/images/scroll-banners/banner-24.png" class="extra-left" alt="banners">
+			</div>
+			<div
+				class="skrollable"
+
+				data-bottom-top-desktop="transform: translateY(-18rem);"
+				data-bottom-top-mobile="transform: translateY(-25rem);"
+				data-top-bottom="transform: translateY(8rem);"
+			>
+				<img src="/images/scroll-banners/banner-7.png" alt="banners">
+				<img src="/images/scroll-banners/banner-15.png" alt="banners">
+				<img src="/images/scroll-banners/banner-13.png" alt="banners">
+				<img src="/images/scroll-banners/banner-10.png" alt="banners">
+				<img src="/images/scroll-banners/banner-11.png" alt="banners">
+				<img src="/images/scroll-banners/banner-12.png" alt="banners">
+				<img src="/images/scroll-banners/banner-21.png" alt="banners">
+				<img src="/images/scroll-banners/banner-22.png" alt="banners">
+
+				<img src="/images/scroll-banners/banner-14.png" class="extra-center" alt="banners">
+				<img src="/images/scroll-banners/banner-15.png" class="extra-center" alt="banners">
+				<img src="/images/scroll-banners/banner-16.png" class="extra-center" alt="banners">
+			</div>
+			<div class="skrollable last--bxob" data-bottom-top="transform: translateY(-4rem);" data-top-bottom="transform: translateY(-45rem);">
+				<img src="/images/scroll-banners/banner-6.png" alt="banners">
+				<img src="/images/scroll-banners/banner-14.png" alt="banners">
+				<img src="/images/scroll-banners/banner-8.png" alt="banners">
+				<img src="/images/scroll-banners/banner-16.png" alt="banners">
+				<img src="/images/scroll-banners/banner-17.png" alt="banners">
+				<img src="/images/scroll-banners/banner-18.png" alt="banners">
+				<img src="/images/scroll-banners/banner-23.png" alt="banners">
+				<img src="/images/scroll-banners/banner-24.png" alt="banners">
+				<img src="/images/scroll-banners/banner-1.png" alt="banners">
+			</div>
+
+			<img src="/images/noise.png" class="noise" alt="banners">
+		</section> -->
+
+		<section class="section--contents glb-sec-pad-out">
+			<div class="section--contents__con">
+				<div class="section--contents__main">
+					<div class="abt-scm-details">
+
+						<div class="profile-abt-p">
+							<img src="/images/myself-abt.png" alt="Profile Image">
+							<div class="profile-abt-p__info">
+								<div class="profile-abt-p__info--box">
+									<h1>20+</h1>
+									<p>Completed Projects</p>
+								</div>
+								<div class="profile-abt-p__info--line"></div>
+								<div class="profile-abt-p__info--box">
+									<h1>11+</h1>
+									<p>Certificate Received</p>
+								</div>
+								<div class="profile-abt-p__info--line"></div>
+								<div class="profile-abt-p__info--box">
+									<h1>20+</h1>
+									<p>Completed Projects</p>
+								</div>
+							</div>
+						</div>
+
+						<h4>About Me</h4>
+						<p>I’m a junior full-stack developer focused on building websites and creating UI/UX designs. I enjoy turning ideas into clean and useful digital experiences. My skills have grown through freelance work, internships, school projects, and personal builds. I work with frontend tools, backend systems, and design software. Every project helps me solve problems, gain experience, and create better results.</p>
+
+
+
+					</div>
+					<div class="abt-scm-info">
+						<p class="abt-scm-info--pret">What I Do</p>
+
+						<div class="abt-scm-info--tags">
+							<div class="abt-scm-info--tags__tag">
+								<span>Web Design</span>
+							</div>
+							<div class="abt-scm-info--tags__tag">
+								<span>Web Developer</span>
+							</div>
+							<div class="abt-scm-info--tags__tag">
+								<span>UI / UX</span>
+							</div>
+							<div class="abt-scm-info--tags__tag">
+								<span>Backend Developer</span>
+							</div>
+							<div class="abt-scm-info--tags__tag">
+								<span>Frontend Developer</span>
+							</div>
+							<div class="abt-scm-info--tags__tag">
+								<span>Basic Video Editing</span>
+							</div>
+						</div>
+
+						<hr>
+
+						<p class="abt-scm-info--pret">Current Stack</p>
+
+
+
+						<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+							<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
+						</svg>
+					</div>
+				</div>
+				
+				<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
+				</svg>
+				<svg width="10" height="16" class="right-tlb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
+				</svg>
+			</div>
+		</section>
+
+
+
+		<section class="section--cls glb-sec-pad-out">
+			<div class="section--cls__con">
+				<div class="section--cls__main">
+
+				</div>
 			</div>
 		</section>
 
