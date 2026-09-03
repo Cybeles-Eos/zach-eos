@@ -320,7 +320,7 @@
 							width: 155px;
 							height: 155px;
 							border-radius: 8px;
-							object-fit: cover;
+							object-fit: cover !important;
 							object-position: center;
 
 							@media (max-width: 492px) {
