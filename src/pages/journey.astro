@@ -72,7 +72,7 @@ const journeys = await getCollection("journeys");
 								</a>
 							</li>
 						</ul>
-						<a href="/contact"><img src="/images/img-cta.png" alt="cta"></a>
+						<a href="/contact"><img src="/images/img-cta.png" alt="cta"></a>						
 					</div>
 					<div class="jddm-content">
 						<div class="jddm-content__head">
@@ -84,7 +84,6 @@ const journeys = await getCollection("journeys");
 						</div>
 						
 						<div class="jddm-c-contents">
-
 
 							<!-- All Contents -->
 							<div class="jddm-c-check-style"
@@ -328,6 +327,7 @@ const journeys = await getCollection("journeys");
 								<p>After completing the system, our team successfully defended the Servease capstone project. We presented our system, explained our development process, demonstrated its features, and answered questions about the decisions behind our project.</p>
 								<p>Building Servease gave me experience in leading a team while developing a complete system. It helped me improve my coding, UI/UX, testing, deployment, and problem-solving skills through a real capstone project.</p>
 							</div>
+
 						</div>
 
 					</div>
@@ -417,48 +417,7 @@ const journeys = await getCollection("journeys");
 		</section>
 	</main>
 </Layout>
-<!-- <script>
-	const contents = document.querySelector('.jddm-c-contents')
-	const nav = document.querySelector('.jddm-navs ul')
-
-	if (contents && nav) {
-		const journeyContents = contents.querySelectorAll('.jddm-c-check-style')
-
-		// Clear the existing placeholder navigation
-		nav.innerHTML = ''
-
-		journeyContents.forEach((journey, index) => {
-			const heading = journey.querySelector('.main-headline-jry')
-
-			if (!heading) return
-
-			// Create an ID for each heading
-			const id = `heading-${index + 1}`
-			heading.id = id
-
-			// Get journey metadata
-			const category = journey.dataset.category || ''
-			const date = journey.dataset.date || ''
-
-			const li = document.createElement('li')
-
-			li.innerHTML = `
-				<a href="#${id}">
-					<span>${heading.textContent.trim()}</span>
-
-					<div class="foo-a-itj">
-						<span>${category}</span>
-						<span>${date}</span>
-					</div>
-				</a>
-			`
-
-			nav.appendChild(li)
-		})
-	}
-</script> -->
-
-
+<!-- 
 <script>
 	const contents = document.querySelector('.jddm-c-contents')
 	const nav = document.querySelector('.jddm-navs ul')
@@ -559,4 +518,113 @@ const journeys = await getCollection("journeys");
 
 		updateActiveNav()
 	}
+</script> -->
+
+<script>
+	const initJourney = () => {
+		const contents = document.querySelector('.jddm-c-contents')
+		const nav = document.querySelector('.jddm-navs ul')
+
+		if (!contents || !nav) return
+
+		const journeyContents =
+			contents.querySelectorAll('.jddm-c-check-style')
+
+		// Clear existing navigation
+		nav.innerHTML = ''
+
+		journeyContents.forEach((journey) => {
+			const heading =
+				journey.querySelector('.main-headline-jry')
+
+			if (!heading) return
+
+			// Create ID from title
+			const title = heading.textContent.trim()
+
+			const id = title
+				.toLowerCase()
+				.replace(/[^\w\s-]/g, '')
+				.replace(/\s+/g, '-')
+
+			heading.id = id
+
+			// Get journey metadata
+			const category = journey.dataset.category || ''
+			const date = journey.dataset.date || ''
+
+			// Create navigation item
+			const li = document.createElement('li')
+
+			li.innerHTML = `
+				<a href="#${id}">
+					<span>${heading.textContent.trim()}</span>
+
+					<div class="foo-a-itj">
+						<span>${category}</span>
+						<span>${date}</span>
+					</div>
+				</a>
+			`
+
+			nav.appendChild(li)
+		})
+
+		const navLinks = nav.querySelectorAll('a')
+		const headings =
+			contents.querySelectorAll('.main-headline-jry')
+
+		const updateActiveNav = () => {
+			let activeIndex = 0
+			const offset = 700
+
+			headings.forEach((heading, index) => {
+				const rect = heading.getBoundingClientRect()
+
+				if (rect.top <= offset) {
+					activeIndex = index
+				}
+			})
+
+			navLinks.forEach((link, index) => {
+				link.classList.toggle(
+					'active-link-j',
+					index === activeIndex
+				)
+			})
+		}
+
+		navLinks.forEach((link) => {
+			link.addEventListener('click', (event) => {
+				event.preventDefault()
+
+				const targetId = link.getAttribute('href')
+
+				if (!targetId) return
+
+				const target = document.querySelector(targetId)
+
+				if (!target) return
+
+				const offset = 400
+
+				const targetPosition =
+					target.getBoundingClientRect().top +
+					window.scrollY -
+					offset
+
+				window.scrollTo({
+					top: targetPosition,
+					behavior: 'smooth'
+				})
+			})
+		})
+
+		window.addEventListener('scroll', updateActiveNav)
+		window.addEventListener('resize', updateActiveNav)
+
+		updateActiveNav()
+	}
+
+	document.addEventListener('astro:page-load', initJourney)
 </script>
