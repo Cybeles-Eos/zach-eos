@@ -233,8 +233,61 @@ import StackBox from "../components/stack-box.astro";
 
 						<!-- <hr> -->
 
-						<h4>Experiences</h4>
+						<!-- <h4>Github Board</h4> -->
+<div class="github-main">
 
+	<div class="github-main__header">
+		<div class="github-main__title">
+			<h4>GitHub Activity</h4>
+			<!-- <p>My coding activity over the past year.</p> -->
+		</div>
+
+	<div class="github-main__stats">
+		<strong class="github-total">0</strong>
+		<span>contributions in 2026</span>
+	</div>
+	</div>
+
+	<!-- <div class="github-main__stats">
+		<strong class="github-total">0</strong>
+		<span>contributions in 2026</span>
+	</div> -->
+
+	<div class="github-main__wrapper">
+
+		<div class="github-main__months"></div>
+
+		<div class="github-main__calendar">
+
+			<div class="github-main__days">
+				<span>Mon</span>
+				<span>Wed</span>
+				<span>Fri</span>
+			</div>
+
+			<div class="github-main__board"></div>
+
+		</div>
+
+
+	</div>
+
+		<div class="github-main__bottom">
+
+			<span>Less</span>
+
+			<div class="github-main__legend">
+				<i></i>
+				<i></i>
+				<i></i>
+				<i></i>
+				<i></i>
+			</div>
+
+			<span>More</span>
+
+		</div>
+</div>
 
 					</div>
 					<div class="abt-scm-info">
@@ -356,6 +409,308 @@ import StackBox from "../components/stack-box.astro";
 		emblaApi.on("select", updateDots);
 		emblaApi.on("reInit", createDots);
 	};
+const initGithubBoard = async () => {
+	const board = document.querySelector(".github-main__board");
+	const months = document.querySelector(".github-main__months");
+	const total = document.querySelector(".github-total");
 
-	document.addEventListener("astro:page-load", initCertificates);
+	if (!board || !months) return;
+
+	try {
+		const response = await fetch(
+			"https://github-contributions-api.jogruber.de/v4/Cybeles-Eos?y=2025&y=2026"
+		);
+
+		if (!response.ok) {
+			throw new Error("Failed to fetch GitHub contributions");
+		}
+
+		const data = await response.json();
+
+		/*
+		 * ----------------------------------------
+		 * DATE RANGE
+		 * ----------------------------------------
+		 */
+
+		const today = new Date();
+
+		today.setHours(0, 0, 0, 0);
+
+		const oneYearAgo = new Date(today);
+
+		oneYearAgo.setFullYear(
+			oneYearAgo.getFullYear() - 1
+		);
+
+		/*
+		 * ----------------------------------------
+		 * FILTER EXACTLY ONE YEAR
+		 * ----------------------------------------
+		 */
+
+		const contributions = data.contributions
+			.filter((day) => {
+				const date = new Date(`${day.date}T00:00:00`);
+
+				return (
+					date >= oneYearAgo &&
+					date <= today
+				);
+			})
+			.map((day) => ({
+				...day,
+				dateObject: new Date(`${day.date}T00:00:00`)
+			}));
+
+		if (!contributions.length) {
+			throw new Error("No GitHub contribution data found");
+		}
+
+		/*
+		 * ----------------------------------------
+		 * CLEAR BOARD
+		 * ----------------------------------------
+		 */
+
+		board.innerHTML = "";
+		months.innerHTML = "";
+
+		/*
+		 * ----------------------------------------
+		 * TOTAL CONTRIBUTIONS
+		 * ----------------------------------------
+		 */
+
+		const contributionTotal = contributions.reduce(
+			(total, day) => total + day.count,
+			0
+		);
+
+		if (total) {
+			total.textContent =
+				contributionTotal.toLocaleString();
+		}
+
+		/*
+		 * ----------------------------------------
+		 * CREATE DATE MAP
+		 * ----------------------------------------
+		 */
+
+		const contributionMap = new Map();
+
+		contributions.forEach((day) => {
+			contributionMap.set(day.date, day);
+		});
+
+		/*
+		 * ----------------------------------------
+		 * GROUP INTO WEEKS
+		 *
+		 * Sunday = 0
+		 * Monday = 1
+		 * ...
+		 * Saturday = 6
+		 * ----------------------------------------
+		 */
+
+		const weeks = [];
+
+		let currentWeek = [];
+
+		contributions.forEach((day) => {
+
+			const weekday =
+				day.dateObject.getDay();
+
+			/*
+			 * Start the first week at the
+			 * correct weekday.
+			 */
+
+			if (
+				currentWeek.length === 0 &&
+				weekday !== 0
+			) {
+				for (let i = 0; i < weekday; i++) {
+					currentWeek.push(null);
+				}
+			}
+
+			currentWeek.push(day);
+
+			/*
+			 * Finish the week on Saturday.
+			 */
+
+			if (weekday === 6) {
+				weeks.push(currentWeek);
+				currentWeek = [];
+			}
+		});
+
+		/*
+		 * Add the final incomplete week.
+		 */
+
+		if (currentWeek.length) {
+			weeks.push(currentWeek);
+		}
+
+		/*
+		 * ----------------------------------------
+		 * RENDER CALENDAR
+		 * ----------------------------------------
+		 */
+
+		weeks.forEach((week) => {
+
+			/*
+			 * Always create exactly 7 rows.
+			 */
+
+			for (let row = 0; row < 7; row++) {
+
+				const day = week[row];
+
+				const square =
+					document.createElement("div");
+
+				square.classList.add("github-day");
+
+				/*
+				 * Empty cells are only used to preserve
+				 * the correct weekday position.
+				 */
+
+				if (!day) {
+					square.classList.add(
+						"github-day--empty"
+					);
+
+					board.appendChild(square);
+
+					continue;
+				}
+
+				/*
+				 * Use GitHub API's level directly.
+				 */
+
+				if (day.level > 0) {
+					square.classList.add(
+						`github-day--${day.level}`
+					);
+				}
+
+				/*
+				 * Tooltip
+				 */
+
+				const formattedDate =
+					day.dateObject.toLocaleDateString(
+						"en-US",
+						{
+							month: "short",
+							day: "numeric",
+							year: "numeric"
+						}
+					);
+
+				square.title =
+					`${day.count} contributions on ${formattedDate}`;
+
+				board.appendChild(square);
+			}
+		});
+
+		/*
+		 * ----------------------------------------
+		 * MONTH LABELS
+		 * ----------------------------------------
+		 */
+
+		const seenMonths = new Set();
+
+		contributions.forEach((day) => {
+
+			const date = day.dateObject;
+
+			const monthKey =
+				`${date.getFullYear()}-${date.getMonth()}`;
+
+			if (seenMonths.has(monthKey)) {
+				return;
+			}
+
+			seenMonths.add(monthKey);
+
+			const monthElement =
+				document.createElement("span");
+
+			monthElement.classList.add(
+				"github-month"
+			);
+
+			monthElement.textContent =
+				date.toLocaleDateString(
+					"en-US",
+					{
+						month: "short"
+					}
+				);
+
+			/*
+			 * Find which week contains this date.
+			 */
+
+			const firstDay =
+				contributions[0].dateObject;
+
+			const daysFromStart =
+				Math.floor(
+					(date - firstDay) /
+					(1000 * 60 * 60 * 24)
+				);
+
+			const firstWeekday =
+				firstDay.getDay();
+
+			const weekIndex =
+				Math.floor(
+					(daysFromStart + firstWeekday) / 7
+				);
+
+			const percentage =
+				(weekIndex / weeks.length) * 100;
+
+			monthElement.style.left =
+				`${percentage}%`;
+
+			months.appendChild(
+				monthElement
+			);
+		});
+
+	} catch (error) {
+
+		console.error(
+			"GitHub contribution error:",
+			error
+		);
+
+		board.innerHTML = `
+			<p class="github-error">
+				Unable to load GitHub activity.
+			</p>
+		`;
+	}
+};
+
+document.addEventListener("astro:page-load", () => {
+	initCertificates();
+	initGithubBoard();
+});
+	// document.addEventListener("astro:page-load", initCertificates);
 </script>
