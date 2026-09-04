@@ -4,6 +4,10 @@ import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
 
 import { TECH_LANGUAGES } from "../data/techLanguages";
+import StackBox from "../components/stack-box.astro";
+
+
+
 ---
 
 <Layout
@@ -24,13 +28,7 @@ import { TECH_LANGUAGES } from "../data/techLanguages";
 							<p>Hi, my name is Zach. I’m a Junior Full-Stack Developer who enjoys building websites and creating UI/UX designs.</p>
 						</div>
 
-						<div class="con-abt-h-showcase">
-							<img src="/images/about-banner.png" alt="Quote" />
-							<div>
-								<p>Beyond The Code</p>
-								<span>From learning code to building experiences.</span>
-							</div>
-						</div>
+						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5TpPSTItCwtZ8Sltr3vdzm?utm_source=generator&theme=0&si=7057706fdc984357" width="auto" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
 					</div>
 
 				</div>
@@ -112,8 +110,8 @@ import { TECH_LANGUAGES } from "../data/techLanguages";
 								</div>
 								<div class="profile-abt-p__info--line"></div>
 								<div class="profile-abt-p__info--box">
-									<h1>20+</h1>
-									<p>Completed Projects</p>
+									<h1>1.5+</h1>
+									<p>Years of Experience</p>
 								</div>
 							</div>
 						</div>
@@ -121,6 +119,121 @@ import { TECH_LANGUAGES } from "../data/techLanguages";
 						<h4>About Me</h4>
 						<p>I’m a junior full-stack developer focused on building websites and creating UI/UX designs. I enjoy turning ideas into clean and useful digital experiences. My skills have grown through freelance work, internships, school projects, and personal builds. I work with frontend tools, backend systems, and design software. Every project helps me solve problems, gain experience, and create better results.</p>
 
+						<hr>
+
+						<h4>Experiences</h4>
+						<div class="exp-table">
+							<div class="exp-table__head">
+								<div>
+									<p>Company</p>
+								</div>
+								<div>
+									<p>POSITION</p>
+								</div>
+								<div>
+									<p>DURATION</p>
+								</div>
+							</div>
+							<div class="exp-table__row">
+								<div>
+									<p>Monte Carlo Technologies</p>
+								</div>
+								<div>
+									<p>Freelance Full-stack Dev</p>
+								</div>
+								<div>
+									<p>May 2025 - July 2026</p>
+								</div>
+							</div>
+							<div class="exp-table__row">
+								<div>
+									<p>JAE HUB</p>
+								</div>
+								<div>
+									<p>Internship Web Developer</p>
+								</div>
+								<div>
+									<p>July 2025 - Oct 2026</p>
+								</div>
+							</div>
+							<div class="exp-table__row">
+								<div>
+									<p>Nitro Tech Media</p>
+								</div>
+								<div>
+									<p>UI/UX & Web Developer</p>
+								</div>
+								<div>
+									<p>Project-Based</p>
+								</div>
+							</div>
+						</div>
+
+						<h4 class="cert-title">Certificates<span></span></h4>
+						<div class="cert-con">
+							<div class="cert-con-track">
+
+								<div class="cert-con-box">
+									<h5>Computer System Servicing</h5>
+									<span>Jun 2025 - Oct 2026</span>
+
+									<div>
+										TESDA CERT
+									</div>
+
+									<img src="/images/certificate-banners/test.png" alt="cert">
+								</div>
+
+								<div class="cert-con-box">
+									<h5>Computer System Servicing</h5>
+									<span>Jun 2025 - Oct 2026</span>
+
+									<div>
+										TESDA CERT
+									</div>
+
+									<img src="/images/certificate-banners/test.png" alt="cert">
+								</div>
+
+								<div class="cert-con-box">
+									<h5>Computer System Servicing</h5>
+									<span>Jun 2025 - Oct 2026</span>
+
+									<div>
+										TESDA CERT
+									</div>
+
+									<img src="/images/certificate-banners/test.png" alt="cert">
+								</div>
+
+								<div class="cert-con-box">
+									<h5>Computer System Servicing</h5>
+									<span>Jun 2025 - Oct 2026</span>
+
+									<div>
+										TESDA CERT
+									</div>
+
+									<img src="/images/certificate-banners/test.png" alt="cert">
+								</div>
+
+								<div class="cert-con-box">
+									<h5>Computer System Servicing</h5>
+									<span>Jun 2025 - Oct 2026</span>
+
+									<div>
+										TESDA CERT
+									</div>
+
+									<img src="/images/certificate-banners/test.png" alt="cert">
+								</div>
+							</div>
+						</div>
+						<div class="cert-dots"></div>
+
+						<!-- <hr> -->
+
+						<h4>Experiences</h4>
 
 
 					</div>
@@ -144,7 +257,7 @@ import { TECH_LANGUAGES } from "../data/techLanguages";
 								<span>Frontend Developer</span>
 							</div>
 							<div class="abt-scm-info--tags__tag">
-								<span>Basic Video Editing</span>
+								<span>Basic Promotional Editing</span>
 							</div>
 						</div>
 
@@ -152,7 +265,11 @@ import { TECH_LANGUAGES } from "../data/techLanguages";
 
 						<p class="abt-scm-info--pret">Current Stack</p>
 
-
+						<div class="abt-scm-info--stack">
+							{TECH_LANGUAGES.map((item) => (
+								<StackBox item={item} />
+							))}
+						</div>
 
 						<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
 							<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
@@ -181,3 +298,64 @@ import { TECH_LANGUAGES } from "../data/techLanguages";
 
 	</main>
 </Layout>
+<script>
+	import EmblaCarousel from "embla-carousel";
+
+	let emblaApi;
+
+	const initCertificates = () => {
+		const certContainer = document.querySelector(".cert-con");
+		const dotsContainer = document.querySelector(".cert-dots");
+		const certTitle = document.querySelector(".cert-title span");
+
+		if (!certContainer || !dotsContainer) return;
+
+		if (emblaApi) {
+			emblaApi.destroy();
+			emblaApi = undefined;
+		}
+
+		emblaApi = EmblaCarousel(certContainer, {
+			loop: false,
+			dragFree: true,
+			containScroll: "trimSnaps"
+		});
+
+		const createDots = () => {
+			dotsContainer.innerHTML = "";
+
+			const snapCount = emblaApi.scrollSnapList().length;
+
+			emblaApi.scrollSnapList().forEach((_, index) => {
+				const dot = document.createElement("span");
+
+				dot.classList.add("dot");
+
+				if (index === emblaApi.selectedScrollSnap()) {
+					dot.classList.add("active");
+				}
+
+				dotsContainer.appendChild(dot);
+			});
+			if (certTitle) {
+				certTitle.textContent = `(${snapCount})`;
+			}
+		};
+
+		const updateDots = () => {
+			const dots = dotsContainer.querySelectorAll(".dot");
+			const selected = emblaApi.selectedScrollSnap();
+
+			dots.forEach((dot, index) => {
+				dot.classList.toggle("active", index === selected);
+			});
+		};
+
+		createDots();
+
+		emblaApi.on("select", updateDots);
+		emblaApi.on("reInit", createDots);
+	};
+
+	document.addEventListener("astro:page-load", initCertificates);
+</script>
