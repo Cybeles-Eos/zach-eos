@@ -748,31 +748,39 @@
 							height: 100%;
 							min-width: 8px;
 							border-radius: 2px;
-							background-color: var(--main-brd-clr);
+
+							background-color: var(--github-level-0);
+
 							cursor: pointer;
+
 							transition:
 								transform .15s ease,
 								opacity .15s ease;
 
 							&:hover{
-								transform: scale(1.35);
+								transform: scale(1.16);
 								z-index: 5;
 							}
 
 							&--1{
-								background-color: rgba(0, 120, 80, .22);
+								background-color: var(--github-level-1);
 							}
 
 							&--2{
-								background-color: rgba(0, 120, 80, .42);
+								background-color: var(--github-level-2);
 							}
 
 							&--3{
-								background-color: rgba(3, 155, 104, 0.65);
+								background-color: var(--github-level-3);
 							}
 
 							&--4{
-								background-color: rgba(0, 216, 144, 0.9);
+								background-color: var(--github-level-4);
+							}
+
+							&--padding{
+								cursor: default;
+								pointer-events: none;
 							}
 						}
 
@@ -804,22 +812,22 @@
 
 								border-radius: 2px;
 
-								background-color: var(--main-brd-clr);
+								background-color: var(--github-level-0);
 
 								&:nth-child(2){
-									background-color: rgba(0, 120, 80, .22);
+									background-color: var(--github-level-1);
 								}
 
 								&:nth-child(3){
-									background-color: rgba(0, 120, 80, .42);
+									background-color: var(--github-level-2);
 								}
 
 								&:nth-child(4){
-									background-color: rgba(3, 155, 104, 0.65);
+									background-color: var(--github-level-3);
 								}
 
 								&:nth-child(5){
-									background-color: rgba(0, 216, 144, 0.9);
+									background-color: var(--github-level-4);
 								}
 							}
 						}
@@ -1211,19 +1219,39 @@
 		background-color: var(--dark);
 	}
 }
-
 [data-theme="light"]{
-	--fnt-w-abt: 400;	
+
+	--fnt-w-abt: 400;
+
 	--cet-b-bg: #fff;
-    --box-shadow:
-        0 4px 12px rgba(0, 0, 0, 0.06),
-        0 1px 3px rgba(0, 0, 0, 0.164);
+
+	--box-shadow:
+		0 4px 12px rgba(0, 0, 0, 0.06),
+		0 1px 3px rgba(0, 0, 0, 0.164);
+
+	// GitHub contribution colors
+	--github-level-0: #ebedf0;
+	--github-level-1: #9be9a8;
+	--github-level-2: #40c463;
+	--github-level-3: #30a14e;
+	--github-level-4: #216e39;
 }
 
+
 [data-theme="dark"]{
+
 	--fnt-w-abt: 200;
+
 	--cet-b-bg: #101111;
-    --box-shadow:
-        0 4px 16px rgba(0, 0, 0, 0.25),
-        0 1px 4px rgba(0, 0, 0, 0.18);
+
+	--box-shadow:
+		0 4px 16px rgba(0, 0, 0, 0.25),
+		0 1px 4px rgba(0, 0, 0, 0.18);
+
+	// GitHub contribution colors
+	--github-level-0: #161b22;
+	--github-level-1: #0e4429;
+	--github-level-2: #006d32;
+	--github-level-3: #26a641;
+	--github-level-4: #39d353;
 }
