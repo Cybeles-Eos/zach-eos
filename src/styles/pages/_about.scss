@@ -84,7 +84,7 @@
 				z-index: 1;
 				user-select: none;
 				-webkit-user-drag: none;
-
+				display: var(--show);
 				@media (max-width: 492px) {
 					bottom: -110rem;
 				}

@@ -35,6 +35,7 @@
 				left: 50%;
 				transform: translateX(-50%);
 				bottom: -3rem;
+				display: var(--show);
 			}
 			&__grid {
 				--hero-grid-circle-y: -19rem;
