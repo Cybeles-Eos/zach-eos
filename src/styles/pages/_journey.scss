@@ -110,9 +110,13 @@
 				h1{
 					max-width: 700px !important;
 					margin-top: 50px;
+					position: relative;
+					z-index: 5;
 				}
 				p{
-					max-width: 455px;
+					max-width: 475px;
+					position: relative;
+					z-index: 5;
 				}
 
 				@media (max-width: 992px) {
@@ -481,7 +485,7 @@
 			border-bottom: 1px solid var(--main-brd-clr);
 			// height: 380px;
 			position: relative;
-
+		
 			&__con{
 				position: relative;
 				max-width: var(--page-width);
@@ -490,6 +494,7 @@
 				border-inline: 1px solid var(--main-brd-clr);
 				border-style: dashed;
 				border-block: none;
+					
 				.left-trb-vec{
 					position: absolute;
 					left: -3px;
@@ -529,7 +534,7 @@
 				
 
 				position: relative;
-
+				
 				&::before{
 					content: "";
 					position: absolute;

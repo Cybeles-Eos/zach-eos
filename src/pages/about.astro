@@ -19,17 +19,40 @@ import StackBox from "../components/stack-box.astro";
 		<Navbar />
 
 		<section class="section--hero glb-sec-pad-out">
+			<div class="section--hero__grid" aria-hidden="true"></div>
 			<div class="section--hero__con">
 				<div class="section--hero__main glb-sec-pad">
-					<div class="con-abt-h">
-						<div>
-							<!-- <h1>Building websites and growing through every project</h1> -->
-							<h1>A Motivated Web Developer </h1>
-							<p>Hi, my name is Zach. I’m a Junior Full-Stack Developer who enjoys building websites and creating UI/UX designs.</p>
-						</div>
-
-						<iframe data-testid="embed-iframe" style="border-radius:12px" src="https://open.spotify.com/embed/track/5TpPSTItCwtZ8Sltr3vdzm?utm_source=generator&theme=0&si=7057706fdc984357" width="auto" height="152" frameBorder="0" allowfullscreen="" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" loading="lazy"></iframe>
-					</div>
+					<h1>A motivated <span>web developer</span></h1>
+					<p>Hi, my name is Zach. I’m a Junior Full-Stack Developer who enjoys building websites and creating UI/UX designs.</p>
+					<img src="/images/abt-svg.svg" alt="vector" class="vector-svg-jny">
+					<svg width="2158" height="2158" class="section--hero--svg" viewBox="0 0 2158 2158" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<g opacity="0.2" filter="url(#filter0_f_2690_2519)">
+						<circle cx="1078.62" cy="1078.62" r="523.621" fill="#00A14C"/>
+						</g>
+						<g opacity="0.2" filter="url(#filter1_f_2690_2519)">
+						<circle cx="1115.2" cy="1071.25" r="412.48" fill="#07D468"/>
+						</g>
+						<g opacity="0.2" filter="url(#filter2_f_2690_2519)">
+						<circle cx="1115.2" cy="1049.99" r="290.366" fill="white"/>
+						</g>
+						<defs>
+						<filter id="filter0_f_2690_2519" x="0" y="0" width="2157.24" height="2157.24" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+						<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+						<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+						<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_2690_2519"/>
+						</filter>
+						<filter id="filter1_f_2690_2519" x="147.716" y="103.766" width="1934.96" height="1934.96" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+						<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+						<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+						<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_2690_2519"/>
+						</filter>
+						<filter id="filter2_f_2690_2519" x="269.831" y="204.621" width="1690.73" height="1690.73" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+						<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+						<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+						<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_2690_2519"/>
+						</filter>
+						</defs>
+					</svg>	
 
 				</div>
 			</div>
@@ -105,7 +128,7 @@ import StackBox from "../components/stack-box.astro";
 								</div>
 								<div class="profile-abt-p__info--line"></div>
 								<div class="profile-abt-p__info--box">
-									<h1>11+</h1>
+									<h1>3+</h1>
 									<p>Certificate Received</p>
 								</div>
 								<div class="profile-abt-p__info--line"></div>
@@ -181,51 +204,29 @@ import StackBox from "../components/stack-box.astro";
 										TESDA CERT
 									</div>
 
-									<img src="/images/certificate-banners/test.png" alt="cert">
+									<img src="/images/certificate-banners/CSS_NC.png" alt="cert">
 								</div>
 
 								<div class="cert-con-box">
-									<h5>Computer System Servicing</h5>
-									<span>Jun 2025 - Oct 2026</span>
+									<h5>Visual Graphic Design</h5>
+									<span>June 10, 2026 - June 10, 2026</span>
 
 									<div>
 										TESDA CERT
 									</div>
 
-									<img src="/images/certificate-banners/test.png" alt="cert">
+									<img src="/images/certificate-banners/VGD_NC.png" alt="cert">
 								</div>
 
 								<div class="cert-con-box">
-									<h5>Computer System Servicing</h5>
-									<span>Jun 2025 - Oct 2026</span>
+									<h5>Getting Started With UIUX</h5>
+									<span>May 20, 2026</span>
 
 									<div>
-										TESDA CERT
+										Webinar Cert
 									</div>
 
-									<img src="/images/certificate-banners/test.png" alt="cert">
-								</div>
-
-								<div class="cert-con-box">
-									<h5>Computer System Servicing</h5>
-									<span>Jun 2025 - Oct 2026</span>
-
-									<div>
-										TESDA CERT
-									</div>
-
-									<img src="/images/certificate-banners/test.png" alt="cert">
-								</div>
-
-								<div class="cert-con-box">
-									<h5>Computer System Servicing</h5>
-									<span>Jun 2025 - Oct 2026</span>
-
-									<div>
-										TESDA CERT
-									</div>
-
-									<img src="/images/certificate-banners/test.png" alt="cert">
+									<img src="/images/certificate-banners/UIX_WEBINAR.png" alt="cert">
 								</div>
 							</div>
 						</div>
@@ -339,7 +340,71 @@ import StackBox from "../components/stack-box.astro";
 			</div>
 		</section>
 
+		<section class="section--cta glb-sec-pad-out">
+			<div class="section--cta__con">
+				<div class="section--cta__main glb-sec-pad">
 
+					<h2>Lets turn <span>ideas</span> into digital experiences</h2>
+					<p class="section--cta__main--p">Whether it's a website, application, or digital solution, I can help turn your ideas into a functional and modern experience.</p>
+					<a href="/projects" class="cls-cta">
+						<span class="cls-cta__icon">
+							<svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M9 16.5C13.1421 16.5 16.5 13.1421 16.5 9C16.5 4.85786 13.1421 1.5 9 1.5C4.85786 1.5 1.5 4.85786 1.5 9C1.5 13.1421 4.85786 16.5 9 16.5Z" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M16.5 9H13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M4.5 9H1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M9 4.5V1.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+								<path d="M9 16.5V13.5" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+							</svg>
+						</span>
+						<span class="cls-cta__text">
+							<span class="cls-cta__title">Lets start a project</span>
+							<span class="cls-cta__count">20+ projects complete</span>
+						</span>
+					</a>
+					<svg width="2158" height="2158" class="section--cta__main--svg" viewBox="0 0 2158 2158" fill="none" xmlns="http://www.w3.org/2000/svg">
+						<g opacity="0.2" filter="url(#filter0_f_2690_2519)">
+						<circle cx="1078.62" cy="1078.62" r="523.621" fill="#00A14C"/>
+						</g>
+						<g opacity="0.2" filter="url(#filter1_f_2690_2519)">
+						<circle cx="1115.2" cy="1071.25" r="412.48" fill="#07D468"/>
+						</g>
+						<g opacity="0.2" filter="url(#filter2_f_2690_2519)">
+						<circle cx="1115.2" cy="1049.99" r="290.366" fill="white"/>
+						</g>
+						<defs>
+						<filter id="filter0_f_2690_2519" x="0" y="0" width="2157.24" height="2157.24" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+						<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+						<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+						<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_2690_2519"/>
+						</filter>
+						<filter id="filter1_f_2690_2519" x="147.716" y="103.766" width="1934.96" height="1934.96" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+						<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+						<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+						<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_2690_2519"/>
+						</filter>
+						<filter id="filter2_f_2690_2519" x="269.831" y="204.621" width="1690.73" height="1690.73" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+						<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+						<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+						<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_2690_2519"/>
+						</filter>
+						</defs>
+					</svg>										
+				</div>
+				
+				<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
+				</svg>
+				<svg width="10" height="16" class="right-tlb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
+				</svg>
+				<svg width="10" height="16" class="left-trb-n-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
+				</svg>
+				<svg width="10" height="16" class="right-tlb-n-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
+				</svg>
+			</div>
+		</section>
 
 		<section class="section--cls glb-sec-pad-out">
 			<div class="section--cls__con">
@@ -409,402 +474,401 @@ import StackBox from "../components/stack-box.astro";
 		emblaApi.on("select", updateDots);
 		emblaApi.on("reInit", createDots);
 	};
-const initGithubBoard = async () => {
-	const board = document.querySelector(".github-main__board");
-	const months = document.querySelector(".github-main__months");
-	const total = document.querySelector(".github-total");
+	const initGithubBoard = async () => {
+		const board = document.querySelector(".github-main__board");
+		const months = document.querySelector(".github-main__months");
+		const total = document.querySelector(".github-total");
 
-	if (!board || !months) return;
+		if (!board || !months) return;
 
-	try {
-		/*
-		 * ----------------------------------------
-		 * DATE RANGE
-		 * ----------------------------------------
-		 */
+		try {
+			/*
+			* ----------------------------------------
+			* DATE RANGE
+			* ----------------------------------------
+			*/
 
-		const today = new Date();
-		today.setHours(0, 0, 0, 0);
+			const today = new Date();
+			today.setHours(0, 0, 0, 0);
 
-		const oneYearAgo = new Date(today);
-		oneYearAgo.setFullYear(
-			oneYearAgo.getFullYear() - 1
-		);
-
-		/*
-		 * IMPORTANT:
-		 * Do NOT use toISOString() for GitHub dates.
-		 * It can shift the date because of timezone.
-		 */
-
-		const formatDateKey = (date) => {
-			const year = date.getFullYear();
-			const month = String(
-				date.getMonth() + 1
-			).padStart(2, "0");
-			const day = String(
-				date.getDate()
-			).padStart(2, "0");
-
-			return `${year}-${month}-${day}`;
-		};
-
-		/*
-		 * ----------------------------------------
-		 * COMPLETE CALENDAR WEEKS
-		 * ----------------------------------------
-		 */
-
-		const calendarStart = new Date(oneYearAgo);
-
-		calendarStart.setDate(
-			calendarStart.getDate() -
-			calendarStart.getDay()
-		);
-
-		const calendarEnd = new Date(today);
-
-		calendarEnd.setDate(
-			calendarEnd.getDate() +
-			(6 - calendarEnd.getDay())
-		);
-
-		/*
-		 * ----------------------------------------
-		 * FETCH CURRENT + PREVIOUS YEAR
-		 * ----------------------------------------
-		 */
-
-		const startYear =
-			oneYearAgo.getFullYear();
-
-		const endYear =
-			today.getFullYear();
-
-		const response = await fetch(
-			`https://github-contributions-api.jogruber.de/v4/Cybeles-Eos?y=${startYear}&y=${endYear}`
-		);
-
-		if (!response.ok) {
-			throw new Error(
-				"Failed to fetch GitHub contributions"
+			const oneYearAgo = new Date(today);
+			oneYearAgo.setFullYear(
+				oneYearAgo.getFullYear() - 1
 			);
-		}
 
-		const data = await response.json();
+			/*
+			* IMPORTANT:
+			* Do NOT use toISOString() for GitHub dates.
+			* It can shift the date because of timezone.
+			*/
 
-		/*
-		 * ----------------------------------------
-		 * STORE CONTRIBUTIONS BY DATE
-		 * ----------------------------------------
-		 */
+			const formatDateKey = (date) => {
+				const year = date.getFullYear();
+				const month = String(
+					date.getMonth() + 1
+				).padStart(2, "0");
+				const day = String(
+					date.getDate()
+				).padStart(2, "0");
 
-		const contributionMap = new Map();
+				return `${year}-${month}-${day}`;
+			};
 
-		data.contributions.forEach((day) => {
-			contributionMap.set(
-				day.date,
-				day
+			/*
+			* ----------------------------------------
+			* COMPLETE CALENDAR WEEKS
+			* ----------------------------------------
+			*/
+
+			const calendarStart = new Date(oneYearAgo);
+
+			calendarStart.setDate(
+				calendarStart.getDate() -
+				calendarStart.getDay()
 			);
-		});
 
-		board.innerHTML = "";
-		months.innerHTML = "";
+			const calendarEnd = new Date(today);
 
-		/*
-		 * ----------------------------------------
-		 * TOTAL CONTRIBUTIONS
-		 * ----------------------------------------
-		 */
+			calendarEnd.setDate(
+				calendarEnd.getDate() +
+				(6 - calendarEnd.getDay())
+			);
 
-		let contributionTotal = 0;
+			/*
+			* ----------------------------------------
+			* FETCH CURRENT + PREVIOUS YEAR
+			* ----------------------------------------
+			*/
 
-		for (
-			let date = new Date(oneYearAgo);
-			date <= today;
-			date.setDate(
-				date.getDate() + 1
-			)
-		) {
-			const dateKey =
-				formatDateKey(date);
+			const startYear =
+				oneYearAgo.getFullYear();
 
-			const day =
-				contributionMap.get(dateKey);
+			const endYear =
+				today.getFullYear();
 
-			if (day) {
-				contributionTotal += day.count;
+			const response = await fetch(
+				`https://github-contributions-api.jogruber.de/v4/Cybeles-Eos?y=${startYear}&y=${endYear}`
+			);
+
+			if (!response.ok) {
+				throw new Error(
+					"Failed to fetch GitHub contributions"
+				);
 			}
-		}
 
-		if (total) {
-			total.textContent =
-				contributionTotal.toLocaleString();
-		}
+			const data = await response.json();
 
-		/*
-		 * ----------------------------------------
-		 * BUILD WEEKS
-		 * ----------------------------------------
-		 */
+			/*
+			* ----------------------------------------
+			* STORE CONTRIBUTIONS BY DATE
+			* ----------------------------------------
+			*/
 
-		const weeks = [];
+			const contributionMap = new Map();
 
-		let currentDate =
-			new Date(calendarStart);
+			data.contributions.forEach((day) => {
+				contributionMap.set(
+					day.date,
+					day
+				);
+			});
 
-		while (currentDate <= calendarEnd) {
+			board.innerHTML = "";
+			months.innerHTML = "";
 
-			const week = [];
+			/*
+			* ----------------------------------------
+			* TOTAL CONTRIBUTIONS
+			* ----------------------------------------
+			*/
 
-			for (let row = 0; row < 7; row++) {
+			let contributionTotal = 0;
 
-				const date =
-					new Date(currentDate);
-
+			for (
+				let date = new Date(oneYearAgo);
+				date <= today;
+				date.setDate(
+					date.getDate() + 1
+				)
+			) {
 				const dateKey =
 					formatDateKey(date);
 
 				const day =
-					contributionMap.get(
-						dateKey
-					);
+					contributionMap.get(dateKey);
 
-				const insideRange =
-					date >= oneYearAgo &&
-					date <= today;
-
-				week.push({
-					dateObject: date,
-
-					/*
-					 * Real contribution data
-					 */
-					count: day?.count || 0,
-					level: day?.level || 0,
-
-					/*
-					 * Only padding before/after
-					 * the actual one-year range.
-					 */
-					empty: !insideRange
-				});
-
-				currentDate.setDate(
-					currentDate.getDate() + 1
-				);
+				if (day) {
+					contributionTotal += day.count;
+				}
 			}
 
-			weeks.push(week);
-		}
+			if (total) {
+				total.textContent =
+					contributionTotal.toLocaleString();
+			}
 
-		/*
-		 * ----------------------------------------
-		 * RENDER CALENDAR
-		 * ----------------------------------------
-		 */
+			/*
+			* ----------------------------------------
+			* BUILD WEEKS
+			* ----------------------------------------
+			*/
 
-		weeks.forEach((week) => {
+			const weeks = [];
 
-			week.forEach((day) => {
+			let currentDate =
+				new Date(calendarStart);
 
-				const square =
-					document.createElement("div");
+			while (currentDate <= calendarEnd) {
 
-				square.classList.add(
-					"github-day"
-				);
+				const week = [];
 
-				const formattedDate =
-					day.dateObject.toLocaleDateString(
-						"en-US",
-						{
-							month: "long",
-							day: "numeric",
-							year: "numeric"
-						}
-					);
+				for (let row = 0; row < 7; row++) {
 
-				/*
-				 * --------------------------------
-				 * FUTURE DAYS
-				 * --------------------------------
-				 *
-				 * Example:
-				 * September 7
-				 * September 8
-				 *
-				 * These are outside today's range,
-				 * but still receive a tooltip.
-				 */
+					const date =
+						new Date(currentDate);
 
-				if (
-					day.dateObject > today &&
-					day.dateObject <= calendarEnd
-				) {
-					square.title =
-						`No contributions on ${formattedDate}`;
+					const dateKey =
+						formatDateKey(date);
 
-					square.classList.add(
-						"github-day--empty"
-					);
+					const day =
+						contributionMap.get(
+							dateKey
+						);
 
-					board.appendChild(square);
+					const insideRange =
+						date >= oneYearAgo &&
+						date <= today;
 
-					return;
-				}
+					week.push({
+						dateObject: date,
 
-				/*
-				 * --------------------------------
-				 * OLD PADDING DAYS
-				 * --------------------------------
-				 */
+						/*
+						* Real contribution data
+						*/
+						count: day?.count || 0,
+						level: day?.level || 0,
 
-				if (
-					day.dateObject < oneYearAgo
-				) {
-					square.classList.add(
-						"github-day--empty"
-					);
+						/*
+						* Only padding before/after
+						* the actual one-year range.
+						*/
+						empty: !insideRange
+					});
 
-					board.appendChild(square);
-
-					return;
-				}
-
-				/*
-				 * --------------------------------
-				 * CONTRIBUTION LEVEL
-				 * --------------------------------
-				 */
-
-				if (day.level > 0) {
-					square.classList.add(
-						`github-day--${day.level}`
+					currentDate.setDate(
+						currentDate.getDate() + 1
 					);
 				}
 
-				/*
-				 * --------------------------------
-				 * TOOLTIP
-				 * --------------------------------
-				 *
-				 * This works even when count = 0.
-				 */
+				weeks.push(week);
+			}
 
-				square.title =
-					day.count === 0
-						? `No contributions on ${formattedDate}`
-						: `${day.count} contributions on ${formattedDate}`;
+			/*
+			* ----------------------------------------
+			* RENDER CALENDAR
+			* ----------------------------------------
+			*/
 
-				board.appendChild(square);
-			});
-		});
-
-		/*
-		 * ----------------------------------------
-		 * MONTH LABELS
-		 * ----------------------------------------
-		 */
-
-		const monthPositions = new Map();
-
-		weeks.forEach(
-			(week, weekIndex) => {
+			weeks.forEach((week) => {
 
 				week.forEach((day) => {
 
-					const date =
-						day.dateObject;
+					const square =
+						document.createElement("div");
+
+					square.classList.add(
+						"github-day"
+					);
+
+					const formattedDate =
+						day.dateObject.toLocaleDateString(
+							"en-US",
+							{
+								month: "long",
+								day: "numeric",
+								year: "numeric"
+							}
+						);
+
+					/*
+					* --------------------------------
+					* FUTURE DAYS
+					* --------------------------------
+					*
+					* Example:
+					* September 7
+					* September 8
+					*
+					* These are outside today's range,
+					* but still receive a tooltip.
+					*/
 
 					if (
-						date < oneYearAgo ||
-						date > today
+						day.dateObject > today &&
+						day.dateObject <= calendarEnd
 					) {
+						square.title =
+							`No contributions on ${formattedDate}`;
+
+						square.classList.add(
+							"github-day--empty"
+						);
+
+						board.appendChild(square);
+
 						return;
 					}
 
-					const monthKey =
-						`${date.getFullYear()}-${date.getMonth()}`;
+					/*
+					* --------------------------------
+					* OLD PADDING DAYS
+					* --------------------------------
+					*/
 
 					if (
-						!monthPositions.has(
-							monthKey
-						)
+						day.dateObject < oneYearAgo
 					) {
-						monthPositions.set(
-							monthKey,
-							weekIndex
+						square.classList.add(
+							"github-day--empty"
+						);
+
+						board.appendChild(square);
+
+						return;
+					}
+
+					/*
+					* --------------------------------
+					* CONTRIBUTION LEVEL
+					* --------------------------------
+					*/
+
+					if (day.level > 0) {
+						square.classList.add(
+							`github-day--${day.level}`
 						);
 					}
+
+					/*
+					* --------------------------------
+					* TOOLTIP
+					* --------------------------------
+					*
+					* This works even when count = 0.
+					*/
+
+					square.title =
+						day.count === 0
+							? `No contributions on ${formattedDate}`
+							: `${day.count} contributions on ${formattedDate}`;
+
+					board.appendChild(square);
 				});
-			}
-		);
+			});
 
-		monthPositions.forEach(
-			(weekIndex, monthKey) => {
+			/*
+			* ----------------------------------------
+			* MONTH LABELS
+			* ----------------------------------------
+			*/
 
-				const [year, month] =
-					monthKey
-						.split("-")
-						.map(Number);
+			const monthPositions = new Map();
 
-				const monthElement =
-					document.createElement(
-						"span"
-					);
+			weeks.forEach(
+				(week, weekIndex) => {
 
-				monthElement.classList.add(
-					"github-month"
-				);
+					week.forEach((day) => {
 
-				const date =
-					new Date(
-						year,
-						month,
-						1
-					);
+						const date =
+							day.dateObject;
 
-				monthElement.textContent =
-					date.toLocaleDateString(
-						"en-US",
-						{
-							month: "short"
+						if (
+							date < oneYearAgo ||
+							date > today
+						) {
+							return;
 						}
+
+						const monthKey =
+							`${date.getFullYear()}-${date.getMonth()}`;
+
+						if (
+							!monthPositions.has(
+								monthKey
+							)
+						) {
+							monthPositions.set(
+								monthKey,
+								weekIndex
+							);
+						}
+					});
+				}
+			);
+
+			monthPositions.forEach(
+				(weekIndex, monthKey) => {
+
+					const [year, month] =
+						monthKey
+							.split("-")
+							.map(Number);
+
+					const monthElement =
+						document.createElement(
+							"span"
+						);
+
+					monthElement.classList.add(
+						"github-month"
 					);
 
-				const percentage =
-					(weekIndex /
-						weeks.length) *
-					100;
+					const date =
+						new Date(
+							year,
+							month,
+							1
+						);
 
-				monthElement.style.left =
-					`${percentage}%`;
+					monthElement.textContent =
+						date.toLocaleDateString(
+							"en-US",
+							{
+								month: "short"
+							}
+						);
 
-				months.appendChild(
-					monthElement
-				);
-			}
-		);
+					const percentage =
+						(weekIndex /
+							weeks.length) *
+						100;
 
-	} catch (error) {
+					monthElement.style.left =
+						`${percentage}%`;
 
-		console.error(
-			"GitHub contribution error:",
-			error
-		);
+					months.appendChild(
+						monthElement
+					);
+				}
+			);
 
-		board.innerHTML = `
-			<p class="github-error">
-				Unable to load GitHub activity.
-			</p>
-		`;
-	}
-};
+		} catch (error) {
 
-document.addEventListener("astro:page-load", () => {
-	initCertificates();
-	initGithubBoard();
-});
-	// document.addEventListener("astro:page-load", initCertificates);
+			console.error(
+				"GitHub contribution error:",
+				error
+			);
+
+			board.innerHTML = `
+				<p class="github-error">
+					Unable to load GitHub activity.
+				</p>
+			`;
+		}
+	};
+
+	document.addEventListener("astro:page-load", () => {
+		initCertificates();
+		initGithubBoard();
+	});
 </script>

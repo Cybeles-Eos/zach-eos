@@ -8,7 +8,7 @@
     // dvh tracks the mobile URL bar, so the row never hides behind it
     top: 100dvh;
     height: 0;
-    z-index: 1000;
+    z-index: 12000;
 }
 .disable-nav-g{
     @media screen and (min-width: 992px) {
@@ -22,6 +22,7 @@
     transform: translateX(-50%);
     width: max-content;
     max-width: calc(100vw - 55px);
+    z-index: 2000;
 }
 
 .navbar-global {
