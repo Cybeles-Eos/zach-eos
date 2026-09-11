@@ -2,6 +2,45 @@
 import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../partials/navbar.astro";
 import Header from "../../partials/header.astro";
+
+const uiUxProjects = [
+	{
+		name: "FlowDash App",
+		banner: "/images/scroll-banners/banner-1.png",
+		tags: ["UI Design", "UX Flow", "Dashboard"],
+		description: "A clean dashboard concept for tracking tasks, reports, and daily activity.",
+		ctaLink: "/contact",
+		content:
+			"FlowDash focuses on simple navigation, readable cards, and clear actions so users can find important information quickly.",
+	},
+	{
+		name: "FreshCart Mobile",
+		banner: "/images/scroll-banners/banner-7.png",
+		tags: ["Mobile UI", "Wireframe", "Shopping"],
+		description: "A mobile shopping design with simple product browsing and checkout screens.",
+		ctaLink: "/contact",
+		content:
+			"FreshCart uses friendly spacing, clear buttons, and easy product sections to make the shopping flow feel smooth.",
+	},
+	{
+		name: "StudyHub Portal",
+		banner: "/images/scroll-banners/banner-13.png",
+		tags: ["Web Design", "Prototype", "Education"],
+		description: "A student portal concept for lessons, schedules, and progress tracking.",
+		ctaLink: "/contact",
+		content:
+			"StudyHub keeps learning tools organized with simple sections, soft colors, and quick access to class updates.",
+	},
+	{
+		name: "CareSync Booking",
+		banner: "/images/scroll-banners/banner-20.png",
+		tags: ["UX Research", "Booking Flow", "Healthcare"],
+		description: "A booking interface concept for choosing services, dates, and user details.",
+		ctaLink: "/contact",
+		content:
+			"CareSync is designed around a short booking path, clear labels, and helpful steps that reduce user confusion.",
+	},
+];
 ---
 
 <Layout
@@ -122,6 +161,34 @@ import Header from "../../partials/header.astro";
 			<div class="section--cls__con">
 				<div class="section--cls__main">
 
+				</div>
+			</div>
+		</section>
+
+		<section class="project-content glb-sec-pad-out">
+			<div class="project-content__main glb-sec-pad">
+				<div class="project-content__header">
+					<p>UI/UX Projects</p>
+					<h2>Simple design concepts for clean user experiences.</h2>
+				</div>
+
+				<div class="project-content__grid">
+					{uiUxProjects.map((project) => (
+						<article class="project-card">
+							<img src={project.banner} alt={`${project.name} banner`} class="project-card__banner" />
+							<div class="project-card__body">
+								<div class="project-card__tags">
+									{project.tags.map((tag) => (
+										<span>{tag}</span>
+									))}
+								</div>
+								<h3>{project.name}</h3>
+								<p class="project-card__description">{project.description}</p>
+								<p>{project.content}</p>
+								<a href={project.ctaLink}>View project</a>
+							</div>
+						</article>
+					))}
 				</div>
 			</div>
 		</section>

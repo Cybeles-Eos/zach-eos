@@ -2,6 +2,45 @@
 import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../partials/navbar.astro";
 import Header from "../../partials/header.astro";
+
+const fullstackProjects = [
+	{
+		name: "TaskPilot System",
+		banner: "/images/scroll-banners/banner-3.png",
+		tags: ["Astro", "API", "Database"],
+		description: "A simple task management system with user accounts and project tracking.",
+		ctaLink: "/contact",
+		content:
+			"TaskPilot connects a clean frontend with backend features for creating tasks, updating status, and checking progress.",
+	},
+	{
+		name: "BookNest Platform",
+		banner: "/images/scroll-banners/banner-10.png",
+		tags: ["Laravel", "MySQL", "CMS"],
+		description: "A booking platform concept for services, schedules, and customer requests.",
+		ctaLink: "/contact",
+		content:
+			"BookNest includes service pages, booking forms, admin management, and a database structure for simple operations.",
+	},
+	{
+		name: "ShopLite Store",
+		banner: "/images/scroll-banners/banner-15.png",
+		tags: ["Frontend", "Backend", "Ecommerce"],
+		description: "A small online store concept with product pages and order handling.",
+		ctaLink: "/contact",
+		content:
+			"ShopLite focuses on product browsing, cart actions, and backend order tools that help manage basic store needs.",
+	},
+	{
+		name: "ClientCore CRM",
+		banner: "/images/scroll-banners/banner-22.png",
+		tags: ["Dashboard", "Auth", "Reports"],
+		description: "A client management dashboard for contacts, notes, and simple reports.",
+		ctaLink: "/contact",
+		content:
+			"ClientCore keeps customer records organized with login access, searchable tables, and clear report sections.",
+	},
+];
 ---
 
 <Layout
@@ -24,7 +63,35 @@ import Header from "../../partials/header.astro";
 		<section class="section--grid glb-pad-inline">
 			<div class="section--grid__content">
 				<h2>Development <span>work</span></h2>
-				<p>Project listings will go here — add your fullstack builds when ready.</p>
+				<p>Full-stack concepts with simple pages, backend features, and useful project flows.</p>
+			</div>
+		</section>
+
+		<section class="project-content glb-sec-pad-out">
+			<div class="project-content__main glb-sec-pad">
+				<div class="project-content__header">
+					<p>Full-stack Projects</p>
+					<h2>Dummy system ideas with frontend and backend content.</h2>
+				</div>
+
+				<div class="project-content__grid">
+					{fullstackProjects.map((project) => (
+						<article class="project-card">
+							<img src={project.banner} alt={`${project.name} banner`} class="project-card__banner" />
+							<div class="project-card__body">
+								<div class="project-card__tags">
+									{project.tags.map((tag) => (
+										<span>{tag}</span>
+									))}
+								</div>
+								<h3>{project.name}</h3>
+								<p class="project-card__description">{project.description}</p>
+								<p>{project.content}</p>
+								<a href={project.ctaLink}>View project</a>
+							</div>
+						</article>
+					))}
+				</div>
 			</div>
 		</section>
 	</main>
