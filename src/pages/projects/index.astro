@@ -34,9 +34,9 @@ const uiUxProjects = [
 	},
 ];
 
-const uiux = [];
-for (let i = 0; i < uiUxProjects.length; i +=3 ){
-	uiux.push(uiUxProjects.slice(i, i + 3));
+const projectRows = [];
+for (let i = 0; i < uiUxProjects.length; i += 3) {
+	projectRows.push(uiUxProjects.slice(i, i + 3));
 }
 
 
@@ -119,71 +119,21 @@ for (let i = 0; i < uiUxProjects.length; i +=3 ){
 					</div>
 					
 
-					<div class="main-lists">
-						<!-- 
-							<div class="box-mrl-p">
-								<div class="box-mrl-p__img">
-									<img src="/images/about-banner.png" alt="banner">
-								</div>
-								<div class="box-mrl-p__detail">
-									<h3>Servease</h3>
-									<p>My first real-world role learning how teams ship websites, not just how to code them.</p>
-									<div>
-										<ul>
-											<li><span>Landing Pages</span></li>
-											<li><span>SaaS</span></li>
-											<li><span>Dashboard</span></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="box-mrl-p">
-								<div class="box-mrl-p__img">
-									<img src="/images/about-banner.png" alt="banner">
-								</div>
-								<div class="box-mrl-p__detail">
-									<h3>Servease</h3>
-									<p>My first real-world role learning how teams ship websites, not just how to code them.</p>
-									<div>
-										<ul>
-											<li><span>Landing Pages</span></li>
-											<li><span>SaaS</span></li>
-											<li><span>Dashboard</span></li>
-										</ul>
-									</div>
-								</div>
-							</div>
-							<div class="box-mrl-p">
-								<div class="box-mrl-p__img">
-									<img src="/images/about-banner.png" alt="banner">
-								</div>
-								<div class="box-mrl-p__detail">
-									<h3>Servease</h3>
-									<p>My first real-world role learning how teams ship websites, not just how to code them.</p>
-									<div>
-										<ul>
-											<li><span>Landing Pages</span></li>
-											<li><span>SaaS</span></li>
-											<li><span>Dashboard</span></li>
-										</ul>
-									</div>
-								</div>
-							</div> 
-						-->
+					<div class="main-lists" data-project-list>
 						{
-							uiux.map(project => (
+							projectRows.map((row) => (
 								<div class="main-lists--row">
-									{project.map((prj)=> (
+									{row.map((project) => (
 										<div class="box-mrl-p">
 											<div class="box-mrl-p__img">
-												<img src={prj.banner} alt={prj.name} />
+												<img src={project.banner} alt={project.name} />
 											</div>
 											<div class="box-mrl-p__detail">
-												<h3>{prj.name}</h3>
-												<p>{prj.description}</p>
+												<h3>{project.name}</h3>
+												<p>{project.description}</p>
 												<div>
 													<ul>
-														{prj.tags.map((tag) => (
+														{project.tags.map((tag) => (
 															<li><span>{tag}</span></li>
 														))}
 													</ul>
@@ -193,10 +143,89 @@ for (let i = 0; i < uiUxProjects.length; i +=3 ){
 									))}
 								</div>
 							))
-
 						}
-
 					</div>
+
+					<script define:vars={{ projects: uiUxProjects }}>
+						const projectList = document.querySelector("[data-project-list]");
+						let currentItemsPerRow = 3;
+
+						const getItemsPerRow = () => {
+							if (window.innerWidth <= 592) return 1;
+							if (window.innerWidth <= 992) return 2;
+							return 3;
+						};
+
+						const chunkProjects = (items, size) => {
+							const rows = [];
+
+							for (let i = 0; i < items.length; i += size) {
+								rows.push(items.slice(i, i + size));
+							}
+
+							return rows;
+						};
+
+						const createProjectCard = (project) => {
+							const card = document.createElement("div");
+							card.className = "box-mrl-p";
+
+							const imageWrap = document.createElement("div");
+							imageWrap.className = "box-mrl-p__img";
+
+							const image = document.createElement("img");
+							image.src = project.banner;
+							image.alt = project.name;
+							imageWrap.append(image);
+
+							const detail = document.createElement("div");
+							detail.className = "box-mrl-p__detail";
+
+							const title = document.createElement("h3");
+							title.textContent = project.name;
+
+							const description = document.createElement("p");
+							description.textContent = project.description;
+
+							const tagsWrap = document.createElement("div");
+							const tagList = document.createElement("ul");
+
+							project.tags.forEach((tag) => {
+								const item = document.createElement("li");
+								const label = document.createElement("span");
+								label.textContent = tag;
+								item.append(label);
+								tagList.append(item);
+							});
+
+							tagsWrap.append(tagList);
+							detail.append(title, description, tagsWrap);
+							card.append(imageWrap, detail);
+
+							return card;
+						};
+
+						const renderProjectRows = () => {
+							const itemsPerRow = getItemsPerRow();
+
+							if (itemsPerRow === currentItemsPerRow && projectList.children.length) {
+								return;
+							}
+
+							currentItemsPerRow = itemsPerRow;
+							projectList.replaceChildren();
+
+							chunkProjects(projects, itemsPerRow).forEach((row) => {
+								const rowElement = document.createElement("div");
+								rowElement.className = "main-lists--row";
+								row.forEach((project) => rowElement.append(createProjectCard(project)));
+								projectList.append(rowElement);
+							});
+						};
+
+						renderProjectRows();
+						window.addEventListener("resize", renderProjectRows);
+					</script>
 
 
 
