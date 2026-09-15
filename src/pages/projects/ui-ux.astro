@@ -55,8 +55,9 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 			<div class="section--hero__grid" aria-hidden="true"></div>
 			<div class="section--hero__con">
 				<div class="section--hero__main glb-sec-pad">
-					<h1>Shaping better experience through every <span>projects</span></h1>
-					<p>Explore a collection of projects I’ve worked on through freelance work, school and personal builds.</p>
+					 
+					<h1>Showcasing digital projects from idea to <span>design</span></h1>
+					<p>Explore a collection of design projects I’ve worked on through freelance work, school and personal builds.</p>
 					<img src="/images/uiux-vector.svg" alt="vector" class="vector-svg-uix">
 					<svg width="2158" height="2158" class="section--hero--svg" viewBox="0 0 2158 2158" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<g opacity="0.2" filter="url(#filter0_f_2690_2519)">
@@ -119,7 +120,12 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 								>
 									<span data-project-category-label>All</span>
 								</button>
-								<ul class="main-navigation__category--dropdown-menu" data-project-category-menu hidden>
+								<ul
+									class="main-navigation__category--dropdown-menu"
+									data-project-category-menu
+									data-lenis-prevent
+									hidden
+								>
 									<li>
 										<button type="button" class="is-active" data-category="All">All</button>
 									</li>
@@ -338,6 +344,14 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 							renderProjectRows();
 							closeMobileCategoryMenu();
 						});
+
+						categoryMenu.addEventListener("wheel", (event) => {
+							event.stopPropagation();
+						});
+
+						categoryMenu.addEventListener("touchmove", (event) => {
+							event.stopPropagation();
+						}, { passive: true });
 
 						document.addEventListener("click", (event) => {
 							if (!categoryDropdown.contains(event.target)) {

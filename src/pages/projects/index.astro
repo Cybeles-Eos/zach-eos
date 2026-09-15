@@ -119,7 +119,12 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 								>
 									<span data-project-category-label>All</span>
 								</button>
-								<ul class="main-navigation__category--dropdown-menu" data-project-category-menu hidden>
+								<ul
+									class="main-navigation__category--dropdown-menu"
+									data-project-category-menu
+									data-lenis-prevent
+									hidden
+								>
 									<li>
 										<button type="button" class="is-active" data-category="All">All</button>
 									</li>
@@ -338,6 +343,14 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 							renderProjectRows();
 							closeMobileCategoryMenu();
 						});
+
+						categoryMenu.addEventListener("wheel", (event) => {
+							event.stopPropagation();
+						});
+
+						categoryMenu.addEventListener("touchmove", (event) => {
+							event.stopPropagation();
+						}, { passive: true });
 
 						document.addEventListener("click", (event) => {
 							if (!categoryDropdown.contains(event.target)) {
