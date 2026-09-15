@@ -57,7 +57,7 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 				<div class="section--hero__main glb-sec-pad">
 					<h1>Shaping better experience through every <span>projects</span></h1>
 					<p>Explore a collection of projects I’ve worked on through freelance work, school and personal builds.</p>
-					<img src="/images/journey-svg.svg" alt="vector" class="vector-svg-jny">
+					<img src="/images/uiux-vector.svg" alt="vector" class="vector-svg-uix">
 					<svg width="2158" height="2158" class="section--hero--svg" viewBox="0 0 2158 2158" fill="none" xmlns="http://www.w3.org/2000/svg">
 						<g opacity="0.2" filter="url(#filter0_f_2690_2519)">
 						<circle cx="1078.62" cy="1078.62" r="523.621" fill="#00A14C"/>
@@ -110,13 +110,25 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 									<button type="button" data-category={category}>{category}</button>
 								))}
 							</div>
-							<div class="main-navigation__category--select">
-								<select data-project-category-select aria-label="Select project category">
-									<option value="All">All</option>
+							<div class="main-navigation__category--dropdown" data-project-category-dropdown>
+								<button
+									type="button"
+									class="main-navigation__category--dropdown-trigger"
+									aria-expanded="false"
+									data-project-category-trigger
+								>
+									<span data-project-category-label>All</span>
+								</button>
+								<ul class="main-navigation__category--dropdown-menu" data-project-category-menu hidden>
+									<li>
+										<button type="button" class="is-active" data-category="All">All</button>
+									</li>
 									{projectCategories.map((category) => (
-										<option value={category}>{category}</option>
+										<li>
+											<button type="button" data-category={category}>{category}</button>
+										</li>
 									))}
-								</select>
+								</ul>
 							</div>
 						</div>
 					</div>
@@ -157,7 +169,10 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 						const projectList = document.querySelector("[data-project-list]");
 						const searchInput = document.querySelector("[data-project-search]");
 						const categoryList = document.querySelector("[data-project-categories]");
-						const categorySelect = document.querySelector("[data-project-category-select]");
+						const categoryDropdown = document.querySelector("[data-project-category-dropdown]");
+						const categoryTrigger = document.querySelector("[data-project-category-trigger]");
+						const categoryLabel = document.querySelector("[data-project-category-label]");
+						const categoryMenu = document.querySelector("[data-project-category-menu]");
 						const emptyList = document.querySelector("[data-empty-list]");
 						let selectedCategory = "All";
 
@@ -213,7 +228,35 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 								createCategoryButton("All"),
 								...categories.map((category) => createCategoryButton(category))
 							);
-							categorySelect.value = selectedCategory;
+							renderMobileCategoryMenu();
+						};
+
+						const createMobileCategoryOption = (category) => {
+							const item = document.createElement("li");
+							const button = document.createElement("button");
+							button.type = "button";
+							button.dataset.category = category;
+							button.textContent = category;
+
+							if (category === selectedCategory) {
+								button.classList.add("is-active");
+							}
+
+							item.append(button);
+							return item;
+						};
+
+						const renderMobileCategoryMenu = () => {
+							categoryLabel.textContent = selectedCategory;
+							categoryMenu.replaceChildren(
+								createMobileCategoryOption("All"),
+								...categories.map((category) => createMobileCategoryOption(category))
+							);
+						};
+
+						const closeMobileCategoryMenu = () => {
+							categoryMenu.hidden = true;
+							categoryTrigger.setAttribute("aria-expanded", "false");
 						};
 
 						const createProjectCard = (project) => {
@@ -280,10 +323,32 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 							renderProjectRows();
 						});
 
-						categorySelect.addEventListener("change", () => {
-							selectedCategory = categorySelect.value;
+						categoryTrigger.addEventListener("click", () => {
+							const isOpen = !categoryMenu.hidden;
+							categoryMenu.hidden = isOpen;
+							categoryTrigger.setAttribute("aria-expanded", String(!isOpen));
+						});
+
+						categoryMenu.addEventListener("click", (event) => {
+							const button = event.target.closest("button[data-category]");
+							if (!button) return;
+
+							selectedCategory = button.dataset.category;
 							renderCategoryButtons();
 							renderProjectRows();
+							closeMobileCategoryMenu();
+						});
+
+						document.addEventListener("click", (event) => {
+							if (!categoryDropdown.contains(event.target)) {
+								closeMobileCategoryMenu();
+							}
+						});
+
+						document.addEventListener("keydown", (event) => {
+							if (event.key === "Escape") {
+								closeMobileCategoryMenu();
+							}
 						});
 
 						searchInput.addEventListener("input", renderProjectRows);
