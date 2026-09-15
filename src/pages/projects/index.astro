@@ -141,14 +141,15 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 						}
 					</div>
 					
-					<div class="empty-list">
-						<p>No related project</p>
+					<div class="empty-list" data-empty-list style="display: none;">
+						<p>No results found.</p>
 					</div>
 
 					<script define:vars={{ projects: uiUxProjects, categories: projectCategories }}>
 						const projectList = document.querySelector("[data-project-list]");
 						const searchInput = document.querySelector("[data-project-search]");
 						const categoryList = document.querySelector("[data-project-categories]");
+						const emptyList = document.querySelector("[data-empty-list]");
 						let selectedCategory = "All";
 
 						const getItemsPerRow = () => {
@@ -247,7 +248,10 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 						const renderProjectRows = () => {
 							const itemsPerRow = getItemsPerRow();
 							const filteredProjects = getFilteredProjects();
+							const hasSearchValue = searchInput.value.trim() !== "";
 							projectList.replaceChildren();
+							emptyList.style.display =
+								hasSearchValue && filteredProjects.length === 0 ? "" : "none";
 
 							chunkProjects(filteredProjects, itemsPerRow).forEach((row) => {
 								const rowElement = document.createElement("div");
