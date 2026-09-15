@@ -110,6 +110,14 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 									<button type="button" data-category={category}>{category}</button>
 								))}
 							</div>
+							<div class="main-navigation__category--select">
+								<select data-project-category-select aria-label="Select project category">
+									<option value="All">All</option>
+									{projectCategories.map((category) => (
+										<option value={category}>{category}</option>
+									))}
+								</select>
+							</div>
 						</div>
 					</div>
 					
@@ -149,6 +157,7 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 						const projectList = document.querySelector("[data-project-list]");
 						const searchInput = document.querySelector("[data-project-search]");
 						const categoryList = document.querySelector("[data-project-categories]");
+						const categorySelect = document.querySelector("[data-project-category-select]");
 						const emptyList = document.querySelector("[data-empty-list]");
 						let selectedCategory = "All";
 
@@ -204,6 +213,7 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 								createCategoryButton("All"),
 								...categories.map((category) => createCategoryButton(category))
 							);
+							categorySelect.value = selectedCategory;
 						};
 
 						const createProjectCard = (project) => {
@@ -266,6 +276,12 @@ const projectCategories = [...new Set(uiUxProjects.flatMap((project) => project.
 							if (!button) return;
 
 							selectedCategory = button.dataset.category;
+							renderCategoryButtons();
+							renderProjectRows();
+						});
+
+						categorySelect.addEventListener("change", () => {
+							selectedCategory = categorySelect.value;
 							renderCategoryButtons();
 							renderProjectRows();
 						});
