@@ -193,11 +193,17 @@
                     padding: 15px;
                     padding-top: 25px;
                     padding-inline: 25px;
-                    display: grid;
-                    grid-template-columns: 1fr 1fr 1fr;
-                    gap: 20px;
+                    overflow: hidden;
+
+                    .featured-projects-track{
+                        display: flex;
+                        gap: 20px;
+                        touch-action: pan-y pinch-zoom;
+                    }
 
                     .featured-box{
+                        flex: 0 0 355px;
+                        width: 355px;
                         height: 380px;
                         background-color: var(--page-bg);
                         border-radius: 8px;
@@ -286,6 +292,7 @@
                         align-items: flex-start;
                         padding-block: 25px;
                         border-bottom: 1px solid var(--main-brd-clr);
+                        gap: 25px;
                         &__left{    
                             display: flex;
                             align-items: flex-start;
@@ -315,6 +322,10 @@
                                     font-size: 34px;
                                     font-family: var(--font-billing-lottre);
                                     font-weight: 300;
+                                    margin-bottom: 10px;
+                                    @media (max-width: 392px) {
+                                        line-height: 110%;
+                                    }
                                 }
                                 p{
                                     max-width: 380px;
@@ -323,6 +334,10 @@
                                     font-size: 14px;
                                     margin-bottom: 0;
                                 }
+                            }
+                            @media (max-width: 792px) {
+                                flex-direction: column;
+                                gap: 15px;
                             }
                         }
                         &__right{
@@ -338,6 +353,22 @@
                                 height: 18px;
                                 width: 18px;
                             }
+                            @media (max-width: 792px) {
+                                width: 100%;
+                                justify-content: space-between;
+                                align-items: flex-end;
+                                // margin-left: 40px;
+
+                                img{
+                                    height: 100px;
+                                }
+                            }
+                        }
+
+                        @media (max-width: 792px) {
+                            flex-direction: column;
+                            gap: 30px;
+                            
                         }
                     }
 

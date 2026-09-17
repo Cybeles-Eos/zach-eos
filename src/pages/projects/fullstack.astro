@@ -58,6 +58,7 @@ import Header from "../../partials/header.astro";
 			<div class="section--main__con">
 				<div class="section--main__main">
 					<div class="featured-projects">
+						<div class="featured-projects-track">
 						<div class="featured-box">
 							<h3>Monte Carlo Builders</h3>
 							<p>My first real-world role learning how teams ship websites, not just how to code them.</p>
@@ -81,6 +82,7 @@ import Header from "../../partials/header.astro";
 
 							<img src="/images/featured-svg-3.svg" class="featured-vector" alt="vector">
 							<img src="/images/featured-bg-1.png" class="featured-bg" alt="featured-pages">
+						</div>
 						</div>
 					</div>
 					<div class="project-list">
@@ -236,3 +238,27 @@ import Header from "../../partials/header.astro";
 
 	</main>
 </Layout>
+<script>
+	import EmblaCarousel from "embla-carousel";
+
+	let featuredProjectsEmbla;
+
+	const initFeaturedProjects = () => {
+		const featuredProjects = document.querySelector(".featured-projects");
+
+		if (!featuredProjects) return;
+
+		if (featuredProjectsEmbla) {
+			featuredProjectsEmbla.destroy();
+			featuredProjectsEmbla = undefined;
+		}
+
+		featuredProjectsEmbla = EmblaCarousel(featuredProjects, {
+			loop: false,
+			dragFree: true,
+			containScroll: "trimSnaps"
+		});
+	};
+
+	document.addEventListener("astro:page-load", initFeaturedProjects);
+</script>
