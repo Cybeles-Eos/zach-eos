@@ -7,16 +7,29 @@ import Header from "../partials/header.astro";
 const fullstackProjects = await getCollection("fullstackProjects");
 const projectRows = fullstackProjects
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-	.map((project) => ({
-		title: project.data.title,
-		description: project.data.description,
-		year: project.data.year,
-		category: project.data.category,
-		link: `/projects/${project.id}`,
-		thumbnail: project.data.thumbnail,
-		thumbnailAlt: project.data.thumbnailAlt,
-		previewMedia: project.data.previewMedia,
-	}));
+	.map((project) => {
+		const projectType = project.data.category.toLowerCase().includes("figma")
+			? "figma-project"
+			: "web-project";
+
+		return {
+			title: project.data.title,
+			description: project.data.description,
+			year: project.data.year,
+			category: project.data.category,
+			projectType,
+			searchText: [
+				project.data.title,
+				project.data.description,
+				project.data.year,
+				project.data.category,
+			].join(" "),
+			link: `/projects/${project.id}`,
+			thumbnail: project.data.thumbnail,
+			thumbnailAlt: project.data.thumbnailAlt,
+			previewMedia: project.data.previewMedia,
+		};
+	});
 
 ---
 
@@ -75,9 +88,19 @@ const projectRows = fullstackProjects
 
                     <div class="nav-prj">
                         <div class="nav-prj__top"> 
-                            <div class="prj-search-bar"><div><input type="text" placeholder="Search projects by type..." data-project-search="" fdprocessedid="w4431"><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.7491 15.7491L12.4941 12.4941" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.25 14.25C11.5637 14.25 14.25 11.5637 14.25 8.25C14.25 4.93629 11.5637 2.25 8.25 2.25C4.93629 2.25 2.25 4.93629 2.25 8.25C2.25 11.5637 4.93629 14.25 8.25 14.25Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
-                            <div class="prj-filter">
-
+                            <div class="prj-search-bar"><div><input type="text" placeholder="Search projects by type..." data-project-search=""><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.7491 15.7491L12.4941 12.4941" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.25 14.25C11.5637 14.25 14.25 11.5637 14.25 8.25C14.25 4.93629 11.5637 2.25 8.25 2.25C4.93629 2.25 2.25 4.93629 2.25 8.25C2.25 11.5637 4.93629 14.25 8.25 14.25Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
+                            <div class="prj-filter" data-project-type-filter data-project-type-value="all-projects">
+                                <button class="prj-filter__toggle" type="button" aria-haspopup="listbox" aria-expanded="false" data-project-type-toggle>
+                                    <span data-project-type-label>All</span>
+                                    <svg class="prj-filter__chevron" width="18" height="18" viewBox="0 0 18 18" fill="none" aria-hidden="true" xmlns="http://www.w3.org/2000/svg">
+                                        <path d="M4.5 6.75L9 11.25L13.5 6.75" stroke="currentColor" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/>
+                                    </svg>
+                                </button>
+                                <div class="prj-filter__menu" role="listbox" data-project-type-menu>
+                                    <button class="prj-filter__option is-active" type="button" role="option" aria-selected="true" data-project-type-option value="all-projects">All</button>
+                                    <button class="prj-filter__option" type="button" role="option" aria-selected="false" data-project-type-option value="web-project">Web Project</button>
+                                    <button class="prj-filter__option" type="button" role="option" aria-selected="false" data-project-type-option value="figma-project">Figma Project</button>
+                                </div>
                             </div>
                         </div>
                         <div class="legends-prj">
@@ -104,6 +127,9 @@ const projectRows = fullstackProjects
                                 href={project.link}
                                 class="project-list-box"
                                 data-project-preview-row
+                                data-project-filter-row
+                                data-project-type={project.projectType}
+                                data-project-search-text={project.searchText}
                                 data-preview-type={project.previewMedia.type}
                                 data-preview-src={project.previewMedia.src}
                                 data-preview-alt={project.previewMedia.alt}
@@ -128,6 +154,9 @@ const projectRows = fullstackProjects
                             </a>
                         ))}
 
+						<div class="project-list-empty" data-project-empty-state aria-hidden="true">
+							<p>No matching projects found.</p>
+						</div>
 					
 						<div class="project-hover-preview" data-project-hover-preview aria-hidden="true"></div>
 					</div>
@@ -240,6 +269,95 @@ const projectRows = fullstackProjects
 			dragFree: true,
 			containScroll: "trimSnaps"
 		});
+	};
+
+	const initProjectFilters = () => {
+		const searchInput = document.querySelector("[data-project-search]");
+		const typeFilter = document.querySelector("[data-project-type-filter]");
+		const filterToggle = document.querySelector("[data-project-type-toggle]");
+		const filterLabel = document.querySelector("[data-project-type-label]");
+		const filterOptions = [...document.querySelectorAll("[data-project-type-option]")];
+		const projectRows = [...document.querySelectorAll("[data-project-filter-row]")];
+		const emptyState = document.querySelector("[data-project-empty-state]");
+		const preview = document.querySelector("[data-project-hover-preview]");
+
+		if (!searchInput || !typeFilter || !filterToggle || !filterLabel || !projectRows.length) return;
+
+		const hidePreview = () => {
+			preview?.classList.remove("is-visible");
+			preview?.setAttribute("aria-hidden", "true");
+		};
+
+		const normalize = (value) => value.toLowerCase().trim();
+
+		const applyFilters = () => {
+			const searchValue = normalize(searchInput.value);
+			const selectedType = typeFilter.dataset.projectTypeValue || "all-projects";
+			let visibleCount = 0;
+
+			projectRows.forEach((row) => {
+				const rowType = row.dataset.projectType || "";
+				const rowSearchText = normalize(row.dataset.projectSearchText || "");
+				const matchesType = selectedType === "all-projects" || rowType === selectedType;
+				const matchesSearch = !searchValue || rowSearchText.includes(searchValue);
+				const shouldShow = matchesType && matchesSearch;
+
+				row.classList.toggle("is-filtered-out", !shouldShow);
+				if (shouldShow) visibleCount += 1;
+			});
+
+			emptyState?.classList.toggle("is-visible", visibleCount === 0);
+			emptyState?.setAttribute("aria-hidden", visibleCount === 0 ? "false" : "true");
+			hidePreview();
+		};
+
+		const openSelect = () => {
+			typeFilter.classList.add("is-open");
+			filterToggle.setAttribute("aria-expanded", "true");
+		};
+
+		const closeSelect = () => {
+			typeFilter.classList.remove("is-open");
+			filterToggle.setAttribute("aria-expanded", "false");
+		};
+
+		const toggleSelect = () => {
+			if (typeFilter.classList.contains("is-open")) {
+				closeSelect();
+				return;
+			}
+
+			openSelect();
+		};
+
+		const setSelectedType = (option) => {
+			const nextValue = option.value || "all-projects";
+			typeFilter.dataset.projectTypeValue = nextValue;
+			filterLabel.textContent = option.textContent;
+
+			filterOptions.forEach((item) => {
+				const isActive = item === option;
+				item.classList.toggle("is-active", isActive);
+				item.setAttribute("aria-selected", isActive ? "true" : "false");
+			});
+
+			applyFilters();
+			closeSelect();
+		};
+
+		searchInput.addEventListener("input", applyFilters);
+		filterToggle.addEventListener("click", toggleSelect);
+		filterOptions.forEach((option) => {
+			option.addEventListener("click", () => setSelectedType(option));
+		});
+		document.addEventListener("click", (event) => {
+			if (!typeFilter.contains(event.target)) closeSelect();
+		});
+		document.addEventListener("keydown", (event) => {
+			if (event.key === "Escape") closeSelect();
+		});
+
+		applyFilters();
 	};
 
 	const initProjectHoverPreview = () => {
@@ -457,5 +575,6 @@ const projectRows = fullstackProjects
 	};
 
 	document.addEventListener("astro:page-load", initFeaturedProjects);
+	document.addEventListener("astro:page-load", initProjectFilters);
 	document.addEventListener("astro:page-load", initProjectHoverPreview);
 </script>
