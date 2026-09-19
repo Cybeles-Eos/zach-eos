@@ -488,6 +488,9 @@
                     padding: 25px;
 
                     .project-list-box{ 
+						--project-dot-first: var(--green-color-medium);
+						--project-dot-second: var(--green-color-light);
+
                         width: 100%;
                         display: flex;
                         justify-content: space-between;
@@ -498,6 +501,11 @@
 
 						&.is-filtered-out{
 							display: none;
+						}
+
+						&[data-project-type="figma-project"]{
+							--project-dot-first: #a100a1;
+							--project-dot-second: #cf35cf;
 						}
 
                         &__left{    
@@ -518,10 +526,10 @@
 									transition: all 300ms;
                                     
                                     &:first-child{
-                                        background-color: var(--green-color-medium);
+                                        background-color: var(--project-dot-first);
                                     }
                                     &:last-child{
-                                        background-color: var(--green-color-light);
+                                        background-color: var(--project-dot-second);
                                     }
                                 }
                             }
