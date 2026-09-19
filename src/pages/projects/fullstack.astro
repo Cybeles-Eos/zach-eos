@@ -3,6 +3,53 @@ import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../partials/navbar.astro";
 import Header from "../../partials/header.astro";
 
+const projectRows = [
+	{
+		title: "Monte Carlo Builders",
+		description: "My first real-world role learning how teams ship websites, not just how to code them.",
+		year: "2026",
+		category: "Web",
+		link: "#",
+		thumbnail: "/images/banner.png",
+		thumbnailAlt: "banner",
+		previewMedia: {
+			type: "image",
+			src: "/images/prev-img.png",
+			alt: "Monte Carlo Builders project preview",
+			poster: ""
+		}
+	},
+	{
+		title: "Monte Carlo Builders",
+		description: "My first real-world role learning how teams ship websites, not just how to code them.",
+		year: "2026",
+		category: "Web",
+		link: "#",
+		thumbnail: "/images/banner.png",
+		thumbnailAlt: "banner",
+		previewMedia: {
+			type: "image",
+			src: "/banners/servease.png",
+			alt: "Servease project preview",
+			poster: ""
+		}
+	},
+	{
+		title: "Monte Carlo Builders",
+		description: "My first real-world role learning how teams ship websites, not just how to code them.",
+		year: "2026",
+		category: "Web",
+		link: "#",
+		thumbnail: "/images/banner.png",
+		thumbnailAlt: "banner",
+		previewMedia: {
+			type: "image",
+			src: "/images/research-def-banner.png",
+			alt: "Research proposal project preview",
+			poster: ""
+		}
+	}
+];
 
 ---
 
@@ -86,66 +133,39 @@ import Header from "../../partials/header.astro";
 						</div>
 					</div>
 					<div class="project-list">
-						<div class="project-list">
+						<div class="project-list" data-project-preview-list>
 
-							<a href="#" class="project-list-box">
-								<div class="project-list-box__left">
-									<div class="dots">
-										<span></span>
-										<span></span>
+							{projectRows.map((project) => (
+								<a
+									href={project.link}
+									class="project-list-box"
+									data-project-preview-row
+									data-preview-type={project.previewMedia.type}
+									data-preview-src={project.previewMedia.src}
+									data-preview-alt={project.previewMedia.alt}
+									data-preview-poster={project.previewMedia.poster ?? ""}
+								>
+									<div class="project-list-box__left">
+										<div class="dots">
+											<span></span>
+											<span></span>
+										</div>
+										<div class="details">
+											<h3>{project.title} </h3>
+											<p>{project.description}</p>
+										</div>
 									</div>
-									<div class="details">
-										<h3>Monte Carlo Builders </h3>
-										<p>My first real-world role learning how teams ship websites, not just how to code them.</p>
+									<div class="project-list-box__right">
+										<img src={project.thumbnail} alt={project.thumbnailAlt}>
+										<svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M16.8401 12.1457L-0.00179153 12.1457L-0.00179141 9.37843L16.8401 9.37843L9.41814 1.95649L11.3746 -4.70426e-07L22.1367 10.7621L11.3746 21.5242L9.41814 19.5677L16.8401 12.1457Z" fill="currentColor"/>
+										</svg>
 									</div>
-								</div>
-								<div class="project-list-box__right">
-									<img src="/images/banner.png" alt="banner">
-									<svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M16.8401 12.1457L-0.00179153 12.1457L-0.00179141 9.37843L16.8401 9.37843L9.41814 1.95649L11.3746 -4.70426e-07L22.1367 10.7621L11.3746 21.5242L9.41814 19.5677L16.8401 12.1457Z" fill="currentColor"/>
-									</svg>
-								</div>
-							</a>
-
-							<a href="#" class="project-list-box">
-								<div class="project-list-box__left">
-									<div class="dots">
-										<span></span>
-										<span></span>
-									</div>
-									<div class="details">
-										<h3>Monte Carlo Builders </h3>
-										<p>My first real-world role learning how teams ship websites, not just how to code them.</p>
-									</div>
-								</div>
-								<div class="project-list-box__right">
-									<img src="/images/banner.png" alt="banner">
-									<svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M16.8401 12.1457L-0.00179153 12.1457L-0.00179141 9.37843L16.8401 9.37843L9.41814 1.95649L11.3746 -4.70426e-07L22.1367 10.7621L11.3746 21.5242L9.41814 19.5677L16.8401 12.1457Z" fill="currentColor"/>
-									</svg>
-								</div>
-							</a>
-
-							<a href="#" class="project-list-box">
-								<div class="project-list-box__left">
-									<div class="dots">
-										<span></span>
-										<span></span>
-									</div>
-									<div class="details">
-										<h3>Monte Carlo Builders </h3>
-										<p>My first real-world role learning how teams ship websites, not just how to code them.</p>
-									</div>
-								</div>
-								<div class="project-list-box__right">
-									<img src="/images/banner.png" alt="banner">
-									<svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
-									<path d="M16.8401 12.1457L-0.00179153 12.1457L-0.00179141 9.37843L16.8401 9.37843L9.41814 1.95649L11.3746 -4.70426e-07L22.1367 10.7621L11.3746 21.5242L9.41814 19.5677L16.8401 12.1457Z" fill="currentColor"/>
-									</svg>
-								</div>
-							</a>
+								</a>
+							))}
 
 						</div>
+						<div class="project-hover-preview" data-project-hover-preview aria-hidden="true"></div>
 					</div>
 
 				</div>
@@ -260,5 +280,147 @@ import Header from "../../partials/header.astro";
 		});
 	};
 
+	const initProjectHoverPreview = () => {
+		const projectList = document.querySelector("[data-project-preview-list]");
+		const preview = document.querySelector("[data-project-hover-preview]");
+
+		if (!projectList || !preview) return;
+
+		const padding = 20;
+		const offset = 22;
+		let currentSrc = "";
+		let currentX = padding;
+		let currentY = padding;
+		let targetX = padding;
+		let targetY = padding;
+		let animationFrame;
+		let isPreviewVisible = false;
+
+		const applyPreviewPosition = () => {
+			preview.style.setProperty("--preview-x", `${currentX}px`);
+			preview.style.setProperty("--preview-y", `${currentY}px`);
+		};
+
+		const animatePreviewPosition = () => {
+			const easing = 0.18;
+			const deltaX = targetX - currentX;
+			const deltaY = targetY - currentY;
+
+			currentX += deltaX * easing;
+			currentY += deltaY * easing;
+
+			if (Math.abs(deltaX) < 0.3) currentX = targetX;
+			if (Math.abs(deltaY) < 0.3) currentY = targetY;
+
+			applyPreviewPosition();
+
+			if (isPreviewVisible && (currentX !== targetX || currentY !== targetY)) {
+				animationFrame = requestAnimationFrame(animatePreviewPosition);
+				return;
+			}
+
+			animationFrame = undefined;
+		};
+
+		const queuePreviewAnimation = () => {
+			if (!animationFrame) {
+				animationFrame = requestAnimationFrame(animatePreviewPosition);
+			}
+		};
+
+		const getPreviewPosition = (event) => {
+			const rect = preview.getBoundingClientRect();
+			const previewWidth = rect.width;
+			const previewHeight = rect.height;
+			const viewportWidth = window.innerWidth;
+			const viewportHeight = window.innerHeight;
+			let nextX = event.clientX + offset;
+			let nextY = event.clientY + offset;
+
+			nextX = Math.min(Math.max(nextX, padding), viewportWidth - previewWidth - padding);
+			nextY = Math.min(Math.max(nextY, padding), viewportHeight - previewHeight - padding);
+
+			return { x: nextX, y: nextY };
+		};
+
+		const setPreviewPosition = (event, snap = false) => {
+			const nextPosition = getPreviewPosition(event);
+			targetX = nextPosition.x;
+			targetY = nextPosition.y;
+
+			if (snap) {
+				currentX = targetX;
+				currentY = targetY;
+				applyPreviewPosition();
+				return;
+			}
+
+			queuePreviewAnimation();
+		};
+
+		const setPreviewMedia = (row) => {
+			const type = row.dataset.previewType;
+			const src = row.dataset.previewSrc;
+			const alt = row.dataset.previewAlt || "";
+			const poster = row.dataset.previewPoster || "";
+
+			if (!src || src === currentSrc) return;
+
+			currentSrc = src;
+			preview.replaceChildren();
+
+			if (type === "video") {
+				const video = document.createElement("video");
+				video.src = src;
+				video.muted = true;
+				video.loop = true;
+				video.playsInline = true;
+				video.autoplay = true;
+				video.setAttribute("aria-label", alt);
+				if (poster) video.poster = poster;
+				preview.append(video);
+				video.play().catch(() => {});
+				return;
+			}
+
+			const image = document.createElement("img");
+			image.src = src;
+			image.alt = alt;
+			image.decoding = "async";
+			preview.append(image);
+		};
+
+		const showPreview = (event) => {
+			const row = event.currentTarget;
+			setPreviewMedia(row);
+			setPreviewPosition(event, !isPreviewVisible);
+			isPreviewVisible = true;
+			preview.classList.add("is-visible");
+			preview.setAttribute("aria-hidden", "false");
+			queuePreviewAnimation();
+		};
+
+		const hidePreview = () => {
+			isPreviewVisible = false;
+			if (animationFrame) {
+				cancelAnimationFrame(animationFrame);
+				animationFrame = undefined;
+			}
+			preview.classList.remove("is-visible");
+			preview.setAttribute("aria-hidden", "true");
+			currentSrc = "";
+		};
+
+		projectList.querySelectorAll("[data-project-preview-row]").forEach((row) => {
+			row.addEventListener("pointerenter", showPreview);
+			row.addEventListener("pointermove", setPreviewPosition);
+			row.addEventListener("pointerleave", hidePreview);
+		});
+
+		projectList.addEventListener("pointerleave", hidePreview);
+		window.addEventListener("blur", hidePreview);
+	};
+
 	document.addEventListener("astro:page-load", initFeaturedProjects);
+	document.addEventListener("astro:page-load", initProjectHoverPreview);
 </script>
