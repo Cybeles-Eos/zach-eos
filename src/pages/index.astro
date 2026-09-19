@@ -4,6 +4,7 @@ import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
 import SkillsSection from "../partials/skills-section.astro";
 import SkillsBox from "../components/skills-box.astro";
+import { getCollection } from "astro:content";
 import { TECH_LANGUAGES } from "../data/techLanguages";
 
 const heroTexts = [
@@ -40,53 +41,20 @@ const scrollBannerPreloads = [
 	"/images/scroll-banners/banner-24.png",
 ];
 
-const projectRows = [
-	{
-		title: "Monte Carlo Builders",
-		description: "My first real-world role learning how teams ship websites, not just how to code them.",
-		year: "2026",
-		category: "Web",
-		link: "#",
-		thumbnail: "/images/banner.png",
-		thumbnailAlt: "banner",
-		previewMedia: {
-			type: "image",
-			src: "/images/prev-img.png",
-			alt: "Monte Carlo Builders project preview",
-			poster: ""
-		}
-	},
-	{
-		title: "Teleurgent",
-		description: "My first real-world role learning how teams ship websites, not just how to code them.",
-		year: "2026",
-		category: "Web",
-		link: "#",
-		thumbnail: "/images/banner.png",
-		thumbnailAlt: "banner",
-		previewMedia: {
-			type: "image",
-			src: "/images/prev-img-1.png",
-			alt: "Servease project preview",
-			poster: ""
-		}
-	},
-	{
-		title: "Monte Carlo Builders",
-		description: "My first real-world role learning how teams ship websites, not just how to code them.",
-		year: "2026",
-		category: "Web",
-		link: "#",
-		thumbnail: "/images/banner.png",
-		thumbnailAlt: "banner",
-		previewMedia: {
-			type: "image",
-			src: "/images/prev-default.png",
-			alt: "Research proposal project preview",
-			poster: ""
-		}
-	}
-];	
+const fullstackProjects = await getCollection("fullstackProjects");
+const projectRows = fullstackProjects
+	.filter((project) => project.data.isFeatured)
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.map((project) => ({
+		title: project.data.title,
+		description: project.data.description,
+		year: project.data.year,
+		category: project.data.category,
+		link: `/projects/${project.id}`,
+		thumbnail: project.data.thumbnail,
+		thumbnailAlt: project.data.thumbnailAlt,
+		previewMedia: project.data.previewMedia,
+	}));
 
 ---
 

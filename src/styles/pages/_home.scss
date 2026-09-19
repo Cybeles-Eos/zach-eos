@@ -1527,11 +1527,13 @@
                                 gap: 6px;
                                 margin-right: 20px;
                                 margin-top: 25px;
+								
                                 span{
                                     display: block;
                                     width: 7px;
                                     height: 7px;
                                     border-radius: 50px;
+									transition: all 300ms;
                                     
                                     &:first-child{
                                         background-color: var(--green-color-medium);
@@ -1588,6 +1590,23 @@
                                 }
                             }
                         }
+						&:hover {
+							.dots {
+								span:first-child {
+									transform: scale(0);
+								}
+
+								span:last-child {
+									width: 26px;
+								}
+							}
+
+							// &__right{
+							// 	svg{
+							// 		rotate: 8deg;
+							// 	}
+							// }
+						}
 
                         @media (max-width: 792px) {
                             flex-direction: column;
