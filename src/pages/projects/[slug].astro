@@ -1,0 +1,37 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "../../layouts/Layout.astro";
+import Navbar from "../../partials/navbar.astro";
+import Header from "../../partials/header.astro";
+
+export async function getStaticPaths() {
+	const projects = await getCollection("fullstackProjects");
+
+	return projects.map((project) => ({
+		params: { slug: project.id },
+		props: { project },
+	}));
+}
+
+const { project } = Astro.props;
+---
+
+<Layout
+	title={project.data.metaTitle}
+	description={project.data.metaDescription}
+	image={project.data.metaBanner}
+>
+	<main class="fullstack">
+		<Header />
+		<Navbar />
+
+		<section class="section--hero glb-sec-pad-out">
+			<div class="section--hero__grid" aria-hidden="true"></div>
+			<div class="section--hero__con">
+				<div class="section--hero__main glb-sec-pad">
+					<h1>{project.data.title}</h1>
+				</div>
+			</div>
+		</section>
+	</main>
+</Layout>
