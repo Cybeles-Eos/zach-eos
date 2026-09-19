@@ -40,6 +40,53 @@ const scrollBannerPreloads = [
 	"/images/scroll-banners/banner-24.png",
 ];
 
+const projectRows = [
+	{
+		title: "Monte Carlo Builders",
+		description: "My first real-world role learning how teams ship websites, not just how to code them.",
+		year: "2026",
+		category: "Web",
+		link: "#",
+		thumbnail: "/images/banner.png",
+		thumbnailAlt: "banner",
+		previewMedia: {
+			type: "image",
+			src: "/images/prev-img.png",
+			alt: "Monte Carlo Builders project preview",
+			poster: ""
+		}
+	},
+	{
+		title: "Teleurgent",
+		description: "My first real-world role learning how teams ship websites, not just how to code them.",
+		year: "2026",
+		category: "Web",
+		link: "#",
+		thumbnail: "/images/banner.png",
+		thumbnailAlt: "banner",
+		previewMedia: {
+			type: "image",
+			src: "/images/prev-img-1.png",
+			alt: "Servease project preview",
+			poster: ""
+		}
+	},
+	{
+		title: "Monte Carlo Builders",
+		description: "My first real-world role learning how teams ship websites, not just how to code them.",
+		year: "2026",
+		category: "Web",
+		link: "#",
+		thumbnail: "/images/banner.png",
+		thumbnailAlt: "banner",
+		previewMedia: {
+			type: "image",
+			src: "/images/prev-default.png",
+			alt: "Research proposal project preview",
+			poster: ""
+		}
+	}
+];	
 
 ---
 
@@ -320,7 +367,7 @@ const scrollBannerPreloads = [
             <div class="section--projects__con">
                 <div class="section--projects__main glb-sec-pad">
                     <h2>Explore more of my Selected projects.</h2>
-
+<!-- 
                     <div class="section--projects__main--con" data-selected-projects>
 						<div class="prj-h-box is-open">
 							<div class="prj-h-box__head">
@@ -484,7 +531,42 @@ const scrollBannerPreloads = [
 								</div>
 							</div>
 						</div>
-                    </div>
+                    </div> -->
+					<div class="project-list">
+						<div class="project-list" data-project-preview-list>
+
+							{projectRows.map((project) => (
+								<a
+									href={project.link}
+									class="project-list-box"
+									data-project-preview-row
+									data-preview-type={project.previewMedia.type}
+									data-preview-src={project.previewMedia.src}
+									data-preview-alt={project.previewMedia.alt}
+									data-preview-poster={project.previewMedia.poster ?? ""}
+								>
+									<div class="project-list-box__left">
+										<div class="dots">
+											<span></span>
+											<span></span>
+										</div>
+										<div class="details">
+											<h3>{project.title} </h3>
+											<p>{project.description}</p>
+										</div>
+									</div>
+									<div class="project-list-box__right">
+										<img src={project.thumbnail} alt={project.thumbnailAlt}>
+										<svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M16.8401 12.1457L-0.00179153 12.1457L-0.00179141 9.37843L16.8401 9.37843L9.41814 1.95649L11.3746 -4.70426e-07L22.1367 10.7621L11.3746 21.5242L9.41814 19.5677L16.8401 12.1457Z" fill="currentColor"/>
+										</svg>
+									</div>
+								</a>
+							))}
+
+						</div>
+						<div class="project-hover-preview" data-project-hover-preview aria-hidden="true"></div>
+					</div>
                 </div>
                 
                 <svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -1295,8 +1377,223 @@ const scrollBannerPreloads = [
 		};
 	};
 
+	const initProjectHoverPreview = () => {
+		const projectList = document.querySelector("[data-project-preview-list]");
+		const preview = document.querySelector("[data-project-hover-preview]");
+
+		if (!projectList || !preview) return;
+
+		const padding = 20;
+		const offset = 22;
+		let currentSrc = "";
+		let currentX = padding;
+		let currentY = padding;
+		let targetX = padding;
+		let targetY = padding;
+		let animationFrame;
+		let isPreviewVisible = false;
+		const previewRows = [...projectList.querySelectorAll("[data-project-preview-row]")];
+		const mediaCache = new Map();
+
+		const applyPreviewPosition = () => {
+			preview.style.setProperty("--preview-x", `${currentX}px`);
+			preview.style.setProperty("--preview-y", `${currentY}px`);
+		};
+
+		const animatePreviewPosition = () => {
+			const easing = 0.18;
+			const deltaX = targetX - currentX;
+			const deltaY = targetY - currentY;
+
+			currentX += deltaX * easing;
+			currentY += deltaY * easing;
+
+			if (Math.abs(deltaX) < 0.3) currentX = targetX;
+			if (Math.abs(deltaY) < 0.3) currentY = targetY;
+
+			applyPreviewPosition();
+
+			if (isPreviewVisible && (currentX !== targetX || currentY !== targetY)) {
+				animationFrame = requestAnimationFrame(animatePreviewPosition);
+				return;
+			}
+
+			animationFrame = undefined;
+		};
+
+		const queuePreviewAnimation = () => {
+			if (!animationFrame) {
+				animationFrame = requestAnimationFrame(animatePreviewPosition);
+			}
+		};
+
+		const getPreviewPosition = (event) => {
+			const rect = preview.getBoundingClientRect();
+			const previewWidth = rect.width;
+			const previewHeight = rect.height;
+			const viewportWidth = window.innerWidth;
+			const viewportHeight = window.innerHeight;
+			let nextX = event.clientX + offset;
+			let nextY = event.clientY + offset;
+
+			nextX = Math.min(Math.max(nextX, padding), viewportWidth - previewWidth - padding);
+			nextY = Math.min(Math.max(nextY, padding), viewportHeight - previewHeight - padding);
+
+			return { x: nextX, y: nextY };
+		};
+
+		const setPreviewPosition = (event, snap = false) => {
+			const nextPosition = getPreviewPosition(event);
+			targetX = nextPosition.x;
+			targetY = nextPosition.y;
+
+			if (snap) {
+				currentX = targetX;
+				currentY = targetY;
+				applyPreviewPosition();
+				return;
+			}
+
+			queuePreviewAnimation();
+		};
+
+		const resetPreviewPan = () => {
+			preview.classList.remove("is-panning");
+			preview.style.setProperty("--preview-scroll-distance", "0px");
+		};
+
+		const setPreviewPan = (mediaWidth, mediaHeight) => {
+			if (!mediaWidth || !mediaHeight) return;
+
+			const previewWidth = preview.clientWidth;
+			const previewHeight = preview.clientHeight;
+			const renderedMediaHeight = previewWidth * (mediaHeight / mediaWidth);
+			const scrollDistance = Math.max(0, renderedMediaHeight - previewHeight);
+
+			if (scrollDistance <= 8) {
+				resetPreviewPan();
+				return;
+			}
+
+			preview.style.setProperty("--preview-scroll-distance", `-${scrollDistance}px`);
+			preview.classList.add("is-panning");
+		};
+
+		const syncPreviewPan = (media) => {
+			if (media instanceof HTMLVideoElement) {
+				setPreviewPan(media.videoWidth, media.videoHeight);
+				return;
+			}
+
+			setPreviewPan(media.naturalWidth, media.naturalHeight);
+		};
+
+		const getPreviewMediaData = (row) => ({
+			type: row.dataset.previewType,
+			src: row.dataset.previewSrc,
+			alt: row.dataset.previewAlt || "",
+			poster: row.dataset.previewPoster || ""
+		});
+
+		const createPreviewMedia = ({ type, src, alt, poster }) => {
+			if (type === "video") {
+				const video = document.createElement("video");
+				video.muted = true;
+				video.loop = true;
+				video.playsInline = true;
+				video.preload = "metadata";
+				video.autoplay = true;
+				video.setAttribute("aria-label", alt);
+				if (poster) video.poster = poster;
+				video.addEventListener("loadedmetadata", () => {
+					if (currentSrc === src && preview.contains(video)) syncPreviewPan(video);
+				});
+				video.src = src;
+				return video;
+			}
+
+			const image = new Image();
+			image.alt = alt;
+			image.decoding = "async";
+			image.addEventListener("load", () => {
+				if (currentSrc === src && preview.contains(image)) syncPreviewPan(image);
+			});
+			image.src = src;
+			return image;
+		};
+
+		const getCachedMedia = (row) => {
+			const mediaData = getPreviewMediaData(row);
+			if (!mediaData.src) return undefined;
+
+			if (!mediaCache.has(mediaData.src)) {
+				mediaCache.set(mediaData.src, createPreviewMedia(mediaData));
+			}
+
+			return mediaCache.get(mediaData.src);
+		};
+
+		const preloadPreviewMedia = () => {
+			previewRows.forEach((row) => getCachedMedia(row));
+		};
+
+		const setPreviewMedia = (row) => {
+			const { src } = getPreviewMediaData(row);
+
+			if (!src || src === currentSrc) return;
+
+			const media = getCachedMedia(row);
+			if (!media) return;
+
+			currentSrc = src;
+			resetPreviewPan();
+			preview.replaceChildren(media);
+
+			if (media instanceof HTMLVideoElement) {
+				if (media.readyState >= 1) syncPreviewPan(media);
+				media.play().catch(() => {});
+			} else if (media.complete) {
+				syncPreviewPan(media);
+			} else {
+				resetPreviewPan();
+			}
+		};
+
+		const showPreview = (event) => {
+			const row = event.currentTarget;
+			setPreviewMedia(row);
+			setPreviewPosition(event, !isPreviewVisible);
+			isPreviewVisible = true;
+			preview.classList.add("is-visible");
+			preview.setAttribute("aria-hidden", "false");
+			queuePreviewAnimation();
+		};
+
+		const hidePreview = () => {
+			isPreviewVisible = false;
+			if (animationFrame) {
+				cancelAnimationFrame(animationFrame);
+				animationFrame = undefined;
+			}
+			preview.classList.remove("is-visible");
+			preview.setAttribute("aria-hidden", "true");
+		};
+
+		preloadPreviewMedia();
+
+		previewRows.forEach((row) => {
+			row.addEventListener("pointerenter", showPreview);
+			row.addEventListener("pointermove", setPreviewPosition);
+			row.addEventListener("pointerleave", hidePreview);
+		});
+
+		projectList.addEventListener("pointerleave", hidePreview);
+		window.addEventListener("blur", hidePreview);
+	};
+
 	setupHomeInteractions();
 	document.addEventListener("astro:before-swap", () => teardown());
 	document.addEventListener("astro:after-swap", setupHomeInteractions);
+	document.addEventListener("astro:page-load", initProjectHoverPreview);
 </script>
 

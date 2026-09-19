@@ -29,7 +29,7 @@ const projectRows = [
 		thumbnailAlt: "banner",
 		previewMedia: {
 			type: "image",
-			src: "/banners/servease.png",
+			src: "/images/prev-img-1.png",
 			alt: "Servease project preview",
 			poster: ""
 		}
@@ -44,7 +44,7 @@ const projectRows = [
 		thumbnailAlt: "banner",
 		previewMedia: {
 			type: "image",
-			src: "/images/research-def-banner.png",
+			src: "/images/prev-default.png",
 			alt: "Research proposal project preview",
 			poster: ""
 		}
@@ -295,6 +295,8 @@ const projectRows = [
 		let targetY = padding;
 		let animationFrame;
 		let isPreviewVisible = false;
+		const previewRows = [...projectList.querySelectorAll("[data-project-preview-row]")];
+		const mediaCache = new Map();
 
 		const applyPreviewPosition = () => {
 			preview.style.setProperty("--preview-x", `${currentX}px`);
@@ -358,36 +360,106 @@ const projectRows = [
 			queuePreviewAnimation();
 		};
 
-		const setPreviewMedia = (row) => {
-			const type = row.dataset.previewType;
-			const src = row.dataset.previewSrc;
-			const alt = row.dataset.previewAlt || "";
-			const poster = row.dataset.previewPoster || "";
+		const resetPreviewPan = () => {
+			preview.classList.remove("is-panning");
+			preview.style.setProperty("--preview-scroll-distance", "0px");
+		};
 
-			if (!src || src === currentSrc) return;
+		const setPreviewPan = (mediaWidth, mediaHeight) => {
+			if (!mediaWidth || !mediaHeight) return;
 
-			currentSrc = src;
-			preview.replaceChildren();
+			const previewWidth = preview.clientWidth;
+			const previewHeight = preview.clientHeight;
+			const renderedMediaHeight = previewWidth * (mediaHeight / mediaWidth);
+			const scrollDistance = Math.max(0, renderedMediaHeight - previewHeight);
 
-			if (type === "video") {
-				const video = document.createElement("video");
-				video.src = src;
-				video.muted = true;
-				video.loop = true;
-				video.playsInline = true;
-				video.autoplay = true;
-				video.setAttribute("aria-label", alt);
-				if (poster) video.poster = poster;
-				preview.append(video);
-				video.play().catch(() => {});
+			if (scrollDistance <= 8) {
+				resetPreviewPan();
 				return;
 			}
 
-			const image = document.createElement("img");
-			image.src = src;
+			preview.style.setProperty("--preview-scroll-distance", `-${scrollDistance}px`);
+			preview.classList.add("is-panning");
+		};
+
+		const syncPreviewPan = (media) => {
+			if (media instanceof HTMLVideoElement) {
+				setPreviewPan(media.videoWidth, media.videoHeight);
+				return;
+			}
+
+			setPreviewPan(media.naturalWidth, media.naturalHeight);
+		};
+
+		const getPreviewMediaData = (row) => ({
+			type: row.dataset.previewType,
+			src: row.dataset.previewSrc,
+			alt: row.dataset.previewAlt || "",
+			poster: row.dataset.previewPoster || ""
+		});
+
+		const createPreviewMedia = ({ type, src, alt, poster }) => {
+			if (type === "video") {
+				const video = document.createElement("video");
+				video.muted = true;
+				video.loop = true;
+				video.playsInline = true;
+				video.preload = "metadata";
+				video.autoplay = true;
+				video.setAttribute("aria-label", alt);
+				if (poster) video.poster = poster;
+				video.addEventListener("loadedmetadata", () => {
+					if (currentSrc === src && preview.contains(video)) syncPreviewPan(video);
+				});
+				video.src = src;
+				return video;
+			}
+
+			const image = new Image();
 			image.alt = alt;
 			image.decoding = "async";
-			preview.append(image);
+			image.addEventListener("load", () => {
+				if (currentSrc === src && preview.contains(image)) syncPreviewPan(image);
+			});
+			image.src = src;
+			return image;
+		};
+
+		const getCachedMedia = (row) => {
+			const mediaData = getPreviewMediaData(row);
+			if (!mediaData.src) return undefined;
+
+			if (!mediaCache.has(mediaData.src)) {
+				mediaCache.set(mediaData.src, createPreviewMedia(mediaData));
+			}
+
+			return mediaCache.get(mediaData.src);
+		};
+
+		const preloadPreviewMedia = () => {
+			previewRows.forEach((row) => getCachedMedia(row));
+		};
+
+		const setPreviewMedia = (row) => {
+			const { src } = getPreviewMediaData(row);
+
+			if (!src || src === currentSrc) return;
+
+			const media = getCachedMedia(row);
+			if (!media) return;
+
+			currentSrc = src;
+			resetPreviewPan();
+			preview.replaceChildren(media);
+
+			if (media instanceof HTMLVideoElement) {
+				if (media.readyState >= 1) syncPreviewPan(media);
+				media.play().catch(() => {});
+			} else if (media.complete) {
+				syncPreviewPan(media);
+			} else {
+				resetPreviewPan();
+			}
 		};
 
 		const showPreview = (event) => {
@@ -408,10 +480,11 @@ const projectRows = [
 			}
 			preview.classList.remove("is-visible");
 			preview.setAttribute("aria-hidden", "true");
-			currentSrc = "";
 		};
 
-		projectList.querySelectorAll("[data-project-preview-row]").forEach((row) => {
+		preloadPreviewMedia();
+
+		previewRows.forEach((row) => {
 			row.addEventListener("pointerenter", showPreview);
 			row.addEventListener("pointermove", setPreviewPosition);
 			row.addEventListener("pointerleave", hidePreview);
