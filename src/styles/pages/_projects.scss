@@ -937,6 +937,10 @@
 	--brd-cate: #dadada;
 	--svg-inp-clr: #646464;
 	--mbrd-green-color: #00A14C;
+
+	.fullstack .section--cta__main--svg{
+		display: none;
+	}
 }
 
 [data-theme="dark"]{
