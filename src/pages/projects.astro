@@ -7,6 +7,7 @@ import Header from "../partials/header.astro";
 const fullstackProjects = await getCollection("fullstackProjects");
 const completedProjectCount = fullstackProjects.length;
 const projectRows = fullstackProjects
+	.filter((project) => project.data.isActive !== false)
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 	.map((project) => {
 		const projectType = project.data.category.toLowerCase().includes("figma")
@@ -376,6 +377,8 @@ const projectRows = fullstackProjects
 		let currentSrc = "";
 		let currentX = padding;
 		let currentY = padding;
+		let targetX = padding;
+		let targetY = padding;
 		let animationFrame;
 		let isPreviewVisible = false;
 		let previewWidth = 330;
@@ -389,12 +392,30 @@ const projectRows = fullstackProjects
 			preview.style.setProperty("--preview-y", `${currentY}px`);
 		};
 
+		const animatePreviewPosition = () => {
+			const easing = 0.18;
+			const deltaX = targetX - currentX;
+			const deltaY = targetY - currentY;
+
+			currentX += deltaX * easing;
+			currentY += deltaY * easing;
+
+			if (Math.abs(deltaX) < 0.4) currentX = targetX;
+			if (Math.abs(deltaY) < 0.4) currentY = targetY;
+
+			applyPreviewPosition();
+
+			if (isPreviewVisible && (currentX !== targetX || currentY !== targetY)) {
+				animationFrame = requestAnimationFrame(animatePreviewPosition);
+				return;
+			}
+
+			animationFrame = undefined;
+		};
+
 		const queuePreviewPosition = () => {
 			if (animationFrame) return;
-			animationFrame = requestAnimationFrame(() => {
-				applyPreviewPosition();
-				animationFrame = undefined;
-			});
+			animationFrame = requestAnimationFrame(animatePreviewPosition);
 		};
 
 		const updatePreviewSize = () => {
@@ -417,10 +438,12 @@ const projectRows = fullstackProjects
 
 		const setPreviewPosition = (event, snap = false) => {
 			const nextPosition = getPreviewPosition(event);
-			currentX = nextPosition.x;
-			currentY = nextPosition.y;
+			targetX = nextPosition.x;
+			targetY = nextPosition.y;
 
 			if (snap) {
+				currentX = targetX;
+				currentY = targetY;
 				applyPreviewPosition();
 				return;
 			}
@@ -556,11 +579,9 @@ const projectRows = fullstackProjects
 		previewRows.forEach((row) => {
 			row.addEventListener("pointerenter", showPreview);
 			row.addEventListener("pointermove", setPreviewPosition);
-			row.addEventListener("pointerleave", hidePreview);
 			cleanups.push(() => {
 				row.removeEventListener("pointerenter", showPreview);
 				row.removeEventListener("pointermove", setPreviewPosition);
-				row.removeEventListener("pointerleave", hidePreview);
 			});
 		});
 

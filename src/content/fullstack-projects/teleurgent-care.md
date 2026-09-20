@@ -15,6 +15,7 @@ metaTitle: Monte Carlo Builders Case Study | Zach Portfolio
 metaDescription: Fullstack project case study for Monte Carlo Builders, a responsive construction business website built for clear service presentation and client inquiries.
 metaBanner: /banners/montecarlo_builders.png
 isFeatured: true
+isActive: true
 ---
 
 Monte Carlo Builders was built to present construction services in a clean and direct way. The goal was to make the company feel trustworthy while helping visitors understand the work, view project details, and know how to reach out.

@@ -32,6 +32,7 @@ const fullstackProjects = defineCollection({
 		metaDescription: z.string(),
 		metaBanner: z.string(),
 		isFeatured: z.boolean(),
+		isActive: z.boolean(),
 	}),
 });
 

@@ -15,6 +15,7 @@ metaTitle: Zach Portfolio Website | Fullstack Project
 metaDescription: Portfolio project case study for Zach's Astro website, featuring project pages, content structure, responsive design, and interactive UI details.
 metaBanner: /banners/portfolio.png
 isFeatured: false
+isActive: false
 ---
 
 This portfolio was built to collect my work, experience, and project stories in one place. It focuses on presenting development and design work through responsive pages, content sections, and interactive details.
