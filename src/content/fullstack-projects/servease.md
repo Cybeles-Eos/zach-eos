@@ -7,7 +7,7 @@ thumbnail: /images/banner.png
 thumbnailAlt: Servease thumbnail
 previewMedia:
   type: image
-  src: /images/prev-img-1.webp
+  src: /images/servease.png
   alt: Servease project preview
   poster: ""
 date: 2026-02-18

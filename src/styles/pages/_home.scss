@@ -1634,8 +1634,7 @@
                         transform-origin: top left;
                         transition:
                             opacity 180ms ease,
-                            visibility 0s linear 180ms,
-                            transform 180ms ease;
+                            visibility 0s linear 180ms;
                         will-change: transform, opacity;
 
                         &.is-visible{
@@ -1644,8 +1643,7 @@
                             transform: translate3d(var(--preview-x, 20px), var(--preview-y, 20px), 0) scale(1);
                             transition:
                                 opacity 140ms ease,
-                                visibility 0s linear,
-                                transform 140ms ease;
+                                visibility 0s linear;
                         }
 
                         img,

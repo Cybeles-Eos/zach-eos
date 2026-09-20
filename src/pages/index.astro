@@ -1346,8 +1346,12 @@ const projectRows = fullstackProjects
 		};
 	};
 
+	let teardownProjectHoverPreview = () => {};
+
 	const initProjectHoverPreview = () => {
-		const projectList = document.querySelector("[data-project-preview-list]");
+		teardownProjectHoverPreview();
+
+		const projectList = document.querySelector("main.home [data-project-preview-list]");
 		const preview = document.querySelector("[data-project-hover-preview]");
 
 		if (!projectList || !preview) return;
@@ -1357,49 +1361,34 @@ const projectRows = fullstackProjects
 		let currentSrc = "";
 		let currentX = padding;
 		let currentY = padding;
-		let targetX = padding;
-		let targetY = padding;
 		let animationFrame;
 		let isPreviewVisible = false;
+		let previewWidth = 330;
+		let previewHeight = 206;
 		const previewRows = [...projectList.querySelectorAll("[data-project-preview-row]")];
 		const mediaCache = new Map();
+		const cleanups = [];
 
 		const applyPreviewPosition = () => {
 			preview.style.setProperty("--preview-x", `${currentX}px`);
 			preview.style.setProperty("--preview-y", `${currentY}px`);
 		};
 
-		const animatePreviewPosition = () => {
-			const easing = 0.18;
-			const deltaX = targetX - currentX;
-			const deltaY = targetY - currentY;
-
-			currentX += deltaX * easing;
-			currentY += deltaY * easing;
-
-			if (Math.abs(deltaX) < 0.3) currentX = targetX;
-			if (Math.abs(deltaY) < 0.3) currentY = targetY;
-
-			applyPreviewPosition();
-
-			if (isPreviewVisible && (currentX !== targetX || currentY !== targetY)) {
-				animationFrame = requestAnimationFrame(animatePreviewPosition);
-				return;
-			}
-
-			animationFrame = undefined;
+		const queuePreviewPosition = () => {
+			if (animationFrame) return;
+			animationFrame = requestAnimationFrame(() => {
+				applyPreviewPosition();
+				animationFrame = undefined;
+			});
 		};
 
-		const queuePreviewAnimation = () => {
-			if (!animationFrame) {
-				animationFrame = requestAnimationFrame(animatePreviewPosition);
-			}
+		const updatePreviewSize = () => {
+			const rect = preview.getBoundingClientRect();
+			previewWidth = rect.width;
+			previewHeight = rect.height;
 		};
 
 		const getPreviewPosition = (event) => {
-			const rect = preview.getBoundingClientRect();
-			const previewWidth = rect.width;
-			const previewHeight = rect.height;
 			const viewportWidth = window.innerWidth;
 			const viewportHeight = window.innerHeight;
 			let nextX = event.clientX + offset;
@@ -1413,17 +1402,15 @@ const projectRows = fullstackProjects
 
 		const setPreviewPosition = (event, snap = false) => {
 			const nextPosition = getPreviewPosition(event);
-			targetX = nextPosition.x;
-			targetY = nextPosition.y;
+			currentX = nextPosition.x;
+			currentY = nextPosition.y;
 
 			if (snap) {
-				currentX = targetX;
-				currentY = targetY;
 				applyPreviewPosition();
 				return;
 			}
 
-			queuePreviewAnimation();
+			queuePreviewPosition();
 		};
 
 		const resetPreviewPan = () => {
@@ -1434,8 +1421,6 @@ const projectRows = fullstackProjects
 		const setPreviewPan = (mediaWidth, mediaHeight) => {
 			if (!mediaWidth || !mediaHeight) return;
 
-			const previewWidth = preview.clientWidth;
-			const previewHeight = preview.clientHeight;
 			const renderedMediaHeight = previewWidth * (mediaHeight / mediaWidth);
 			const scrollDistance = Math.max(0, renderedMediaHeight - previewHeight);
 
@@ -1488,6 +1473,7 @@ const projectRows = fullstackProjects
 				if (currentSrc === src && preview.contains(image)) syncPreviewPan(image);
 			});
 			image.src = src;
+			image.decode?.().catch(() => {});
 			return image;
 		};
 
@@ -1517,6 +1503,7 @@ const projectRows = fullstackProjects
 			currentSrc = src;
 			resetPreviewPan();
 			preview.replaceChildren(media);
+			updatePreviewSize();
 
 			if (media instanceof HTMLVideoElement) {
 				if (media.readyState >= 1) syncPreviewPan(media);
@@ -1531,11 +1518,12 @@ const projectRows = fullstackProjects
 		const showPreview = (event) => {
 			const row = event.currentTarget;
 			setPreviewMedia(row);
+			updatePreviewSize();
 			setPreviewPosition(event, !isPreviewVisible);
 			isPreviewVisible = true;
 			preview.classList.add("is-visible");
 			preview.setAttribute("aria-hidden", "false");
-			queuePreviewAnimation();
+			queuePreviewPosition();
 		};
 
 		const hidePreview = () => {
@@ -1554,15 +1542,34 @@ const projectRows = fullstackProjects
 			row.addEventListener("pointerenter", showPreview);
 			row.addEventListener("pointermove", setPreviewPosition);
 			row.addEventListener("pointerleave", hidePreview);
+			cleanups.push(() => {
+				row.removeEventListener("pointerenter", showPreview);
+				row.removeEventListener("pointermove", setPreviewPosition);
+				row.removeEventListener("pointerleave", hidePreview);
+			});
 		});
 
 		projectList.addEventListener("pointerleave", hidePreview);
 		window.addEventListener("blur", hidePreview);
+		window.addEventListener("resize", updatePreviewSize);
+
+		cleanups.push(() => {
+			projectList.removeEventListener("pointerleave", hidePreview);
+			window.removeEventListener("blur", hidePreview);
+			window.removeEventListener("resize", updatePreviewSize);
+			hidePreview();
+		});
+
+		teardownProjectHoverPreview = () => {
+			cleanups.forEach((cleanup) => cleanup());
+			teardownProjectHoverPreview = () => {};
+		};
 	};
 
 	setupHomeInteractions();
 	document.addEventListener("astro:before-swap", () => teardown());
 	document.addEventListener("astro:after-swap", setupHomeInteractions);
 	document.addEventListener("astro:page-load", initProjectHoverPreview);
+	document.addEventListener("astro:before-swap", () => teardownProjectHoverPreview());
 </script>
 
