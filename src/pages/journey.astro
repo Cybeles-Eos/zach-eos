@@ -6,6 +6,7 @@ import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
 
 const journeys = await getCollection("journeys");
+const completedProjectCount = (await getCollection("fullstackProjects")).length;
 
 ---
 
@@ -370,7 +371,7 @@ const journeys = await getCollection("journeys");
 						</span>
 						<span class="cls-cta__text">
 							<span class="cls-cta__title">Lets start a project</span>
-							<span class="cls-cta__count">20+ projects complete</span>
+							<span class="cls-cta__count">{completedProjectCount} projects complete</span>
 						</span>
 					</a>
 					<svg width="2158" height="2158" class="section--cta__main--svg" viewBox="0 0 2158 2158" fill="none" xmlns="http://www.w3.org/2000/svg">

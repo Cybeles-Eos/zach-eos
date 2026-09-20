@@ -1,4 +1,5 @@
 ---
+import { getCollection } from "astro:content";
 import Layout from "../layouts/Layout.astro";
 import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
@@ -7,6 +8,7 @@ import { TECH_LANGUAGES } from "../data/techLanguages";
 import StackBox from "../components/stack-box.astro";
 
 
+const completedProjectCount = (await getCollection("fullstackProjects")).length;
 
 ---
 
@@ -123,7 +125,7 @@ import StackBox from "../components/stack-box.astro";
 							<img src="/images/myself-abt.png" alt="Profile Image">
 							<div class="profile-abt-p__info">
 								<div class="profile-abt-p__info--box">
-									<h1>20+</h1>
+									<h1>{completedProjectCount}</h1>
 									<p>Completed Projects</p>
 								</div>
 								<div class="profile-abt-p__info--line"></div>
@@ -358,7 +360,7 @@ import StackBox from "../components/stack-box.astro";
 						</span>
 						<span class="cls-cta__text">
 							<span class="cls-cta__title">Lets start a project</span>
-							<span class="cls-cta__count">20+ projects complete</span>
+							<span class="cls-cta__count">{completedProjectCount} projects complete</span>
 						</span>
 					</a>
 					<svg width="2158" height="2158" class="section--cta__main--svg" viewBox="0 0 2158 2158" fill="none" xmlns="http://www.w3.org/2000/svg">
