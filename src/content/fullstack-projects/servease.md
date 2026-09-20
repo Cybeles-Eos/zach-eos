@@ -3,7 +3,7 @@ title: Servease
 description: A local service booking platform built as a capstone project, connecting customers with service providers through booking and management flows.
 year: "2026"
 category: Website
-thumbnail: /images/banner.png
+thumbnail: /images/default-banner-prj.webp
 thumbnailAlt: Servease thumbnail
 previewMedia:
   type: image

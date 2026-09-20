@@ -567,8 +567,12 @@
                             align-items: flex-start;
                             gap: 20px;
                             img{
-                                height: 80px;
+                                height: 100px;
+								width: 170px;
                                 margin-right: 10px;
+								object-fit: cover;
+								object-position: center;
+								border-radius: 4px;
                             }
                             svg{
                                 color: var(--full-clr-txt);
