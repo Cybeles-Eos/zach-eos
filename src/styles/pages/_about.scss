@@ -80,7 +80,7 @@
 			}
 			&--svg{
 				position: absolute;
-				right: -75rem;
+				right: -60rem;
 				bottom: -100rem;
 				z-index: 1;
 				user-select: none;
@@ -117,6 +117,10 @@
 				}
 				p{
 					max-width: 455px;
+					position: relative;
+					z-index: 5;
+				}
+				.section--hero__action{
 					position: relative;
 					z-index: 5;
 				}
