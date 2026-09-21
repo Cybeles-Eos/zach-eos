@@ -5,9 +5,10 @@ import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
 
 const fullstackProjects = await getCollection("fullstackProjects");
-const completedProjectCount = fullstackProjects.length;
-const projectRows = fullstackProjects
-	.filter((project) => project.data.isActive !== false)
+const activeProjects = fullstackProjects.filter((project) => project.data.isActive !== false);
+const completedProjectCount = activeProjects.length;
+const completedProjectCountLabel = `${completedProjectCount}+`;
+const projectRows = activeProjects
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 	.map((project) => {
 		const projectType = project.data.category.toLowerCase().includes("figma")
@@ -192,7 +193,7 @@ const projectRows = fullstackProjects
 						</span>
 						<span class="cls-cta__text">
 							<span class="cls-cta__title">Lets start a project</span>
-							<span class="cls-cta__count">{completedProjectCount} projects complete</span>
+							<span class="cls-cta__count">{completedProjectCountLabel} projects complete</span>
 						</span>
 					</a>
 					<svg width="2158" height="2158" class="section--cta__main--svg" viewBox="0 0 2158 2158" fill="none" xmlns="http://www.w3.org/2000/svg">

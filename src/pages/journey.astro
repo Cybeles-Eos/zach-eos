@@ -6,7 +6,9 @@ import Navbar from "../partials/navbar.astro";
 import Header from "../partials/header.astro";
 
 const journeys = await getCollection("journeys");
-const completedProjectCount = (await getCollection("fullstackProjects")).length;
+const fullstackProjects = await getCollection("fullstackProjects");
+const completedProjectCount = fullstackProjects.filter((project) => project.data.isActive !== false).length;
+const completedProjectCountLabel = `${completedProjectCount}+`;
 
 ---
 
@@ -61,6 +63,13 @@ const completedProjectCount = (await getCollection("fullstackProjects")).length;
 			<div class="section--details__con">
 				<div class="section--details__main ">
 					<div class="jddm-navs">
+						<div class="jddm-navs__head">
+							<a href="/">Home</a>
+							<svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
+								<path d="M0.384766 0.320312L2.88477 3.32031L0.384766 6.32031" stroke="#07D468"/>
+							</svg>
+							<a href="/journey" class="jddm-navs__head--active">Journeys</a>
+						</div>
 						<h3>Inside This Journey</h3>
 						<ul>
 							<li>
@@ -76,13 +85,6 @@ const completedProjectCount = (await getCollection("fullstackProjects")).length;
 						<a href="/contact"><img src="/images/img-cta.png" alt="cta"></a>						
 					</div>
 					<div class="jddm-content">
-						<div class="jddm-content__head">
-							<a href="/">Home</a>
-							<svg width="4" height="7" viewBox="0 0 4 7" fill="none" xmlns="http://www.w3.org/2000/svg">
-								<path d="M0.384766 0.320312L2.88477 3.32031L0.384766 6.32031" stroke="#07D468"/>
-							</svg>
-							<a href="/journey" class="jddm-content__head--active">Journeys</a>
-						</div>
 						
 						<div class="jddm-c-contents">
 
@@ -371,7 +373,7 @@ const completedProjectCount = (await getCollection("fullstackProjects")).length;
 						</span>
 						<span class="cls-cta__text">
 							<span class="cls-cta__title">Lets start a project</span>
-							<span class="cls-cta__count">{completedProjectCount} projects complete</span>
+							<span class="cls-cta__count">{completedProjectCountLabel} projects complete</span>
 						</span>
 					</a>
 					<svg width="2158" height="2158" class="section--cta__main--svg" viewBox="0 0 2158 2158" fill="none" xmlns="http://www.w3.org/2000/svg">

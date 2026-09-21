@@ -42,9 +42,11 @@ const scrollBannerPreloads = [
 ];
 
 const fullstackProjects = await getCollection("fullstackProjects");
-const completedProjectCount = fullstackProjects.length;
-const projectRows = fullstackProjects
-	.filter((project) => project.data.isActive !== false && project.data.isFeatured)
+const activeProjects = fullstackProjects.filter((project) => project.data.isActive !== false);
+const completedProjectCount = activeProjects.length;
+const completedProjectCountLabel = `${completedProjectCount}+`;
+const projectRows = activeProjects
+	.filter((project) => project.data.isFeatured)
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
 	.map((project) => ({
 		title: project.data.title,
@@ -179,7 +181,7 @@ const projectRows = fullstackProjects
 						<img src="images/zach-img-home.png" class="section--abt__main--img--profile" alt="zach" >
 						<div class="sah-box-top">
 							<div class="sah-box-top__top">
-								<h3>{completedProjectCount}</h3>	
+								<h3>{completedProjectCountLabel}</h3>	
 								<div class="circle"></div>
 							</div>
 							<p>Projects Completed</p>
@@ -882,7 +884,7 @@ const projectRows = fullstackProjects
 						</span>
 						<span class="cls-cta__text">
 							<span class="cls-cta__title">Lets start a project</span>
-							<span class="cls-cta__count">{completedProjectCount} projects complete</span>
+							<span class="cls-cta__count">{completedProjectCountLabel} projects complete</span>
 						</span>
 					</a>
 					<svg width="2158" height="2158" class="section--cta__main--svg" viewBox="0 0 2158 2158" fill="none" xmlns="http://www.w3.org/2000/svg">

@@ -199,6 +199,48 @@
 					top: 40px;
 					align-self: flex-start;
 
+					&__head{
+						display: flex;
+						align-items: center;
+						gap: 8px;
+						margin-bottom: 5px;
+						@media screen and (max-width: 492px) {
+							svg{
+								min-width: 4px !important;
+								min-height: 7px !important;
+							}
+						}
+						a{
+							font-weight: var(--font-hw-weight-p);
+							font-size: var(--font-size-7s);
+							color: var(--full-clr-txt);
+							opacity: 1;
+							line-height: 130%;
+							text-decoration: none !important;
+							
+							display: -webkit-box;
+							-webkit-line-clamp: 1;   /* number of lines */
+							-webkit-box-orient: vertical;
+							overflow: hidden;
+							
+							@media screen and (max-width: 492px) {
+
+								&:nth-child(1){
+									min-width: 32px;
+								}
+								&:nth-child(3){
+									min-width: 54px;
+								}
+							}
+							&:hover{
+								text-decoration: underline !important;
+							}
+						}
+						&--active{
+							opacity: 0.6 !important;
+						}
+					}
+
 					h3{
 						font-size: var(--font-size-3s);
 						font-weight: 400;

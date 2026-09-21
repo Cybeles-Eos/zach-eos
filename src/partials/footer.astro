@@ -1,24 +1,35 @@
 ---
+import { getCollection } from "astro:content";
 const year = new Date().getFullYear();
----
-<!-- <section class="footer-cta glb-pad-inline">
-	<div class="footer-cta__inner ">
-		<h2>Let's Create Something Beyond Expectations</h2>
-		<p>Whether it's a website, application, or digital solution, I can help turn your ideas into a functional and modern experience.</p>
-		<a href="#" class="">
-			Start a Project
-			<div>
-				<svg width="14" height="14" viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg">
-					<path d="M-4.1821e-07 7.875L10.6488 7.875L5.7575 12.7662L7 14L14 7L7 3.41715e-07L5.76625 1.23375L10.6488 6.125L-2.6522e-07 6.125L-4.1821e-07 7.875Z" fill="white"/>
-				</svg>										
-			</div>
-		</a>
+const fullstackProjects = await getCollection("fullstackProjects");
+const activeProjects = fullstackProjects.filter((project) => project.data.isFeatured !== false);
+const projectRows = activeProjects
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.map((project) => {
+		const projectType = project.data.category.toLowerCase().includes("figma")
+			? "figma-project"
+			: "web-project";
 
-		<img src="/images/cta-globe.svg" class="globe-vector" alt="footer-cta">
-		<img src="/images/cta-vector.svg" class="vector-image" alt="footer-cta">
-		
-	</div>
-</section> -->
+		return {
+			title: project.data.title,
+			description: project.data.description,
+			year: project.data.year,
+			category: project.data.category,
+			projectType,
+			searchText: [
+				project.data.title,
+				project.data.description,
+				project.data.year,
+				project.data.category,
+			].join(" "),
+			link: `/projects/${project.id}`,
+			thumbnail: project.data.thumbnail,
+			thumbnailAlt: project.data.thumbnailAlt,
+			previewMedia: project.data.previewMedia,
+		};
+	});
+---
+
 <footer class="site-footer glb-pad-inline">
 	<div class="site-footer__inner ">
 		<div class="site-footer__main">
@@ -27,38 +38,43 @@ const year = new Date().getFullYear();
 					<img src="/images/logo.svg" alt="Zach" width="80" height="30" />
 				</a>
 				<p class="site-footer__tagline">
-					Junior full-stack developer building clean, modern websites, portfolios, and web systems.
+					Aspiring full-stack developer creating clean, modern websites, portfolios, and web systems.
 				</p>
 			</div>
 
 			<div class="site-footer__column">
 				<h3 class="site-footer__heading">General Links</h3>
 				<nav class="site-footer__nav" aria-label="Footer navigation">
-					<a href="/">Home</a>
+					<!-- <a href="/">Home</a> -->
 					<a href="/about">About</a>
 					<a href="/journey">Journey</a>
 					<a href="/projects">Projects</a>
+					<a href="/contact">Contact</a>
 				</nav>
 			</div>
 
 			<div class="site-footer__column">
 				<h3 class="site-footer__heading">Projects</h3>
 				<nav class="site-footer__nav" aria-label="Footer navigation">
-					<a href="/">Servease Platform</a>
+					<!-- <a href="/">Servease Platform</a>
 					<a href="/about">Easy Consult By Zima Medical</a>
 					<a href="/experiences">Monte Carlo South</a>
-					<a href="/projects">Signexus | UK Base platform</a>
+					<a href="/projects">Signexus | UK Base platform</a> -->
+
+					{projectRows.map((project)=>(
+						<a href={project.link}>{project.title}</a>
+					))}
 				</nav>
 			</div>
 
 			<div class="site-footer__column">
-				<h3 class="site-footer__heading">Experiences</h3>
+				<h3 class="site-footer__heading">Contacts</h3>
 				<ul class="site-footer__experiences">
 					<li>
-						<a href="mailto:zach@zach.com">My Internship Experience as a Visual and Web Developer</a>
+						<a href="mailto:dawnzach@gmail.com">dawnzach@gmail.com</a>
 					</li>
 					<li>
-						<a href="tel:+639125240151">My Internship Experience as a Visual and Web Developer</a>
+						<a href="tel:+639125240151">(+63) 9125240151</a>
 					</li>
 				</ul>
 			</div>
@@ -68,8 +84,8 @@ const year = new Date().getFullYear();
 			<p>&copy; {year} Zach. All rights reserved.</p>
 			<div class="site-footer__connect">
 				<span class="site-footer__connect-label">Connect:</span>
-				<a href="https://instagram.com/" target="_blank" rel="noopener noreferrer">Instagram</a>
-				<a href="https://indeed.com/" target="_blank" rel="noopener noreferrer">Indeed</a>
+				<a href="https://www.instagram.com/zzacchie/" target="_blank" rel="noopener noreferrer">Instagram</a>
+				<a href="https://www.linkedin.com/in/zachjcruz/" target="_blank" rel="noopener noreferrer">Indeed</a>
 			</div>
 		</div>
 	</div>

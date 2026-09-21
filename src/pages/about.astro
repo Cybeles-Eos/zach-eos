@@ -8,7 +8,9 @@ import { TECH_LANGUAGES } from "../data/techLanguages";
 import StackBox from "../components/stack-box.astro";
 
 
-const completedProjectCount = (await getCollection("fullstackProjects")).length;
+const fullstackProjects = await getCollection("fullstackProjects");
+const completedProjectCount = fullstackProjects.filter((project) => project.data.isActive !== false).length;
+const completedProjectCountLabel = `${completedProjectCount}+`;
 
 ---
 
@@ -125,7 +127,7 @@ const completedProjectCount = (await getCollection("fullstackProjects")).length;
 							<img src="/images/myself-abt.png" alt="Profile Image">
 							<div class="profile-abt-p__info">
 								<div class="profile-abt-p__info--box">
-									<h1>{completedProjectCount}</h1>
+									<h1>{completedProjectCountLabel}</h1>
 									<p>Completed Projects</p>
 								</div>
 								<div class="profile-abt-p__info--line"></div>
@@ -360,7 +362,7 @@ const completedProjectCount = (await getCollection("fullstackProjects")).length;
 						</span>
 						<span class="cls-cta__text">
 							<span class="cls-cta__title">Lets start a project</span>
-							<span class="cls-cta__count">{completedProjectCount} projects complete</span>
+							<span class="cls-cta__count">{completedProjectCountLabel} projects complete</span>
 						</span>
 					</a>
 					<svg width="2158" height="2158" class="section--cta__main--svg" viewBox="0 0 2158 2158" fill="none" xmlns="http://www.w3.org/2000/svg">
