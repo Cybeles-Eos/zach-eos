@@ -574,14 +574,22 @@ const projectRows = fullstackProjects
 			preview.setAttribute("aria-hidden", "true");
 		};
 
+		const hidePreviewOnRowLeave = (event) => {
+			const nextTarget = event.relatedTarget;
+			if (nextTarget instanceof Element && nextTarget.closest("[data-project-preview-row]")) return;
+			hidePreview();
+		};
+
 		preloadPreviewMedia();
 
 		previewRows.forEach((row) => {
 			row.addEventListener("pointerenter", showPreview);
 			row.addEventListener("pointermove", setPreviewPosition);
+			row.addEventListener("pointerleave", hidePreviewOnRowLeave);
 			cleanups.push(() => {
 				row.removeEventListener("pointerenter", showPreview);
 				row.removeEventListener("pointermove", setPreviewPosition);
+				row.removeEventListener("pointerleave", hidePreviewOnRowLeave);
 			});
 		});
 
