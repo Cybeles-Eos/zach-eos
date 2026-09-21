@@ -11,7 +11,7 @@
 
 			width: 100%;
 			border-bottom: 1px solid var(--main-brd-clr);
-			height: 560px;
+			height: 570px;
 			position: relative;
 			overflow: hidden;
 
@@ -53,28 +53,29 @@
 				);
 			}
 
-			.vector-svg-jny{
+			.vector-svg-abt{
 				position: absolute; 
 				right: -12rem;
-				bottom: -14rem;
+				bottom: -17rem;
 				user-select: none;
 				-webkit-user-drag: none;
 				z-index: 1;
-				height: 600px;
+				height: 780px;
 
 				@media (max-width: 992px) {
-					height:51.1vw;
-					bottom: -14vw;
+					height:67.1vw;
+					bottom: -20vw;
 				}
 				@media (max-width: 692px) {
 					height: 350px;
-					bottom: -19rem;
+					bottom: -20rem;
 					right: 50%;
 					transform: translateX(50%);
 				}
 				@media (max-width: 492px) {
-					height: 300px;
-					bottom: -17rem;
+					height: 520px;
+					bottom: -28rem;
+					right: 50%;
 				}
 			}
 			&--svg{
@@ -109,7 +110,7 @@
 				justify-content: center;
 				
 				h1{
-					max-width: 700px !important;
+					max-width: 570px !important;
 					margin-top: 50px;
 					position: relative;
 					z-index: 5;
@@ -920,9 +921,9 @@
 						content: "";
 						position: absolute;
 						inset: 0;
-						background-image: url("/images/noise.png");
+						background-image: url("/images/noise-vertical.png");
 						background-position: center;
-						background-size: cover;
+						// background-size: cover;
 						opacity: 0.5;
 						pointer-events: none;
 						z-index: 2;

@@ -11,7 +11,7 @@
 
 			width: 100%;
 			border-bottom: 1px solid var(--main-brd-clr);
-			height: 560px;
+			height: 570px;
 			position: relative;
 			overflow: hidden;
 
@@ -115,6 +115,10 @@
 				}
 				p{
 					max-width: 475px;
+					position: relative;
+					z-index: 5;
+				}
+				a{
 					position: relative;
 					z-index: 5;
 				}
