@@ -16,6 +16,43 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
+
+const caseStudySections = [
+	{
+		id: "overview",
+		label: "OVERVIEW",
+		title: "From design concept to a complete and manageable website.",
+		paragraphs: [
+			"Monte Carlo Builders needed a professional website that clearly presents its construction services, projects, and company information. I worked on translating the approved design into responsive web pages while keeping the layout clean, consistent, and easy to navigate across desktop and mobile devices.",
+		],
+	},
+	{
+		id: "what-i-build",
+		label: "WHAT I BUILD",
+		title: "I turned the approved design into responsive pages and connected them with CMS features.",
+		paragraphs: [
+			"I handled the page cutting based on the approved UI/UX design and developed the frontend sections to closely match the original layout. I worked on responsive behavior for desktop, tablet, and mobile screens while keeping spacing, typography, images, and components consistent.",
+			"I also worked on the CMS logic and backend integration so the client could manage website content such as text, images, services, projects, and other page information without editing the code directly. This included connecting frontend sections to dynamic content, testing updates from the admin side, fixing layout and data issues, and making sure changes were displayed correctly on the live website.",
+		],
+	},
+	{
+		id: "stack",
+		label: "STACK",
+		title: "The tools I used to build and manage the website.From design concept to a complete and manageable website.",
+		paragraphs: [
+			"I used Laravel, Blade, HTML, SCSS, JavaScript, PHP, and MySQL to build the website and connect its frontend with CMS features. Git and GitHub helped manage code updates, while GoDaddy and cPanel were used for deployment, file management, database setup, and maintaining the live website.",
+		],
+	},
+	{
+		id: "what-i-learn",
+		label: "WHAT I LEARN",
+		title: "Building both the frontend and CMS improved my workflow.",
+		paragraphs: [
+			"This project gave me more experience in turning UI/UX designs into responsive pages and connecting them with backend CMS features. I also improved my understanding of Laravel development, content management, deployment, debugging, and maintaining a live client website.",
+		],
+		highlight: "Working on Monte Carlo Builders helped me understand how design, frontend development, and CMS logic work together in a complete website.",
+	},
+];
 ---
 
 <Layout
@@ -82,76 +119,54 @@ const { project } = Astro.props;
 			<div class="section--content__con">
 				<div class="section--content__main glb-sec-pad">
 
-					<div class="scm-navs">
-						<h4>Read Case Study</h4>
-						<div>
-							<a href="#">
-								<span>01</span>
-								<span>OVERVIEW</span>
-							</a>
-							<a href="#">
-								<span>02</span>
-								<span>WHAT I BUILD</span>
-							</a>
-							<a href="#">
-								<span>03</span>
-								<span>STACK</span>
-							</a>
-							<a href="#">
-								<span>04</span>
-								<span>WHAT I LEARN</span>
-							</a>
+					<div class="scm-navs" data-case-study-nav>
+						<button
+							class="scm-navs__toggle"
+							type="button"
+							aria-haspopup="true"
+							aria-expanded="false"
+							data-case-study-toggle
+						>
+							<span>Read Case Study</span>
+						</button>
+						<div class="scm-navs__menu" data-case-study-menu>
+							{caseStudySections.map((section, index) => {
+								const sectionNumber = String(index + 1).padStart(2, "0");
+
+								return (
+									<a href={`#${section.id}`}>
+										<span>{sectionNumber}</span>
+										<span>{section.label}</span>
+									</a>
+								);
+							})}
 						</div>
 					</div>
 					<div class="scm-detail">
-						<div class="scm-detail__box">
-							<div class="sol-pretitle">
-								<div class="sol-pretitle__line"></div>
-								<span class="sol-pretitle__txt">01 _OVERVIEW</span>
-							</div>
-							<h3>From design concept to a complete and manageable website.</h3>
-							<p class="glb-detail-txt">Monte Carlo Builders needed a professional website that clearly presents its construction services, projects, and company information. I worked on translating the approved design into responsive web pages while keeping the layout clean, consistent, and easy to navigate across desktop and mobile devices.</p>
-						</div>
-						<hr>
-						<div class="scm-detail__box">
-							<div class="sol-pretitle">
-								<div class="sol-pretitle__line"></div>
-								<span class="sol-pretitle__txt">02 _What I built</span>
-							</div>
-							<h3>I turned the approved design into responsive pages and connected them with CMS features.</h3>
-							<p class="glb-detail-txt">
-								I handled the page cutting based on the approved UI/UX design and developed the frontend sections to closely match the original layout. I worked on responsive behavior for desktop, tablet, and mobile screens while keeping spacing, typography, images, and components consistent. 
-								<br><br>
-								I also worked on the CMS logic and backend integration so the client could manage website content such as text, images, services, projects, and other page information without editing the code directly. This included connecting frontend sections to dynamic content, testing updates from the admin side, fixing layout and data issues, and making sure changes were displayed correctly on the live website.
-							</p>
-						</div>
-						<hr>
-						<div class="scm-detail__box">
-							<div class="sol-pretitle">
-								<div class="sol-pretitle__line"></div>
-								<span class="sol-pretitle__txt">03 _STACK</span>
-							</div>
-							<h3>The tools I used to build and manage the website.From design concept to a complete and manageable website.</h3>
-							<p class="glb-detail-txt">
-								I used Laravel, Blade, HTML, SCSS, JavaScript, PHP, and MySQL to build the website and connect its frontend with CMS features. Git and GitHub helped manage code updates, while GoDaddy and cPanel were used for deployment, file management, database setup, and maintaining the live website.
-							</p>
-						</div>
-						<hr>
-						<div class="scm-detail__box">
-							<div class="sol-pretitle">
-								<div class="sol-pretitle__line"></div>
-								<span class="sol-pretitle__txt">04 _WHAT I LEARN</span>
-							</div>
-							<h3>Building both the frontend and CMS improved my workflow.</h3>
-							<p class="glb-detail-txt">
-								This project gave me more experience in turning UI/UX designs into responsive pages and connecting them with backend CMS features. I also improved my understanding of Laravel development, content management, deployment, debugging, and maintaining a live client website.
-							</p>
-							<div class="glb-highlight-box">
-								<span>
-								Working on Monte Carlo Builders helped me understand how design, frontend development, and CMS logic work together in a complete website.
-								</span>
-							</div>
-						</div>
+						{caseStudySections.map((section, index) => {
+							const sectionNumber = String(index + 1).padStart(2, "0");
+
+							return (
+								<>
+									{index > 0 && <hr />}
+									<div class="scm-detail__box" id={section.id}>
+										<div class="sol-pretitle">
+											<div class="sol-pretitle__line"></div>
+											<span class="sol-pretitle__txt">{sectionNumber} _{section.label}</span>
+										</div>
+										<h3>{section.title}</h3>
+										{section.paragraphs.map((paragraph) => (
+											<p class="glb-detail-txt">{paragraph}</p>
+										))}
+										{section.highlight && (
+											<div class="glb-highlight-box">
+												<span>{section.highlight}</span>
+											</div>
+										)}
+									</div>
+								</>
+							);
+						})}
 					</div>
 
 				</div>
@@ -176,3 +191,62 @@ const { project } = Astro.props;
 		</section>
 	</main>
 </Layout>
+
+<script>
+	const setupCaseStudyNav = () => {
+		if (document.documentElement.dataset.caseStudyNavReady === "true") return;
+		document.documentElement.dataset.caseStudyNavReady = "true";
+
+		const mobileQuery = window.matchMedia("(max-width: 992px)");
+
+		const closeNav = (nav: HTMLElement) => {
+			nav.classList.remove("is-open");
+			nav.querySelector<HTMLButtonElement>("[data-case-study-toggle]")?.setAttribute("aria-expanded", "false");
+		};
+
+		const closeAll = (except?: HTMLElement) => {
+			const navs = [...document.querySelectorAll<HTMLElement>("[data-case-study-nav]")];
+
+			navs.forEach((nav) => {
+				if (nav !== except) closeNav(nav);
+			});
+		};
+
+		document.addEventListener("click", (event) => {
+			const target = event.target as HTMLElement | null;
+			if (!target) return;
+
+			const toggle = target.closest<HTMLButtonElement>("[data-case-study-toggle]");
+			if (toggle) {
+				if (!mobileQuery.matches) return;
+
+				const nav = toggle.closest<HTMLElement>("[data-case-study-nav]");
+				if (!nav) return;
+
+				const isOpen = nav.classList.toggle("is-open");
+				toggle.setAttribute("aria-expanded", String(isOpen));
+				closeAll(nav);
+				return;
+			}
+
+			const selectedLink = target.closest<HTMLAnchorElement>("[data-case-study-menu] a");
+			if (selectedLink) {
+				const nav = selectedLink.closest<HTMLElement>("[data-case-study-nav]");
+				if (nav) closeNav(nav);
+				return;
+			}
+
+			if (!mobileQuery.matches) return;
+			if (target.closest("[data-case-study-nav]")) return;
+
+			closeAll();
+		});
+
+		document.addEventListener("keydown", (event) => {
+			if (event.key === "Escape") closeAll();
+		});
+	};
+
+	document.addEventListener("astro:page-load", setupCaseStudyNav);
+	setupCaseStudyNav();
+</script>
