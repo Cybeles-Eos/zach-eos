@@ -9,9 +9,9 @@
 
 
 :root {
-	--primary-color: linear-gradient(-90deg, #00563F -40%, #00A14C 100%);
+	--primary-color: linear-gradient(-90deg, #006147 -40%, #00A14C 100%);
 	--green-color-dark: #00563F;
-	--green-color-medium: #00A14C;
+	--green-color-medium: #00863F;
 	--green-color-light: #07D468;
 	--white: #FFFFFF;
 	--gray: #B4B4B4;
@@ -148,6 +148,7 @@ p{
 	opacity: .86;	
 	font-weight: 300;
 	
+	
 	margin-bottom: 24px;
 	letter-spacing: .5px;
 	@media screen and (max-width: 392px) {
@@ -268,6 +269,11 @@ a{
 
 p, h1, h2, h3, h4, h5, h6{
 	color: var(--black);
+}
+
+p{
+	color: rgb(0, 0, 0);
+	opacity: .9 !important;
 }
 
 .pre-title{

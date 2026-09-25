@@ -78,8 +78,10 @@
 			}
 			&--svg{
 				position: absolute;
-				right: -55rem;
-				bottom: -100rem;
+				// right: -55rem;
+				// bottom: -100rem;
+				right: -13rem;
+				bottom: -25rem;
 				z-index: 1;
 				user-select: none;
 				-webkit-user-drag: none;
@@ -207,7 +209,7 @@
 						display: flex;
 						align-items: center;
 						gap: 8px;
-						margin-bottom: 5px;
+						margin-bottom: 0px;
 						@media screen and (max-width: 492px) {
 							svg{
 								min-width: 4px !important;
@@ -246,10 +248,11 @@
 					}
 
 					h3{
-						font-size: var(--font-size-3s);
+						font-size: var(--font-size-5s);
 						font-weight: 400;
 						opacity: 1;
-						margin-bottom: 5px !important;
+						// margin-top: 5px;
+						margin-bottom: 15px !important;
 					}
 					ul{
 						margin: 0;
@@ -596,7 +599,7 @@
 					position: absolute;
 					left: 50%;
 					transform: translateX(-50%);
-					bottom: -106rem;
+					bottom: -46rem;
 					z-index: 1;
 				}
 				h2{

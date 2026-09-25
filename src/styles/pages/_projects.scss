@@ -79,8 +79,8 @@
 			}
 			&--svg{
 				position: absolute;
-				right: -55rem;
-				bottom: -100rem;
+				right: -13rem;
+				bottom: -25rem;
 				z-index: 1;
 				user-select: none;
 				-webkit-user-drag: none;
@@ -89,6 +89,8 @@
 					bottom: -110rem;
 				}
 			}
+
+
 
 			&__con{
 				position: relative;
@@ -772,7 +774,7 @@
 					position: absolute;
 					left: 50%;
 					transform: translateX(-50%);
-					bottom: -106rem;
+					bottom: -46rem;
 					z-index: 1;
 				}
 				h2{

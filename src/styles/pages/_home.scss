@@ -2231,6 +2231,11 @@
 					top: -8px;
 					color: var(--mbrd-green-color);
 				}
+				.left-trb-n-vec,
+				.right-tlb-n-vec{
+					display: none;
+
+				}
 			}
 			&__main{
 				overflow: hidden;
@@ -2260,7 +2265,7 @@
 					position: absolute;
 					left: 50%;
 					transform: translateX(-50%);
-					bottom: -106rem;
+					bottom: -46rem;
 					z-index: 1;
 					display: var(--show);
 				}
