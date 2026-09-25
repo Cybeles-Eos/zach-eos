@@ -1,8 +1,16 @@
 ---
 import ResumeModal from "./resume-modal.astro";
+
+interface Props {
+    sty?: boolean;
+}
+
+const {
+    sty = false
+} = Astro.props;
 ---
 
-<div class="main--header">
+<div class={`main--header ${sty ? "main--header--dark" : ""}`}>
 
     <div>
         <a href="/" class="header-logo">

@@ -4,6 +4,8 @@ import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../partials/navbar.astro";
 import Header from "../../partials/header.astro";
 
+import Cta from "../../partials/cta.astro";
+
 export async function getStaticPaths() {
 	const projects = await getCollection("fullstackProjects");
 
@@ -21,15 +23,154 @@ const { project } = Astro.props;
 	description={project.data.metaDescription}
 	image={project.data.metaBanner}
 >
-	<main class="fullstack">
-		<Header />
+	<main class="project-detail">
+		<Header sty={false} />
 		<Navbar />
 
 		<section class="section--hero glb-sec-pad-out">
 			<div class="section--hero__grid" aria-hidden="true"></div>
 			<div class="section--hero__con">
 				<div class="section--hero__main glb-sec-pad">
-					<h1>{project.data.title}</h1>
+					<div class="section--hero__main--detail">
+						<h1>Monte carlo builders <span>Cms portfolio</span></h1>
+						<p>A responsive business website for a construction brand, focused on clear services, project presentation, and simple lead generation.</p>
+
+						<hr>
+
+						<div class="info">
+							<div>
+								<h5>role</h5>
+								<p>Web designer, UI/UX Frontend & Backend</p>
+							</div>
+							<div>
+								<h5>CONTRIBUTION</h5>
+								<p class="highlight">70% · 3-person team</p>
+							</div>
+						</div>
+						
+
+					</div>
+
+					<div class="img">
+						<img src="/images/prj-detail-hero-img.png" alt="">
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<section class="section--oneline glb-sec-pad-out">
+			<div class="section--oneline__con">
+				<div class="section--oneline__main glb-sec-pad">
+					<div class="sol-pretitle">
+						<div class="sol-pretitle__line"></div>
+						<span class="sol-pretitle__txt">the one line</span>
+					</div>
+					<h3>I helped turn the Monte Carlo Builders design into a responsive website by handling UI/UX, page cutting, frontend development, and CMS logic while keeping content easy to manage across different screen sizes.</h3>
+					<a href="/contact" class="btn btn--main-hero">Let’s Work Together</a>
+				</div>
+				
+				<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
+				</svg>
+				<svg width="10" height="16" class="right-tlb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
+				</svg>
+			</div>
+		</section>
+
+		<section class="section--content glb-sec-pad-out">
+			<div class="section--content__con">
+				<div class="section--content__main glb-sec-pad">
+
+					<div class="scm-navs">
+						<h4>Read Case Study</h4>
+						<div>
+							<a href="#">
+								<span>01</span>
+								<span>OVERVIEW</span>
+							</a>
+							<a href="#">
+								<span>02</span>
+								<span>WHAT I BUILD</span>
+							</a>
+							<a href="#">
+								<span>03</span>
+								<span>STACK</span>
+							</a>
+							<a href="#">
+								<span>04</span>
+								<span>WHAT I LEARN</span>
+							</a>
+						</div>
+					</div>
+					<div class="scm-detail">
+						<div class="scm-detail__box">
+							<div class="sol-pretitle">
+								<div class="sol-pretitle__line"></div>
+								<span class="sol-pretitle__txt">01 _OVERVIEW</span>
+							</div>
+							<h3>From design concept to a complete and manageable website.</h3>
+							<p class="glb-detail-txt">Monte Carlo Builders needed a professional website that clearly presents its construction services, projects, and company information. I worked on translating the approved design into responsive web pages while keeping the layout clean, consistent, and easy to navigate across desktop and mobile devices.</p>
+						</div>
+						<hr>
+						<div class="scm-detail__box">
+							<div class="sol-pretitle">
+								<div class="sol-pretitle__line"></div>
+								<span class="sol-pretitle__txt">02 _What I built</span>
+							</div>
+							<h3>I turned the approved design into responsive pages and connected them with CMS features.</h3>
+							<p class="glb-detail-txt">
+								I handled the page cutting based on the approved UI/UX design and developed the frontend sections to closely match the original layout. I worked on responsive behavior for desktop, tablet, and mobile screens while keeping spacing, typography, images, and components consistent. 
+								<br><br>
+								I also worked on the CMS logic and backend integration so the client could manage website content such as text, images, services, projects, and other page information without editing the code directly. This included connecting frontend sections to dynamic content, testing updates from the admin side, fixing layout and data issues, and making sure changes were displayed correctly on the live website.
+							</p>
+						</div>
+						<hr>
+						<div class="scm-detail__box">
+							<div class="sol-pretitle">
+								<div class="sol-pretitle__line"></div>
+								<span class="sol-pretitle__txt">03 _STACK</span>
+							</div>
+							<h3>The tools I used to build and manage the website.From design concept to a complete and manageable website.</h3>
+							<p class="glb-detail-txt">
+								I used Laravel, Blade, HTML, SCSS, JavaScript, PHP, and MySQL to build the website and connect its frontend with CMS features. Git and GitHub helped manage code updates, while GoDaddy and cPanel were used for deployment, file management, database setup, and maintaining the live website.
+							</p>
+						</div>
+						<hr>
+						<div class="scm-detail__box">
+							<div class="sol-pretitle">
+								<div class="sol-pretitle__line"></div>
+								<span class="sol-pretitle__txt">04 _WHAT I LEARN</span>
+							</div>
+							<h3>Building both the frontend and CMS improved my workflow.</h3>
+							<p class="glb-detail-txt">
+								This project gave me more experience in turning UI/UX designs into responsive pages and connecting them with backend CMS features. I also improved my understanding of Laravel development, content management, deployment, debugging, and maintaining a live client website.
+							</p>
+							<div class="glb-highlight-box">
+								<span>
+								Working on Monte Carlo Builders helped me understand how design, frontend development, and CMS logic work together in a complete website.
+								</span>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				
+				<svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
+				</svg>
+				<svg width="10" height="16" class="right-tlb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
+				</svg>
+			</div>
+		</section>
+
+		<Cta label="Let's Start A Project" />
+
+		<section class="section--cls glb-sec-pad-out">
+			<div class="section--cls__con">
+				<div class="section--cls__main">
+
 				</div>
 			</div>
 		</section>
