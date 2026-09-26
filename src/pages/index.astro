@@ -60,12 +60,23 @@ const projectRows = activeProjects
 		previewMedia: project.data.previewMedia,
 	}));
 
+const projectPreviewImagePreloads = [
+	...new Set(
+		projectRows
+			.filter((project) => project.previewMedia.type === "image")
+			.map((project) => project.previewMedia.src),
+	),
+];
+
 ---
 
 <Layout>
 	<Fragment slot="head">
 		{scrollBannerPreloads.map((href) => (
 			<link rel="preload" href={href} as="image" />
+		))}
+		{projectPreviewImagePreloads.map((href) => (
+			<link rel="preload" href={href} as="image" fetchpriority="low" />
 		))}
 	</Fragment>
 	<main class="home">
@@ -1150,6 +1161,7 @@ const projectRows = activeProjects
 		let previewHeight = 206;
 		const previewRows = [...projectList.querySelectorAll("[data-project-preview-row]")];
 		const mediaCache = new Map();
+		const mediaReadyCache = new Map();
 		const cleanups = [];
 
 		const applyPreviewPosition = () => {
@@ -1258,7 +1270,7 @@ const projectRows = activeProjects
 				video.muted = true;
 				video.loop = true;
 				video.playsInline = true;
-				video.preload = "metadata";
+				video.preload = "auto";
 				video.autoplay = true;
 				video.setAttribute("aria-label", alt);
 				if (poster) video.poster = poster;
@@ -1266,17 +1278,23 @@ const projectRows = activeProjects
 					if (currentSrc === src && preview.contains(video)) syncPreviewPan(video);
 				});
 				video.src = src;
+				video.load();
 				return video;
 			}
 
 			const image = new Image();
 			image.alt = alt;
 			image.decoding = "async";
+			image.loading = "eager";
+			image.fetchPriority = "low";
 			image.addEventListener("load", () => {
 				if (currentSrc === src && preview.contains(image)) syncPreviewPan(image);
 			});
 			image.src = src;
-			image.decode?.().catch(() => {});
+			mediaReadyCache.set(
+				src,
+				(image.decode ? image.decode() : Promise.resolve()).catch(() => {}),
+			);
 			return image;
 		};
 
@@ -1295,6 +1313,11 @@ const projectRows = activeProjects
 			previewRows.forEach((row) => getCachedMedia(row));
 		};
 
+		const warmClosestPreviewMedia = (event) => {
+			const row = event.currentTarget;
+			getCachedMedia(row);
+		};
+
 		const setPreviewMedia = (row) => {
 			const { src } = getPreviewMediaData(row);
 
@@ -1311,10 +1334,16 @@ const projectRows = activeProjects
 			if (media instanceof HTMLVideoElement) {
 				if (media.readyState >= 1) syncPreviewPan(media);
 				media.play().catch(() => {});
-			} else if (media.complete) {
-				syncPreviewPan(media);
 			} else {
-				resetPreviewPan();
+				if (media.complete) {
+					syncPreviewPan(media);
+				} else {
+					resetPreviewPan();
+				}
+
+				mediaReadyCache.get(src)?.then(() => {
+					if (currentSrc === src && preview.contains(media)) syncPreviewPan(media);
+				});
 			}
 		};
 
@@ -1348,10 +1377,14 @@ const projectRows = activeProjects
 		preloadPreviewMedia();
 
 		previewRows.forEach((row) => {
+			row.addEventListener("pointerover", warmClosestPreviewMedia, { passive: true });
+			row.addEventListener("focus", warmClosestPreviewMedia);
 			row.addEventListener("pointerenter", showPreview);
 			row.addEventListener("pointermove", setPreviewPosition);
 			row.addEventListener("pointerleave", hidePreviewOnRowLeave);
 			cleanups.push(() => {
+				row.removeEventListener("pointerover", warmClosestPreviewMedia);
+				row.removeEventListener("focus", warmClosestPreviewMedia);
 				row.removeEventListener("pointerenter", showPreview);
 				row.removeEventListener("pointermove", setPreviewPosition);
 				row.removeEventListener("pointerleave", hidePreviewOnRowLeave);

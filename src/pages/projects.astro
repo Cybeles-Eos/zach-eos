@@ -35,12 +35,25 @@ const projectRows = activeProjects
 		};
 	});
 
+const projectPreviewImagePreloads = [
+	...new Set(
+		projectRows
+			.filter((project) => project.previewMedia.type === "image")
+			.map((project) => project.previewMedia.src),
+	),
+];
+
 ---
 
 <Layout
 	title="Projects | Zach Portfolio"
 	description="Browse Zach's projects — fullstack development and UI/UX design work across websites, portfolios, and web systems."
 >
+	<Fragment slot="head">
+		{projectPreviewImagePreloads.map((href) => (
+			<link rel="preload" href={href} as="image" fetchpriority="low" />
+		))}
+	</Fragment>
 	<main class="fullstack">
 		<Header />
 		<Navbar />
@@ -150,7 +163,9 @@ const projectRows = activeProjects
                                     </div>
                                 </div>
                                 <div class="project-list-box__right">
-                                    <img src={project.thumbnail} alt={project.thumbnailAlt}>
+									<div class="img-con-rprj">
+                                    	<img src={project.thumbnail} alt={project.thumbnailAlt}>
+									</div>
                                     <svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
                                     <path d="M16.8401 12.1457L-0.00179153 12.1457L-0.00179141 9.37843L16.8401 9.37843L9.41814 1.95649L11.3746 -4.70426e-07L22.1367 10.7621L11.3746 21.5242L9.41814 19.5677L16.8401 12.1457Z" fill="currentColor"/>
                                     </svg>
@@ -321,6 +336,7 @@ const projectRows = activeProjects
 		let previewHeight = 206;
 		const previewRows = [...projectList.querySelectorAll("[data-project-preview-row]")];
 		const mediaCache = new Map();
+		const mediaReadyCache = new Map();
 		const cleanups = [];
 
 		const applyPreviewPosition = () => {
@@ -429,7 +445,7 @@ const projectRows = activeProjects
 				video.muted = true;
 				video.loop = true;
 				video.playsInline = true;
-				video.preload = "metadata";
+				video.preload = "auto";
 				video.autoplay = true;
 				video.setAttribute("aria-label", alt);
 				if (poster) video.poster = poster;
@@ -437,17 +453,23 @@ const projectRows = activeProjects
 					if (currentSrc === src && preview.contains(video)) syncPreviewPan(video);
 				});
 				video.src = src;
+				video.load();
 				return video;
 			}
 
 			const image = new Image();
 			image.alt = alt;
 			image.decoding = "async";
+			image.loading = "eager";
+			image.fetchPriority = "low";
 			image.addEventListener("load", () => {
 				if (currentSrc === src && preview.contains(image)) syncPreviewPan(image);
 			});
 			image.src = src;
-			image.decode?.().catch(() => {});
+			mediaReadyCache.set(
+				src,
+				(image.decode ? image.decode() : Promise.resolve()).catch(() => {}),
+			);
 			return image;
 		};
 
@@ -466,6 +488,11 @@ const projectRows = activeProjects
 			previewRows.forEach((row) => getCachedMedia(row));
 		};
 
+		const warmClosestPreviewMedia = (event) => {
+			const row = event.currentTarget;
+			getCachedMedia(row);
+		};
+
 		const setPreviewMedia = (row) => {
 			const { src } = getPreviewMediaData(row);
 
@@ -482,10 +509,16 @@ const projectRows = activeProjects
 			if (media instanceof HTMLVideoElement) {
 				if (media.readyState >= 1) syncPreviewPan(media);
 				media.play().catch(() => {});
-			} else if (media.complete) {
-				syncPreviewPan(media);
 			} else {
-				resetPreviewPan();
+				if (media.complete) {
+					syncPreviewPan(media);
+				} else {
+					resetPreviewPan();
+				}
+
+				mediaReadyCache.get(src)?.then(() => {
+					if (currentSrc === src && preview.contains(media)) syncPreviewPan(media);
+				});
 			}
 		};
 
@@ -519,10 +552,14 @@ const projectRows = activeProjects
 		preloadPreviewMedia();
 
 		previewRows.forEach((row) => {
+			row.addEventListener("pointerover", warmClosestPreviewMedia, { passive: true });
+			row.addEventListener("focus", warmClosestPreviewMedia);
 			row.addEventListener("pointerenter", showPreview);
 			row.addEventListener("pointermove", setPreviewPosition);
 			row.addEventListener("pointerleave", hidePreviewOnRowLeave);
 			cleanups.push(() => {
+				row.removeEventListener("pointerover", warmClosestPreviewMedia);
+				row.removeEventListener("focus", warmClosestPreviewMedia);
 				row.removeEventListener("pointerenter", showPreview);
 				row.removeEventListener("pointermove", setPreviewPosition);
 				row.removeEventListener("pointerleave", hidePreviewOnRowLeave);

@@ -3,11 +3,11 @@ title: Monte Carlo Builders
 description: A responsive business website for a construction brand, focused on clear services, project presentation, and simple lead generation.
 year: "2026"
 category: Website
-thumbnail: /images/default-banner-prj.webp
+thumbnail: /banners/mcbuilder-banner.webp
 thumbnailAlt: Monte Carlo Builders thumbnail
 previewMedia:
   type: image
-  src: /images/prev-img.webp
+  src: /banners/mcbuilder-banner.webp
   alt: Monte Carlo Builders project preview
   poster: ""
 date: 2026-01-12
