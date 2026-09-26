@@ -3,7 +3,7 @@ title: Teleurgentcare
 description: A responsive business website for a construction brand, focused on clear services, project presentation, and simple lead generation.
 year: "2026"
 category: Figma
-thumbnail:  /banners/teleurgent-banner.webp
+thumbnail:  /banners/home.png
 thumbnailAlt: Monte Carlo Builders thumbnail
 previewMedia:
   type: image

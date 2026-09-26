@@ -580,6 +580,14 @@
 									object-fit: cover;
 									object-position: center;
 								}	
+
+								@media (max-width: 792px) {
+									width: 250px;
+									height: 170px;
+									img{
+										transform: scale(1.1);
+									}
+								}
                             }
                             svg{
                                 color: var(--full-clr-txt);
