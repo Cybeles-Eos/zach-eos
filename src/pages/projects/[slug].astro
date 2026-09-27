@@ -6,6 +6,36 @@ import Header from "../../partials/header.astro";
 
 import Cta from "../../partials/cta.astro";
 
+import SkillsBox from "../../components/skills-box.astro";
+import { TECH_LANGUAGES } from "../../data/techLanguages";
+
+const fullstackProjects = await getCollection("fullstackProjects");
+const activeProjects = fullstackProjects.filter((project) => project.data.isActive !== false);
+const completedProjectCount = activeProjects.length;
+const completedProjectCountLabel = `${completedProjectCount}+`;
+const projectRows = activeProjects
+	.filter((project) => project.data.isFeatured)
+	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+	.map((project) => ({
+		title: project.data.title,
+		description: project.data.description,
+		year: project.data.year,
+		category: project.data.category,
+		link: `/projects/${project.id}`,
+		thumbnail: project.data.thumbnail,
+		thumbnailAlt: project.data.thumbnailAlt,
+		previewMedia: project.data.previewMedia,
+	}));
+
+const projectPreviewImagePreloads = [
+	...new Set(
+		projectRows
+			.filter((project) => project.previewMedia.type === "image")
+			.map((project) => project.previewMedia.src),
+	),
+];
+
+
 export async function getStaticPaths() {
 	const projects = await getCollection("fullstackProjects");
 
@@ -60,6 +90,11 @@ const caseStudySections = [
 	description={project.data.metaDescription}
 	image={project.data.metaBanner}
 >
+	<Fragment slot="head">
+		{projectPreviewImagePreloads.map((href) => (
+			<link rel="preload" href={href} as="image" fetchpriority="low" />
+		))}
+	</Fragment>
 	<main class="project-detail">
 		<Header sty={false} />
 		<Navbar />
@@ -180,6 +215,57 @@ const caseStudySections = [
 			</div>
 		</section>
 
+        <section class="section--projects glb-sec-pad-out">
+            <div class="section--projects__con">
+                <div class="section--projects__main glb-sec-pad">
+                    <h2>Explore more of my Selected projects.</h2>
+					
+					<div class="project-list" data-project-preview-list>
+						
+
+							{projectRows.map((project) => (
+								<a
+									href={project.link}
+									class="project-list-box"
+									data-project-preview-row
+									data-preview-type={project.previewMedia.type}
+									data-preview-src={project.previewMedia.src}
+									data-preview-alt={project.previewMedia.alt}
+									data-preview-poster={project.previewMedia.poster ?? ""}
+								>
+									<div class="project-list-box__left">
+										<div class="dots">
+											<span></span>
+											<span></span>
+										</div>
+										<div class="details">
+											<h3>{project.title} </h3>
+											<p>{project.description}</p>
+										</div>
+									</div>
+									<div class="project-list-box__right">
+										<img src={project.thumbnail} alt={project.thumbnailAlt}>
+										<svg width="23" height="22" viewBox="0 0 23 22" fill="none" xmlns="http://www.w3.org/2000/svg">
+										<path d="M16.8401 12.1457L-0.00179153 12.1457L-0.00179141 9.37843L16.8401 9.37843L9.41814 1.95649L11.3746 -4.70426e-07L22.1367 10.7621L11.3746 21.5242L9.41814 19.5677L16.8401 12.1457Z" fill="currentColor"/>
+										</svg>
+									</div>
+								</a>
+							))}
+
+					
+						<div class="project-hover-preview" data-project-hover-preview aria-hidden="true"></div>
+					</div>
+                </div>
+                
+                <svg width="10" height="16" class="left-trb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M4.99219 0H0.0302734H0V15.0172H4.99609V10.0172H10.0039V5.01671H4.99219V0Z" fill="currentColor"/>
+                </svg>
+                <svg width="10" height="16" class="right-tlb-vec" viewBox="0 0 10 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M5.01172 15.0172L9.97363 15.0172L10.0039 15.0172L10.0039 0L5.00781 4.36772e-07L5.00781 5L-8.75732e-07 5L-4.38575e-07 10.0005L5.01172 10.0005L5.01172 15.0172Z" fill="currentColor"/>
+                </svg>
+            </div>
+        </section>
+
 		<Cta label="Let's Start A Project" />
 
 		<section class="section--cls glb-sec-pad-out">
@@ -247,6 +333,279 @@ const caseStudySections = [
 		});
 	};
 
+	let teardownProjectHoverPreview = () => {};
+
+	const initProjectHoverPreview = () => {
+		teardownProjectHoverPreview();
+
+		const projectList = document.querySelector("main.project-detail [data-project-preview-list]");
+		const preview = document.querySelector("[data-project-hover-preview]");
+
+		if (!projectList || !preview) return;
+
+		const padding = 20;
+		const offset = 22;
+		let currentSrc = "";
+		let currentX = padding;
+		let currentY = padding;
+		let targetX = padding;
+		let targetY = padding;
+		let animationFrame;
+		let isPreviewVisible = false;
+		let previewWidth = 330;
+		let previewHeight = 206;
+		const previewRows = [...projectList.querySelectorAll("[data-project-preview-row]")];
+		const mediaCache = new Map();
+		const mediaReadyCache = new Map();
+		const cleanups = [];
+
+		const applyPreviewPosition = () => {
+			preview.style.setProperty("--preview-x", `${currentX}px`);
+			preview.style.setProperty("--preview-y", `${currentY}px`);
+		};
+
+		const animatePreviewPosition = () => {
+			const easing = 0.18;
+			const deltaX = targetX - currentX;
+			const deltaY = targetY - currentY;
+
+			currentX += deltaX * easing;
+			currentY += deltaY * easing;
+
+			if (Math.abs(deltaX) < 0.4) currentX = targetX;
+			if (Math.abs(deltaY) < 0.4) currentY = targetY;
+
+			applyPreviewPosition();
+
+			if (isPreviewVisible && (currentX !== targetX || currentY !== targetY)) {
+				animationFrame = requestAnimationFrame(animatePreviewPosition);
+				return;
+			}
+
+			animationFrame = undefined;
+		};
+
+		const queuePreviewPosition = () => {
+			if (animationFrame) return;
+			animationFrame = requestAnimationFrame(animatePreviewPosition);
+		};
+
+		const updatePreviewSize = () => {
+			const rect = preview.getBoundingClientRect();
+			previewWidth = rect.width;
+			previewHeight = rect.height;
+		};
+
+		const getPreviewPosition = (event) => {
+			const viewportWidth = window.innerWidth;
+			const viewportHeight = window.innerHeight;
+			let nextX = event.clientX + offset;
+			let nextY = event.clientY + offset;
+
+			nextX = Math.min(Math.max(nextX, padding), viewportWidth - previewWidth - padding);
+			nextY = Math.min(Math.max(nextY, padding), viewportHeight - previewHeight - padding);
+
+			return { x: nextX, y: nextY };
+		};
+
+		const setPreviewPosition = (event, snap = false) => {
+			const nextPosition = getPreviewPosition(event);
+			targetX = nextPosition.x;
+			targetY = nextPosition.y;
+
+			if (snap) {
+				currentX = targetX;
+				currentY = targetY;
+				applyPreviewPosition();
+				return;
+			}
+
+			queuePreviewPosition();
+		};
+
+		const resetPreviewPan = () => {
+			preview.classList.remove("is-panning");
+			preview.style.setProperty("--preview-scroll-distance", "0px");
+		};
+
+		const setPreviewPan = (mediaWidth, mediaHeight) => {
+			if (!mediaWidth || !mediaHeight) return;
+
+			const renderedMediaHeight = previewWidth * (mediaHeight / mediaWidth);
+			const scrollDistance = Math.max(0, renderedMediaHeight - previewHeight);
+
+			if (scrollDistance <= 8) {
+				resetPreviewPan();
+				return;
+			}
+
+			preview.style.setProperty("--preview-scroll-distance", `-${scrollDistance}px`);
+			preview.classList.add("is-panning");
+		};
+
+		const syncPreviewPan = (media) => {
+			if (media instanceof HTMLVideoElement) {
+				setPreviewPan(media.videoWidth, media.videoHeight);
+				return;
+			}
+
+			setPreviewPan(media.naturalWidth, media.naturalHeight);
+		};
+
+		const getPreviewMediaData = (row) => ({
+			type: row.dataset.previewType,
+			src: row.dataset.previewSrc,
+			alt: row.dataset.previewAlt || "",
+			poster: row.dataset.previewPoster || ""
+		});
+
+		const createPreviewMedia = ({ type, src, alt, poster }) => {
+			if (type === "video") {
+				const video = document.createElement("video");
+				video.muted = true;
+				video.loop = true;
+				video.playsInline = true;
+				video.preload = "auto";
+				video.autoplay = true;
+				video.setAttribute("aria-label", alt);
+				if (poster) video.poster = poster;
+				video.addEventListener("loadedmetadata", () => {
+					if (currentSrc === src && preview.contains(video)) syncPreviewPan(video);
+				});
+				video.src = src;
+				video.load();
+				return video;
+			}
+
+			const image = new Image();
+			image.alt = alt;
+			image.decoding = "async";
+			image.loading = "eager";
+			image.fetchPriority = "low";
+			image.addEventListener("load", () => {
+				if (currentSrc === src && preview.contains(image)) syncPreviewPan(image);
+			});
+			image.src = src;
+			mediaReadyCache.set(
+				src,
+				(image.decode ? image.decode() : Promise.resolve()).catch(() => {}),
+			);
+			return image;
+		};
+
+		const getCachedMedia = (row) => {
+			const mediaData = getPreviewMediaData(row);
+			if (!mediaData.src) return undefined;
+
+			if (!mediaCache.has(mediaData.src)) {
+				mediaCache.set(mediaData.src, createPreviewMedia(mediaData));
+			}
+
+			return mediaCache.get(mediaData.src);
+		};
+
+		const preloadPreviewMedia = () => {
+			previewRows.forEach((row) => getCachedMedia(row));
+		};
+
+		const warmClosestPreviewMedia = (event) => {
+			const row = event.currentTarget;
+			getCachedMedia(row);
+		};
+
+		const setPreviewMedia = (row) => {
+			const { src } = getPreviewMediaData(row);
+
+			if (!src || src === currentSrc) return;
+
+			const media = getCachedMedia(row);
+			if (!media) return;
+
+			currentSrc = src;
+			resetPreviewPan();
+			preview.replaceChildren(media);
+			updatePreviewSize();
+
+			if (media instanceof HTMLVideoElement) {
+				if (media.readyState >= 1) syncPreviewPan(media);
+				media.play().catch(() => {});
+			} else {
+				if (media.complete) {
+					syncPreviewPan(media);
+				} else {
+					resetPreviewPan();
+				}
+
+				mediaReadyCache.get(src)?.then(() => {
+					if (currentSrc === src && preview.contains(media)) syncPreviewPan(media);
+				});
+			}
+		};
+
+		const showPreview = (event) => {
+			const row = event.currentTarget;
+			setPreviewMedia(row);
+			updatePreviewSize();
+			setPreviewPosition(event, !isPreviewVisible);
+			isPreviewVisible = true;
+			preview.classList.add("is-visible");
+			preview.setAttribute("aria-hidden", "false");
+			queuePreviewPosition();
+		};
+
+		const hidePreview = () => {
+			isPreviewVisible = false;
+			if (animationFrame) {
+				cancelAnimationFrame(animationFrame);
+				animationFrame = undefined;
+			}
+			preview.classList.remove("is-visible");
+			preview.setAttribute("aria-hidden", "true");
+		};
+
+		const hidePreviewOnRowLeave = (event) => {
+			const nextTarget = event.relatedTarget;
+			if (nextTarget instanceof Element && nextTarget.closest("[data-project-preview-row]")) return;
+			hidePreview();
+		};
+
+		preloadPreviewMedia();
+
+		previewRows.forEach((row) => {
+			row.addEventListener("pointerover", warmClosestPreviewMedia, { passive: true });
+			row.addEventListener("focus", warmClosestPreviewMedia);
+			row.addEventListener("pointerenter", showPreview);
+			row.addEventListener("pointermove", setPreviewPosition);
+			row.addEventListener("pointerleave", hidePreviewOnRowLeave);
+			cleanups.push(() => {
+				row.removeEventListener("pointerover", warmClosestPreviewMedia);
+				row.removeEventListener("focus", warmClosestPreviewMedia);
+				row.removeEventListener("pointerenter", showPreview);
+				row.removeEventListener("pointermove", setPreviewPosition);
+				row.removeEventListener("pointerleave", hidePreviewOnRowLeave);
+			});
+		});
+
+		projectList.addEventListener("pointerleave", hidePreview);
+		window.addEventListener("blur", hidePreview);
+		window.addEventListener("resize", updatePreviewSize);
+
+		cleanups.push(() => {
+			projectList.removeEventListener("pointerleave", hidePreview);
+			window.removeEventListener("blur", hidePreview);
+			window.removeEventListener("resize", updatePreviewSize);
+			hidePreview();
+		});
+
+		teardownProjectHoverPreview = () => {
+			cleanups.forEach((cleanup) => cleanup());
+			teardownProjectHoverPreview = () => {};
+		};
+	};
+
 	document.addEventListener("astro:page-load", setupCaseStudyNav);
+	document.addEventListener("astro:page-load", initProjectHoverPreview);
+	document.addEventListener("astro:before-swap", () => teardownProjectHoverPreview());
 	setupCaseStudyNav();
+	initProjectHoverPreview();
 </script>
