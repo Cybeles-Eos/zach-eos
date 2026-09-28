@@ -16,15 +16,33 @@ metaDescription: Fullstack project case study for Monte Carlo Builders, a respon
 metaBanner: /banners/montecarlo_builders.png
 isFeatured: true
 isActive: true
+projectRole: Web Designer / Full Stack
+projectContribution: 70% · 3-person team
+oneLineTitle: My contribution in this project
+oneLineDescription: I helped turn the Monte Carlo Builders design into a responsive website by working on the UI/UX, page cutting, and CMS logic for easier content management.
+oneLineImage: /images/featured-laptop.png
+oneLineImageAlt: Monte Carlo Builders website preview on laptop
+caseStudySections:
+  - id: overview
+    label: OVERVIEW
+    title: From design concept to a complete and manageable website.
+    paragraphs:
+      - Monte Carlo Builders needed a professional website that clearly presents its construction services, projects, and company information. I worked on translating the approved design into responsive web pages while keeping the layout clean, consistent, and easy to navigate across desktop and mobile devices.
+  - id: what-i-build
+    label: WHAT I BUILD
+    title: I turned the approved design into responsive pages and connected them with CMS features.
+    paragraphs:
+      - I handled the page cutting based on the approved UI/UX design and developed the frontend sections to closely match the original layout. I worked on responsive behavior for desktop, tablet, and mobile screens while keeping spacing, typography, images, and components consistent.
+      - I also worked on the CMS logic and backend integration so the client could manage website content such as text, images, services, projects, and other page information without editing the code directly. This included connecting frontend sections to dynamic content, testing updates from the admin side, fixing layout and data issues, and making sure changes were displayed correctly on the live website.
+  - id: stack
+    label: STACK
+    title: The tools I used to build and manage the website.
+    paragraphs:
+      - I used Laravel, Blade, HTML, SCSS, JavaScript, PHP, and MySQL to build the website and connect its frontend with CMS features. Git and GitHub helped manage code updates, while GoDaddy and cPanel were used for deployment, file management, database setup, and maintaining the live website.
+  - id: what-i-learn
+    label: WHAT I LEARN
+    title: Building both the frontend and CMS improved my workflow.
+    paragraphs:
+      - This project gave me more experience in turning UI/UX designs into responsive pages and connecting them with backend CMS features. I also improved my understanding of Laravel development, content management, deployment, debugging, and maintaining a live client website.
+    highlight: Working on Monte Carlo Builders helped me understand how design, frontend development, and CMS logic work together in a complete website.
 ---
-
-Monte Carlo Builders was built to present construction services in a clean and direct way. The goal was to make the company feel trustworthy while helping visitors understand the work, view project details, and know how to reach out.
-
-The project focused on responsive layouts, readable content sections, and practical navigation. I worked on turning the business needs into a website structure that could support services, company information, and future project updates.
-
-**Key work**
-
-- Built responsive page sections for desktop and mobile
-- Organized service and company information into clear content blocks
-- Created a visual structure that supports project images and contact actions
-- Focused on simple, maintainable frontend code

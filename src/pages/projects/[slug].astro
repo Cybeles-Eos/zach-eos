@@ -1,5 +1,5 @@
 ---
-import { getCollection } from "astro:content";
+import { getCollection, render } from "astro:content";
 import Layout from "../../layouts/Layout.astro";
 import Navbar from "../../partials/navbar.astro";
 import Header from "../../partials/header.astro";
@@ -46,7 +46,7 @@ export async function getStaticPaths() {
 }
 
 const { project } = Astro.props;
-
+const { Content } = await render(project);
 const caseStudySections = [
 	{
 		id: "overview",
@@ -144,6 +144,8 @@ const caseStudySections = [
 			</div>
 		</section>
 
+		<Content />
+		
 		<section class="section--oneline glb-sec-pad-out">
 			<div class="section--oneline__con">
 				<div class="section--oneline__main">
@@ -198,6 +200,20 @@ const caseStudySections = [
 						</div>
 					</div>
 					<div class="scm-detail">
+						<!-- <div class="scm-detail__box" id={section.id}>
+							<div class="sol-pretitle">
+								<div class="sol-pretitle__line"></div>
+								<span class="sol-pretitle__txt">01 _OVERVIEW</span>
+							</div>
+							<h3>From design concept to a complete and manageable website.</h3>
+						
+							<p class="glb-detail-txt">Monte Carlo Builders needed a professional website that clearly presents its construction services, projects, and company information. I worked on translating the approved design into responsive web pages while keeping the layout clean, consistent, and easy to navigate across desktop and mobile devices.</p>
+							<div class="glb-highlight-box">
+								<span>Working on Monte Carlo Builders helped me understand how design, frontend development, and CMS logic work together in a complete website.</span>
+							</div>
+						</div> -->
+
+
 						{caseStudySections.map((section, index) => {
 							const sectionNumber = String(index + 1).padStart(2, "0");
 
