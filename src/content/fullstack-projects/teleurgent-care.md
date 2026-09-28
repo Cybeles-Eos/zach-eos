@@ -16,15 +16,33 @@ metaDescription: Fullstack project case study for Monte Carlo Builders, a respon
 metaBanner: /banners/montecarlo_builders.png
 isFeatured: true
 isActive: true
+projectRole: UI Designer
+projectContribution: Figma design · Healthcare website
+oneLineTitle: My contribution in this project
+oneLineDescription: I worked on shaping the Teleurgentcare website design with clear sections, responsive layouts, and a visual structure suited for healthcare service information.
+oneLineImage: /images/featured-laptop.png
+oneLineImageAlt: Teleurgentcare website preview on laptop
+caseStudySections:
+  - id: overview
+    label: OVERVIEW
+    title: From healthcare concept to a clear website design.
+    paragraphs:
+      - Teleurgentcare was designed to present healthcare services in a clean, approachable, and easy-to-understand way. The goal was to help visitors quickly understand the service, build trust, and find important information without confusion.
+  - id: what-i-build
+    label: WHAT I BUILD
+    title: I created responsive page sections and organized the service information.
+    paragraphs:
+      - I worked on the visual layout, content hierarchy, and section structure so the design could communicate healthcare information clearly across desktop and mobile screens.
+      - The design focused on readable text, clear calls to action, organized service blocks, and a professional style that matched the needs of a healthcare-focused website.
+  - id: stack
+    label: STACK
+    title: The tools I used to design the website.
+    paragraphs:
+      - I used Figma to create the website design, organize layouts, prepare reusable sections, and plan responsive behavior for the main pages.
+  - id: what-i-learn
+    label: WHAT I LEARN
+    title: Designing Teleurgentcare improved my understanding of clear service communication.
+    paragraphs:
+      - This project helped me practice creating designs that balance visual polish with usability, trust, and readable content for a healthcare-related website.
+    highlight: Working on Teleurgentcare helped me improve how I structure service information and design clearer page flows for users.
 ---
-
-Monte Carlo Builders was built to present construction services in a clean and direct way. The goal was to make the company feel trustworthy while helping visitors understand the work, view project details, and know how to reach out.
-
-The project focused on responsive layouts, readable content sections, and practical navigation. I worked on turning the business needs into a website structure that could support services, company information, and future project updates.
-
-**Key work**
-
-- Built responsive page sections for desktop and mobile
-- Organized service and company information into clear content blocks
-- Created a visual structure that supports project images and contact actions
-- Focused on simple, maintainable frontend code

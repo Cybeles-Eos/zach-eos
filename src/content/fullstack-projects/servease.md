@@ -16,15 +16,34 @@ metaDescription: Fullstack case study for Servease, a service booking platform w
 metaBanner: /banners/servease.png
 isFeatured: true
 isActive: true
+projectRole: Full Stack Developer
+projectContribution: 70% · Capstone team
+oneLineTitle: My contribution in this project
+oneLineDescription: I helped build Servease as a service booking platform by working on user flows, backend logic, database structure, and responsive interface sections.
+oneLineImage: /images/featured-laptop.png
+oneLineImageAlt: Servease platform preview on laptop
+caseStudySections:
+  - id: overview
+    label: OVERVIEW
+    title: From capstone idea to a working service booking platform.
+    paragraphs:
+      - Servease was created as a complete service booking platform for customers and local providers. It was designed to help users find services, submit bookings, and manage updates through a structured system.
+  - id: what-i-build
+    label: WHAT I BUILD
+    title: I helped build the booking flow, user roles, and management features.
+    paragraphs:
+      - I worked on customer and provider flows, booking records, status updates, and management screens that made the platform easier to use for different user types.
+      - The project also involved connecting frontend sections with backend logic, organizing data clearly, testing core flows, and making sure users could move through the booking process smoothly.
+  - id: stack
+    label: STACK
+    title: The tools I used to build the platform.
+    paragraphs:
+      - I used Laravel, Blade, HTML, SCSS, JavaScript, PHP, and MySQL to build the platform, manage data, and connect the interface with database-backed booking features.
+  - id: what-i-learn
+    label: WHAT I LEARN
+    title: Building Servease improved my fullstack planning and development workflow.
+    paragraphs:
+      - This project helped me understand how user roles, booking logic, database structure, and responsive interfaces work together in a larger system.
+    highlight: Servease gave me stronger experience in planning, building, and presenting a complete fullstack platform from idea to working product.
 ---
 
-Servease was created as a complete service booking platform for customers and local providers. It was designed to help users find services, submit bookings, and manage updates through a structured system.
-
-As a capstone project, it required planning both the user experience and the backend flow. The work included organizing roles, handling booking records, and making the interface clear enough for different user types.
-
-**Key work**
-
-- Developed customer and provider flows for service booking
-- Organized booking statuses and management screens
-- Planned database-backed features for records and updates
-- Helped lead the development process from idea to defense
