@@ -185,7 +185,6 @@
 			// height: 420px;
 			position: relative;
 
-
 			&__con{
 				position: relative;
 				max-width: var(--page-width);
@@ -230,8 +229,6 @@
 				height: 100%;
 				padding: var(--section-padding);
 				display: flex;
-
-                // padding-block: 80px !important;
 
 				h3{
 					// text-align: center;
@@ -284,7 +281,50 @@
 					}	
 				}
 
+				@media (max-width: 992px) {
+					flex-direction: column;
 
+					.sonel-main-detail{
+						border-bottom: 1px solid var(--main-brd-clr);
+						border-right: 0;	
+						padding: 40px;
+
+						p{
+							max-width: 800px;
+						}
+					}
+
+					.sonel-main-info{
+						width: 100%;
+						padding: 45px 20px;
+
+						&__pic{
+							width: 90%;
+						}
+						&__svg{
+							bottom: -5.9rem;
+							height: 300px;
+						}	
+					}
+
+				}
+				@media (max-width: 592px) {
+					flex-direction: column;
+
+					.sonel-main-detail{
+						padding: 35px 30px;
+					}
+
+					.sonel-main-info{
+						width: 100%;
+						padding: 35px 10px;
+
+						&__pic{
+							width: 100%;
+						}
+					}
+
+				}
 			}
 		}
 
