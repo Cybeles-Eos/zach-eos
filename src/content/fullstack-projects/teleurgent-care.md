@@ -3,7 +3,7 @@ title: Teleurgentcare
 description: A responsive business website for a construction brand, focused on clear services, project presentation, and simple lead generation.
 year: "2026"
 category: Figma
-thumbnail:  /banners/home.png
+thumbnail:  /banners/teleurgent-banner.webp
 thumbnailAlt: Monte Carlo Builders thumbnail
 previewMedia:
   type: image
@@ -16,8 +16,8 @@ metaDescription: Fullstack project case study for Monte Carlo Builders, a respon
 metaBanner: /banners/montecarlo_builders.png
 isFeatured: true
 isActive: true
-projectRole: UI Designer
-projectContribution: Figma design · Healthcare website
+projectRole: UI / Web Designer
+projectContribution: 80% · 2-person team
 oneLineTitle: My contribution in this project
 oneLineDescription: I worked on shaping the Teleurgentcare website design with clear sections, responsive layouts, and a visual structure suited for healthcare service information.
 oneLineImage: /images/featured-laptop.png

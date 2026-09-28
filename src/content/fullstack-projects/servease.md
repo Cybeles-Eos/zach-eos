@@ -17,7 +17,7 @@ metaBanner: /banners/servease.png
 isFeatured: true
 isActive: true
 projectRole: Full Stack Developer
-projectContribution: 70% · Capstone team
+projectContribution: 85% · 3-person team
 oneLineTitle: My contribution in this project
 oneLineDescription: I helped build Servease as a service booking platform by working on user flows, backend logic, database structure, and responsive interface sections.
 oneLineImage: /images/featured-laptop.png
