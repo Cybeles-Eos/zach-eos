@@ -39,6 +39,10 @@ const fullstackProjects = defineCollection({
 		oneLineDescription: z.string(),
 		oneLineImage: z.string(),
 		oneLineImageAlt: z.string(),
+		projectDetails: z.object({
+			dateLabel: z.string(),
+			tags: z.array(z.string()),
+		}),
 		caseStudySections: z.array(
 			z.object({
 				id: z.string(),

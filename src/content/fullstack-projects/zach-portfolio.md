@@ -22,6 +22,12 @@ oneLineTitle: My contribution in this project
 oneLineDescription: I designed and built this portfolio to showcase my projects, journey entries, frontend skills, and interactive details in one polished Astro website.
 oneLineImage: /images/featured-laptop.png
 oneLineImageAlt: Zach Portfolio website preview on laptop
+projectDetails:
+  dateLabel: March 2026
+  tags:
+    - Astro
+    - SCSS
+    - Portfolio
 caseStudySections:
   - id: overview
     label: OVERVIEW
