@@ -33,6 +33,21 @@ const fullstackProjects = defineCollection({
 		metaBanner: z.string(),
 		isFeatured: z.boolean(),
 		isActive: z.boolean(),
+		projectRole: z.string(),
+		projectContribution: z.string(),
+		oneLineTitle: z.string(),
+		oneLineDescription: z.string(),
+		oneLineImage: z.string(),
+		oneLineImageAlt: z.string(),
+		caseStudySections: z.array(
+			z.object({
+				id: z.string(),
+				label: z.string(),
+				title: z.string(),
+				paragraphs: z.array(z.string()),
+				highlight: z.string().optional(),
+			}),
+		),
 	}),
 });
 
