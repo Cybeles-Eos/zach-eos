@@ -147,7 +147,7 @@ h4{
 p{
 	font-size: var(--font-size-5s);
 	// font-size: clamp(1rem, .26vw + .941rem, 1.025rem);
-	line-height: 170%;
+	line-height: 190%;
 	font-family: var(--font-pretendard);
 	opacity: .86;	
 	font-weight: 300;
@@ -282,6 +282,14 @@ a{
 	line-height: 190% !important;
 	margin-bottom: 0;
 	opacity: 1 !important;
+}
+.glb-title-detail{
+	// text-align: center;
+	font-size: 24px !important;
+	line-height: 150% !important;
+	font-weight: 500 !important;
+	max-width: 920px !important;
+	margin-bottom: 0 !important;
 }
 
 .glb-highlight-box{

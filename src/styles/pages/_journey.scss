@@ -390,11 +390,16 @@
 					}
 					h3{
 						font-size: 28px !important;
-						font-weight: 400;
 						opacity: 1;
 						line-height: 130%;
 						margin-bottom: 18px !important;
 						scroll-margin-top: 40px;
+
+	font-size: 24px !important;
+	line-height: 150% !important;
+	font-weight: 500 !important;
+	max-width: 920px !important;
+
 						@media screen and (max-width: 492px) {
 							font-size: 24px !important;
 						}
@@ -429,6 +434,11 @@
 					}
 					p{
 						margin-bottom: 25px !important;
+						
+						color: var(--context-clr) !important;
+						line-height: 190% !important;
+						opacity: 1 !important;
+
 
 						@media (max-width: 1400px) {
 							font-size: 15px;
@@ -458,11 +468,11 @@
 							display: flex;
 							align-items: center;
 							gap: 8px;
-							font-size: 15px;
+							font-size: 16px;
 							font-weight: 300;
 							color: var(--full-clr-txt);
-							opacity: .8;
-
+							opacity: 1;
+							color: var(--context-clr) !important;
 							// &:first-child {
 							// 	font-weight: 400;
 							// 	opacity: 1;
