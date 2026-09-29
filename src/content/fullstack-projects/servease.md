@@ -13,14 +13,14 @@ previewMedia:
 date: 2026-02-18
 metaTitle: Servease Fullstack Project | Zach Portfolio
 metaDescription: Fullstack case study for Servease, a service booking platform with customer, provider, booking, and management features.
-metaBanner: /banners/servease.png
+metaBanner: /banners/servease-banner.webp
 isFeatured: true
 isActive: true
 projectRole: Full Stack Developer
 projectContribution: 85% · 3-person team
 oneLineTitle: My contribution in this project
 oneLineDescription: I helped build Servease as a service booking platform by working on user flows, backend logic, database structure, and responsive interface sections.
-oneLineImage: /mockups/servease.png
+oneLineImage: /mockups/servease.webp
 oneLineImageAlt: Servease platform preview on laptop
 projectDetails:
   dateLabel: February 2026

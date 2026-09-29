@@ -13,14 +13,14 @@ previewMedia:
 date: 2026-01-12
 metaTitle: Monte Carlo Builders Case Study | Zach Portfolio
 metaDescription: Fullstack project case study for Monte Carlo Builders, a responsive construction business website built for clear service presentation and client inquiries.
-metaBanner: /banners/montecarlo_builders.png
+metaBanner: /banners/teleurgent-banner.webp
 isFeatured: true
 isActive: true
 projectRole: UI / Web Designer
 projectContribution: 80% · 2-person team
 oneLineTitle: My contribution in this project
 oneLineDescription: I worked on shaping the Teleurgentcare website design with clear sections, responsive layouts, and a visual structure suited for healthcare service information.
-oneLineImage: /mockups/tuc.png
+oneLineImage: /mockups/tuc.webp
 oneLineImageAlt: Teleurgentcare website preview on laptop
 projectDetails:
   dateLabel: January 2026

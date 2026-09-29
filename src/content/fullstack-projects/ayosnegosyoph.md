@@ -3,24 +3,24 @@ title: AyosNegosyoPH
 description: A business system built to manage POS, room bookings, inventory, and daily operations through one platform.
 year: "2026"
 category: Website
-thumbnail: /banners/ayosph.png
+thumbnail: /banners/ayosph-banner.webp
 thumbnailAlt: AyosNegosyoPH thumbnail
 previewMedia:
   type: image
-  src: /banners/ayosph.png
+  src: /banners/ayosph-banner.webp
   alt: AyosNegosyoPH project preview
   poster: ""
 date: 2026-07-01
 metaTitle: AyosNegosyoPH Web Project | Zach Portfolio
 metaDescription: A project case study covering Figma design, frontend development, POS, room booking, inventory, database planning, and QA.
-metaBanner: /banners/ayosph.png
+metaBanner: /banners/ayosph-banner.webp
 isFeatured: true
 isActive: true
 projectRole: Full Stack Developer
 projectContribution: 55% · Team Project
 oneLineTitle: My contribution to AyosNegosyoPH
 oneLineDescription: I worked from Figma to frontend development while helping build dashboard features, room booking logic, database relationships, and system testing.
-oneLineImage: /mockups/ayosph.png
+oneLineImage: /mockups/ayosph.webp
 oneLineImageAlt: AyosNegosyoPH system preview on laptop
 projectDetails:
   dateLabel: July 2026

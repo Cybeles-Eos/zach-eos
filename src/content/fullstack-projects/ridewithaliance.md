@@ -3,24 +3,24 @@ title: Ride With Alliance
 description: A ride booking website built to help users explore transport services and schedule rides through a simple system.
 year: "2026"
 category: Website
-thumbnail: /banners/rwa-banner.png
+thumbnail: /banners/rwa-banner.webp
 thumbnailAlt: Ride With Alliance thumbnail
 previewMedia:
   type: image
-  src: /banners/rwa-banner.png
+  src: /banners/rwa-banner.webp
   alt: Ride With Alliance project preview
   poster: ""
 date: 2026-06-01
 metaTitle: Ride With Alliance Web Project | Zach Portfolio
 metaDescription: A project case study for Ride With Alliance covering Figma design, frontend development, CMS integration, and email SMTP setup.
-metaBanner: /banners/servease.png
+metaBanner: /banners/rwa-banner.webp
 isFeatured: true
 isActive: true
 projectRole: UI/UX and Frontend Developer
 projectContribution: 70% · 3-person team
 oneLineTitle: My contribution to Ride With Alliance
 oneLineDescription: I worked on Ride With Alliance from Figma design to static frontend development, CMS integration, and email setup while helping guide our team with new page designs.
-oneLineImage: /mockups/rwa.png
+oneLineImage: /mockups/rwa.webp
 oneLineImageAlt: Ride With Alliance website preview on laptop
 projectDetails:
   dateLabel: June 2026
