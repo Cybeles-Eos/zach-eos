@@ -158,11 +158,13 @@
 						width: 305px;
 						height: 305px;
 						pointer-events: auto;
+						object-fit: cover;
+						object-position: center;
 						opacity: 1;
 						scale: 1;
 						z-index: 1;
 						transition: opacity 0.35s ease, rotate 0.4s cubic-bezier(0.16, 1, 0.3, 1), scale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-						cursor: pointer;
+						//cursor: pointer;
 						&:nth-child(1){
 							translate: -458.5px 0;
 							rotate: -19.34deg;
@@ -198,7 +200,7 @@
 						&:nth-child(5){
 							translate: 478.5px 0;
 							rotate: 13.6deg;
-							top: 75px;
+							top: 100px;
 							&:hover{
 								rotate: 8.6deg;
 							}
@@ -211,9 +213,9 @@
 
 					img:hover{
 						opacity: 1;
-						scale: 1.06;
+						// scale: 1.06;
 						// rotate: 8.6deg;
-						z-index: 5;
+						// z-index: 5;
 						// top: 65px;
 					}
 				}
