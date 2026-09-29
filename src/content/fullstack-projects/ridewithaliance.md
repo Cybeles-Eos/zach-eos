@@ -14,7 +14,7 @@ date: 2026-06-01
 metaTitle: Ride With Alliance Web Project | Zach Portfolio
 metaDescription: A project case study for Ride With Alliance covering Figma design, frontend development, CMS integration, and email SMTP setup.
 metaBanner: /banners/rwa-banner.webp
-isFeatured: true
+isFeatured: false
 isActive: true
 projectRole: UI/UX and Frontend Developer
 projectContribution: 70% · 3-person team
