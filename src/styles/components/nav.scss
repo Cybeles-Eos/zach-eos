@@ -25,6 +25,25 @@
     z-index: 2000;
 }
 
+@media (max-width: 992px) {
+    body:has(.navbar-anchor) {
+        padding-bottom: calc(92px + env(safe-area-inset-bottom));
+    }
+
+    .navbar-anchor {
+        position: static;
+        top: auto;
+    }
+
+    .navbar-shell {
+        position: fixed;
+        bottom: calc(16px + env(safe-area-inset-bottom));
+        left: 50%;
+        transform: translate3d(-50%, 0, 0);
+        z-index: 12000;
+    }
+}
+
 .navbar-global {
     position: relative;
     bottom: auto;
