@@ -162,31 +162,49 @@ const {
 		localStorage.setItem("theme", theme);
 	};
 
-	let footerObserver: IntersectionObserver | null = null;
+	let navDockFrame = 0;
+	let navShell: HTMLElement | null = null;
+	let footer: HTMLElement | null = null;
 
-	const setupFooterAwareNavbar = () => {
-		footerObserver?.disconnect();
-		footerObserver = null;
+	const getViewportTop = () =>
+		window.visualViewport?.pageTop ?? window.scrollY;
 
-		const navShell = document.querySelector<HTMLElement>(".navbar-shell");
-		const footer = document.querySelector<HTMLElement>(".site-footer");
+	const getViewportHeight = () =>
+		window.visualViewport?.height ?? window.innerHeight;
+
+	const syncNavbarDock = () => {
+		navDockFrame = 0;
+
 		if (!navShell) return;
 
-		navShell.classList.remove("is-over-footer");
+		navShell.classList.remove("is-docked-at-footer");
+		navShell.style.removeProperty("--navbar-dock-top");
 
 		if (!footer || !mobileNavMq.matches) return;
 
-		footerObserver = new IntersectionObserver(
-			([entry]) => {
-				navShell.classList.toggle("is-over-footer", entry.isIntersecting);
-			},
-			{
-				rootMargin: "0px 0px -96px 0px",
-				threshold: 0,
-			},
-		);
+		const navHeight = navShell.offsetHeight;
+		const footerTop = footer.getBoundingClientRect().top + window.scrollY;
+		const computedStyle = window.getComputedStyle(navShell);
+		const bottomOffset = Number.parseFloat(computedStyle.bottom) || 16;
+		const footerGap = 24;
+		const fixedNavBottom = getViewportTop() + getViewportHeight() - bottomOffset;
+		const dockTop = Math.max(0, footerTop - navHeight - footerGap);
 
-		footerObserver.observe(footer);
+		if (fixedNavBottom >= footerTop - footerGap) {
+			navShell.style.setProperty("--navbar-dock-top", `${dockTop}px`);
+			navShell.classList.add("is-docked-at-footer");
+		}
+	};
+
+	const queueNavbarDock = () => {
+		if (navDockFrame) return;
+		navDockFrame = requestAnimationFrame(syncNavbarDock);
+	};
+
+	const setupFooterAwareNavbar = () => {
+		navShell = document.querySelector<HTMLElement>(".navbar-shell");
+		footer = document.querySelector<HTMLElement>(".site-footer");
+		queueNavbarDock();
 	};
 
 	// delegated because a client-side page swap replaces the button node while
@@ -245,6 +263,10 @@ const {
 		if (event.key === "Escape") closeProjectModal();
 	});
 
+	window.addEventListener("scroll", queueNavbarDock, { passive: true });
+	window.addEventListener("resize", queueNavbarDock);
+	window.visualViewport?.addEventListener("resize", queueNavbarDock);
+	window.visualViewport?.addEventListener("scroll", queueNavbarDock);
 	mobileNavMq.addEventListener("change", setupFooterAwareNavbar);
 	document.addEventListener("astro:after-swap", () => {
 		closeProjectModal();
