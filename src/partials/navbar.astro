@@ -122,6 +122,7 @@ const {
 
 <script>
 	const root = document.documentElement;
+	const mobileNavMq = window.matchMedia("(max-width: 992px)");
 
 	const getProjectModal = () =>
 		document.querySelector<HTMLElement>("[data-project-modal]");
@@ -159,6 +160,33 @@ const {
 		const theme = root.dataset.theme === "dark" ? "light" : "dark";
 		root.dataset.theme = theme;
 		localStorage.setItem("theme", theme);
+	};
+
+	let footerObserver: IntersectionObserver | null = null;
+
+	const setupFooterAwareNavbar = () => {
+		footerObserver?.disconnect();
+		footerObserver = null;
+
+		const navShell = document.querySelector<HTMLElement>(".navbar-shell");
+		const footer = document.querySelector<HTMLElement>(".site-footer");
+		if (!navShell) return;
+
+		navShell.classList.remove("is-over-footer");
+
+		if (!footer || !mobileNavMq.matches) return;
+
+		footerObserver = new IntersectionObserver(
+			([entry]) => {
+				navShell.classList.toggle("is-over-footer", entry.isIntersecting);
+			},
+			{
+				rootMargin: "0px 0px -96px 0px",
+				threshold: 0,
+			},
+		);
+
+		footerObserver.observe(footer);
 	};
 
 	// delegated because a client-side page swap replaces the button node while
@@ -217,5 +245,10 @@ const {
 		if (event.key === "Escape") closeProjectModal();
 	});
 
-	document.addEventListener("astro:after-swap", closeProjectModal);
+	mobileNavMq.addEventListener("change", setupFooterAwareNavbar);
+	document.addEventListener("astro:after-swap", () => {
+		closeProjectModal();
+		setupFooterAwareNavbar();
+	});
+	setupFooterAwareNavbar();
 </script>
