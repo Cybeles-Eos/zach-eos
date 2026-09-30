@@ -211,10 +211,10 @@ const pageUrl = new URL(url, siteOrigin).href;
 		requestAnimationFrame(scrollToTop);
 	});
 
-	if (useLenis) {
-		import("lenis").then(({ default: LenisCtor }) => {
-			const instance = new LenisCtor();
-			lenis = instance;
+if (useLenis) {
+	import("lenis").then(({ default: LenisCtor }) => {
+		const instance = new LenisCtor();
+		lenis = instance;
 
 			instance.on("scroll", () => {
 				skrollrInstance?.refresh();
@@ -236,11 +236,13 @@ const pageUrl = new URL(url, siteOrigin).href;
 			if (document.querySelector('[data-screen-loader][aria-busy="true"]')) {
 				instance.stop();
 				window.addEventListener("loader:complete", start, { once: true });
-			} else {
-				start();
-			}
-		});
-	}
+		} else {
+			start();
+		}
+	}).catch((error) => {
+		console.warn("Lenis failed to load. Restart the Astro dev server if Vite cached an outdated dependency.", error);
+	});
+}
 
 	// Soft peach circle that eases toward the pointer and grows over headings.
 	const initCursorFollower = () => {
