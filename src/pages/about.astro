@@ -12,6 +12,61 @@ import StackBox from "../components/stack-box.astro";
 const fullstackProjects = await getCollection("fullstackProjects");
 const completedProjectCount = fullstackProjects.filter((project) => project.data.isActive !== false).length;
 const completedProjectCountLabel = `${completedProjectCount}+`;
+const currentStackItems = TECH_LANGUAGES.filter((item) => item.category !== "tools");
+const workflowTools = [
+	{
+		text: "Cursor",
+		svg: "/icons/skills/cursor.svg",
+		badge: "AI Editor",
+		badgeColor: "#ffffff",
+		badgeTextColor: "#14171b",
+		category: "tools",
+	},
+	{
+		text: "VS Code",
+		svg: "/icons/skills/vscode.svg",
+		badge: "Code Editor",
+		badgeColor: "#007acc",
+		category: "tools",
+	},
+	{
+		text: "GoDaddy",
+		svg: "/icons/skills/godaddy.svg",
+		badge: "Domain",
+		badgeColor: "#1bdbdb",
+		badgeTextColor: "#14171b",
+		category: "tools",
+	},
+	{
+		text: "CapCut",
+		svg: "/icons/skills/capcut.svg",
+		badge: "Video",
+		badgeColor: "#ffffff",
+		badgeTextColor: "#14171b",
+		category: "tools",
+	},
+	{
+		text: "Canva",
+		svg: "/icons/skills/canva.svg",
+		badge: "Design",
+		badgeColor: "#00c4cc",
+		category: "tools",
+	},
+	{
+		text: "Figma",
+		svg: "/icons/skills/figma.svg",
+		badge: "Design Tool",
+		badgeColor: "#f24e1e",
+		category: "tools",
+	},
+	{
+		text: "Wix",
+		svg: "/icons/skills/wix.svg",
+		badge: "Web Builder",
+		badgeColor: "#0c6efc",
+		category: "tools",
+	},
+] as const;
 
 ---
 
@@ -271,7 +326,17 @@ const completedProjectCountLabel = `${completedProjectCount}+`;
 						<p class="abt-scm-info--pret">Current Stack</p>
 
 						<div class="abt-scm-info--stack">
-							{TECH_LANGUAGES.map((item) => (
+							{currentStackItems.map((item) => (
+								<StackBox item={item} />
+							))}
+						</div>
+
+						<hr>
+
+						<p class="abt-scm-info--pret">Tools</p>
+
+						<div class="abt-scm-info--stack">
+							{workflowTools.map((item) => (
 								<StackBox item={item} />
 							))}
 						</div>
