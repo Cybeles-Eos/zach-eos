@@ -473,6 +473,59 @@
 								}
 							}
 						}
+
+						@media (max-width: 692px) {
+							margin-bottom: 55px;
+
+							&__head{
+								display: none;
+							}
+
+							&__row{
+								grid-template-columns: 1fr;
+								gap: 12px;
+								padding-block: 22px;
+
+								div{
+									display: grid;
+									grid-template-columns: 82px 1fr;
+									align-items: start;
+									gap: 14px;
+									padding-block: 0;
+
+									&::before{
+										font-size: 11px;
+										font-weight: var(--fnt-w-abt);
+										text-transform: uppercase;
+										color: var(--global-txt-clr);
+										opacity: 0.45;
+										letter-spacing: 0.5px !important;
+									}
+
+									&:nth-child(1)::before{
+										content: "Company";
+									}
+
+									&:nth-child(2)::before{
+										content: "Position";
+									}
+
+									&:nth-child(3)::before{
+										content: "Duration";
+									}
+
+									p{
+										font-size: 14px;
+										line-height: 130%;
+									}
+
+									&:nth-child(1) p{
+										font-size: 16px;
+										opacity: 1 !important;
+									}
+								}
+							}
+						}
 					}
 
 					// .cert-con{
