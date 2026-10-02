@@ -185,6 +185,8 @@
 							min-width: 300px;
 							width: 100%;
 							height: auto;
+							position: relative;
+							z-index: 5;
 						}
 
 						@media (max-width: 592px) {
@@ -209,7 +211,7 @@
 				.sdm-c-details{
 					display: flex;
 					flex-direction: column;
-					gap: 25px;
+					gap: 30px;
 
 					&--title-box{
 						display: flex;
