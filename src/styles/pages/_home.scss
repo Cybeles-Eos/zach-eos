@@ -33,9 +33,12 @@
 			.hero-shade{
 				position: absolute;
 				left: 50%;
-				transform: translateX(-50%);
+				transform: translate3d(-50%, 0, 0);
 				bottom: -3rem;
 				display: var(--show);
+				pointer-events: none;
+				will-change: transform;
+				contain: paint;
 			}
 			&__grid {
 				--hero-grid-circle-y: -19rem;
@@ -163,6 +166,8 @@
 						opacity: 1;
 						scale: 1;
 						z-index: 1;
+						backface-visibility: hidden;
+						transform: translateZ(0);
 						transition: opacity 0.35s ease, rotate 0.4s cubic-bezier(0.16, 1, 0.3, 1), scale 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 						//cursor: pointer;
 						&:nth-child(1){
@@ -364,6 +369,8 @@
 						height: 100%;
 						align-items: center;
 						animation: tech-slider-marquee var(--tech-slider-duration) linear infinite;
+						backface-visibility: hidden;
+						will-change: transform;
 					}
 
 					.tech-slider__group{
@@ -372,6 +379,7 @@
 						gap: var(--tech-slider-gap);
 						padding-inline: calc(var(--tech-slider-gap) / 2);
 						flex-shrink: 0;
+						contain: layout paint;
 					}
 
 					@media (prefers-reduced-motion: reduce) {
@@ -2886,11 +2894,11 @@
 
 @keyframes tech-slider-marquee {
 	from {
-		transform: translateX(0);
+		transform: translate3d(0, 0, 0);
 	}
 
 	to {
-		transform: translateX(-50%);
+		transform: translate3d(-50%, 0, 0);
 	}
 }
 

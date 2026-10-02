@@ -216,10 +216,6 @@ if (useLenis) {
 		const instance = new LenisCtor();
 		lenis = instance;
 
-			instance.on("scroll", () => {
-				skrollrInstance?.refresh();
-			});
-
 			const tick = (time: number) => {
 				instance.raf(time);
 				requestAnimationFrame(tick);
