@@ -124,6 +124,10 @@
         opacity: .7 !important;
     }
 }
+.rm-fill{
+    fill: var(--global-txt-clr) !important;
+    opacity: .7 !important;
+}
 // the fixed columns add up to ~510px, so below that the bar has to go fluid
 // or it overflows the screen and drags the whole page sideways
 @media (max-width: 600px) {
