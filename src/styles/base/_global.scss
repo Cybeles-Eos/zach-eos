@@ -354,9 +354,16 @@ p{
 	position: absolute;
 	bottom: 0;
 	left: 0;
-	z-index: -1;
+	z-index: 1;
+	max-width: 100%;
+	height: auto;
+	pointer-events: none;
 	will-change: transform;
 	contain: paint;
+}
+
+.section--cta__main{
+	isolation: isolate;
 }
 
 
