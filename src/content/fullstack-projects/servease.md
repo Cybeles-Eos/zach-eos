@@ -25,9 +25,9 @@ oneLineImageAlt: Servease platform preview on laptop
 projectDetails:
   dateLabel: February 2026
   tags:
-    - Laravel
-    - Booking
-    - MySQL
+    - Service Booking
+    - Dashboard
+    - Web Design
 caseStudySections:
   - id: overview
     label: Overview

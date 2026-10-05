@@ -25,9 +25,10 @@ oneLineImageAlt: AyosNegosyoPH system preview on laptop
 projectDetails:
   dateLabel: July 2026
   tags:
-    - Laravel
-    - Figma
-    - MySQL
+    - POS
+    - Bookings
+    - Frontend
+    - Dashboard
 caseStudySections:
   - id: overview
     label: Overview

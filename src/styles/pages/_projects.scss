@@ -545,6 +545,13 @@
                                     @media (max-width: 392px) {
                                         line-height: 110%;
                                     }
+
+									span{
+										color: var(--full-clr-txt);
+										opacity: .6;
+										font-size: 12px;
+										font-style: italic;
+									}
                                 }
                                 p{
                                     max-width: 380px;

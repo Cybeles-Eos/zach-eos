@@ -25,9 +25,10 @@ oneLineImageAlt: Monte Carlo Builders website preview on laptop
 projectDetails:
   dateLabel: January 2026
   tags:
-    - Laravel
-    - Blade
     - CMS
+    - Dashboard
+    - Frontend
+    - Web Design
 caseStudySections:
   - id: overview
     label: overview

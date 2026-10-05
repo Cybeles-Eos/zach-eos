@@ -25,9 +25,10 @@ oneLineImageAlt: Ride With Alliance website preview on laptop
 projectDetails:
   dateLabel: June 2026
   tags:
-    - Figma
     - Frontend
     - CMS
+    - Dashboard
+    - Web Design
 caseStudySections:
   - id: overview
     label: Overview
