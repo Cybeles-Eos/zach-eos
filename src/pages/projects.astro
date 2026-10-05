@@ -11,7 +11,7 @@ const completedProjectCount = activeProjects.length;
 const completedProjectCountLabel = `${completedProjectCount}+`;
 const projectRows = activeProjects
 	.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
-	.map((project) => {
+	.map((project, index) => {
 		const projectType = project.data.category.toLowerCase().includes("figma")
 			? "figma-project"
 			: "web-project";
@@ -32,6 +32,7 @@ const projectRows = activeProjects
 			thumbnail: project.data.thumbnail,
 			thumbnailAlt: project.data.thumbnailAlt,
 			previewMedia: project.data.previewMedia,
+			rowNumber: String(index + 1).padStart(2, "0"),
 		};
 	});
 
@@ -164,6 +165,7 @@ const projectPreviewImagePreloads = [
                                     </div>
                                 </div>
                                 <div class="project-list-box__right">
+									<span class="project-list-box__number" aria-hidden="true">{project.rowNumber}</span>
 									<div class="img-con-rprj">
                                     	<img src={project.thumbnail} alt={project.thumbnailAlt}>
 									</div>
