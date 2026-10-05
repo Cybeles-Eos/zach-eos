@@ -1,0 +1,33 @@
+<svg width="759" height="535" viewBox="0 0 759 535" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g clip-path="url(#clip0_3214_2278)">
+<g opacity="0.2" filter="url(#filter0_f_3214_2278)">
+<circle cx="-272.242" cy="804.417" r="523.621" fill="#00863F"/>
+</g>
+<g opacity="0.2" filter="url(#filter1_f_3214_2278)">
+<circle cx="-235.669" cy="797.042" r="412.48" fill="#07D468"/>
+</g>
+<g opacity="0.2" filter="url(#filter2_f_3214_2278)">
+<circle cx="-235.665" cy="775.782" r="290.366" fill="white"/>
+</g>
+</g>
+<defs>
+<filter id="filter0_f_3214_2278" x="-1350.86" y="-274.204" width="2157.24" height="2157.24" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_3214_2278"/>
+</filter>
+<filter id="filter1_f_3214_2278" x="-1203.15" y="-170.438" width="1934.96" height="1934.96" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_3214_2278"/>
+</filter>
+<filter id="filter2_f_3214_2278" x="-1081.03" y="-69.584" width="1690.73" height="1690.73" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feBlend mode="normal" in="SourceGraphic" in2="BackgroundImageFix" result="shape"/>
+<feGaussianBlur stdDeviation="277.5" result="effect1_foregroundBlur_3214_2278"/>
+</filter>
+<clipPath id="clip0_3214_2278">
+<rect width="759" height="535" fill="white"/>
+</clipPath>
+</defs>
+</svg>

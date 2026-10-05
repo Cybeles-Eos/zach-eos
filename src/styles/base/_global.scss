@@ -349,6 +349,20 @@ p{
 	text-align: center;
 }
 
+
+.cta-shade{
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	z-index: -1;
+	will-change: transform;
+	contain: paint;
+}
+
+
+
+
+
 // the theme swap is animated as a circular wipe from the toggle button,
 // so the browser's default cross-fade is replaced by a plain stacked reveal
 ::view-transition-old(root),
