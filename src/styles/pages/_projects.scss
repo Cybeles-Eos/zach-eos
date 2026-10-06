@@ -181,7 +181,7 @@
 				}
 			}
 			&__main{
-				overflow: hidden;
+				overflow: visible;
 				position: relative;
 				width: 100%;
 				height: 100%;
@@ -193,6 +193,8 @@
 
 
 				.nav-prj{
+					position: relative;
+					z-index: 20;
 					display: flex;
 					flex-direction: column;
 					padding: 25px;
@@ -254,7 +256,20 @@
 
 							&--category{
 								width: 200px;
-								.prj-filter__menu{ max-height: 280px; overflow-y: auto; }
+								.prj-filter__menu{
+									max-height: 280px;
+									overflow-y: auto;
+									overscroll-behavior: contain;
+									scrollbar-width: thin;
+									scrollbar-color: var(--brd-cate) transparent;
+
+									&::-webkit-scrollbar{ width: 6px; }
+									&::-webkit-scrollbar-track{ background: transparent; }
+									&::-webkit-scrollbar-thumb{
+										background: var(--brd-cate);
+										border-radius: 6px;
+									}
+								}
 							}
 
 							&__toggle{
