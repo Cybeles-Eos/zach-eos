@@ -3,6 +3,7 @@ title: Zach Portfolio
 description: A personal portfolio built with Astro to showcase projects, journey entries, interaction details, and frontend development work.
 year: "2026"
 category: Website
+projectCategory: Personal Portfolio
 thumbnail: /images/banner.png
 thumbnailAlt: Zach Portfolio thumbnail
 previewMedia:

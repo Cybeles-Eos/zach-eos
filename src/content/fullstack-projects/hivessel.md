@@ -3,6 +3,7 @@ title: Hivessel
 description: A digital marketplace for teachers to find learning materials, digital products, services, and useful resources.
 year: "2025"
 category: Figma
+projectCategory: Educational Marketplace
 thumbnail: /banners/hivessel-banner.webp
 thumbnailAlt: Hivessel thumbnail
 previewMedia:

@@ -19,6 +19,7 @@ const fullstackProjects = defineCollection({
 		description: z.string(),
 		year: z.string(),
 		category: z.string(),
+		projectCategory: z.string(),
 		thumbnail: z.string(),
 		thumbnailAlt: z.string(),
 		previewMedia: z.object({

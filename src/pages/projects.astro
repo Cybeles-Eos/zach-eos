@@ -109,9 +109,6 @@ const projectPreviewImagePreloads = [
                     <div class="nav-prj">
                         <div class="nav-prj__top"> 
                             <div class="prj-search-bar"><div><input type="text" placeholder="Search projects by type..." data-project-search=""><svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg"><path d="M15.7491 15.7491L12.4941 12.4941" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path><path d="M8.25 14.25C11.5637 14.25 14.25 11.5637 14.25 8.25C14.25 4.93629 11.5637 2.25 8.25 2.25C4.93629 2.25 2.25 4.93629 2.25 8.25C2.25 11.5637 4.93629 14.25 8.25 14.25Z" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"></path></svg></div></div>
-                            <button class="prj-date-sort" type="button" data-project-date-sort aria-label="Sort projects oldest first" title="Sort projects oldest first" aria-pressed="false">
-                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
-                            </button>
 							<div class="prj-filter" data-project-type-filter data-project-type-value="all-projects">
                                 <button class="prj-filter__toggle" type="button" aria-haspopup="listbox" aria-expanded="false" data-project-type-toggle>
                                     <span data-project-type-label>All</span>
@@ -125,7 +122,10 @@ const projectPreviewImagePreloads = [
                                     <button class="prj-filter__option" type="button" role="option" aria-selected="false" data-project-type-option value="figma-project">Figma Project</button>
                                 </div>
                             </div>
-                            <a class="prj-figma-link" href="https://www.figma.com/files" target="_blank" rel="noopener noreferrer" aria-label="View my Figma files (opens in a new tab)">
+                            <button class="prj-date-sort" type="button" data-project-date-sort aria-label="Sort projects oldest first" title="Sort projects oldest first" aria-pressed="false">
+                                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 6h16M4 12h10M4 18h4" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></svg>
+                            </button>
+                            <!-- <a class="prj-figma-link" href="https://www.figma.com/files" target="_blank" rel="noopener noreferrer" aria-label="View my Figma files (opens in a new tab)">
                                 <svg width="14" height="20" viewBox="0 0 30 45" fill="none" aria-hidden="true">
                                     <path d="M7.5 45A7.5 7.5 0 0 0 15 37.5V30H7.5a7.5 7.5 0 0 0 0 15Z" fill="#0ACF83"/>
                                     <path d="M0 22.5A7.5 7.5 0 0 1 7.5 15H15v15H7.5A7.5 7.5 0 0 1 0 22.5Z" fill="#A259FF"/>
@@ -135,7 +135,7 @@ const projectPreviewImagePreloads = [
                                 </svg>
                                 <span>View my Figma files</span>
                                 <svg width="14" height="14" viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
-                            </a>
+                            </a> -->
                         </div>
                         <div class="legends-prj">
                             <div class="legends-prj__box">

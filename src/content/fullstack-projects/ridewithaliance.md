@@ -3,6 +3,7 @@ title: Ride With Alliance
 description: A ride booking website built to help users explore transport services and schedule rides through a simple system.
 year: "2026"
 category: Website
+projectCategory: Transportation
 thumbnail: /banners/rwa-banner.webp
 thumbnailAlt: Ride With Alliance thumbnail
 previewMedia:

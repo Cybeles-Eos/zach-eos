@@ -200,6 +200,17 @@ const projectContributionDetail = projectContributionRest.join("·").trim();
 									</span>
 									<span>{projectDetails.tags.map((tag) => `#${tag}`).join(", ")}</span>
 								</div>
+								<div class="scm-navs__details-row" aria-label="Project category">
+									<span class="scm-navs__details-icon" aria-hidden="true">
+										<svg width="14" height="14" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+											<rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/>
+											<rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/>
+											<rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/>
+											<rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" stroke-width="2"/>
+										</svg>
+									</span>
+									<span>{project.data.projectCategory}</span>
+								</div>
 							</div>
 						</div>
 					</div>

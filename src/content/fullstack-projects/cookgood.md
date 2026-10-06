@@ -3,6 +3,7 @@ title: Cook Good
 description: A simple Filipino recipe website built during my early days of learning frontend web development.
 year: "2024"
 category: Website
+projectCategory: Food & Recipes
 thumbnail: /banners/cook-good-banner.webp
 thumbnailAlt: Cook Good thumbnail
 previewMedia:

@@ -3,6 +3,7 @@ title: Health Is Wealth Living
 description: A care service platform built to connect families with trusted nurses, caregivers, and home care providers.
 year: "2025"
 category: Website
+projectCategory: Home Care Services
 thumbnail: /banners/health-is-wealth-banner.webp
 thumbnailAlt: Health Is Wealth Living thumbnail
 previewMedia:

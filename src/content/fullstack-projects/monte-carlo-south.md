@@ -3,6 +3,7 @@ title: Monte Carlo South
 description: An automotive service website built to present auto care, repair, painting, and carwash services in one place.
 year: "2025"
 category: Website
+projectCategory: Automotive Services
 thumbnail: /banners/montecarlo-south-banner.webp
 thumbnailAlt: Monte Carlo South thumbnail
 previewMedia:

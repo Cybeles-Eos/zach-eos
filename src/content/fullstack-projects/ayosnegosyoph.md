@@ -3,6 +3,7 @@ title: AyosNegosyoPH
 description: A business system built to manage POS, room bookings, inventory, and daily operations through one platform.
 year: "2026"
 category: Website
+projectCategory: Business Management
 thumbnail: /banners/ayosph-banner.webp
 thumbnailAlt: AyosNegosyoPH thumbnail
 previewMedia:
