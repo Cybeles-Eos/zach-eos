@@ -125,13 +125,13 @@ const pageUrl = new URL(url, siteOrigin).href;
 
 	const root = document.documentElement;
 	const mobileMq = window.matchMedia("(max-width: 492px)");
-	const touchMq = window.matchMedia("(pointer: coarse)");
 
 	let lenis: Lenis | null = null;
 	let skrollrInstance: SkrollrInstance | null = null;
 
-	const useLenis =
-		root.dataset.smoothScroll === "true" && !touchMq.matches;
+	// Smooth wheel scrolling also works on touch-capable laptops; Lenis keeps
+	// touch gestures native by default (syncTouch: false).
+	const useLenis = root.dataset.smoothScroll === "true";
 
 	// skrollr reads data-bottom-top at init — CSS media queries cannot change
 	// HTML attributes, so desktop/mobile values live in separate attributes
@@ -211,34 +211,28 @@ const pageUrl = new URL(url, siteOrigin).href;
 		requestAnimationFrame(scrollToTop);
 	});
 
-if (useLenis) {
-	import("lenis").then(({ default: LenisCtor }) => {
-		const instance = new LenisCtor();
-		lenis = instance;
+	if (useLenis) {
+		import("lenis").then(({ default: LenisCtor }) => {
+			// Keep the animation loop alive even if navigation interrupts the loader.
+			const instance = new LenisCtor({ autoRaf: true });
+			lenis = instance;
 
-			const tick = (time: number) => {
-				instance.raf(time);
-				requestAnimationFrame(tick);
+			const syncScroll = () => {
+				instance.resize();
+				if (document.querySelector('[data-screen-loader][aria-busy="true"]')) {
+					instance.stop();
+				} else {
+					instance.start();
+				}
 			};
 
-			const start = () => {
-				instance.start();
-				requestAnimationFrame(tick);
-			};
-
-			// don't run smooth scroll until the preloader has fully released the page.
-			// aria-busy rules out a loader that already finished before Lenis arrived,
-			// which would otherwise leave us waiting on an event that has been and gone
-			if (document.querySelector('[data-screen-loader][aria-busy="true"]')) {
-				instance.stop();
-				window.addEventListener("loader:complete", start, { once: true });
-		} else {
-			start();
-		}
-	}).catch((error) => {
-		console.warn("Lenis failed to load. Restart the Astro dev server if Vite cached an outdated dependency.", error);
-	});
-}
+			window.addEventListener("loader:complete", syncScroll);
+			document.addEventListener("astro:page-load", syncScroll);
+			syncScroll();
+		}).catch((error) => {
+			console.warn("Lenis failed to load. Restart the Astro dev server if Vite cached an outdated dependency.", error);
+		});
+	}
 
 	// Soft peach circle that eases toward the pointer and grows over headings.
 	const initCursorFollower = () => {

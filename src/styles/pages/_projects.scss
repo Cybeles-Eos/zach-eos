@@ -200,10 +200,12 @@
 
 					&__top{
 						display: flex;
-						gap: 15px;
+						gap: 10px;
 
 						.prj-search-bar{
 							width: 100%;
+							flex: 1 1 240px;
+							min-width: 0;
 							// height: 50px;
 							
 							div{
@@ -244,8 +246,8 @@
 
 						.prj-filter{
 							position: relative;
-							flex: 0 0 180px;
-							width: 180px;
+							flex: 0 0 150px;
+							width: 150px;
 							height: 40px;
 							z-index: 20;
 
@@ -346,6 +348,55 @@
 							}
 						}
 
+                        .prj-date-sort{
+                            flex: 0 0 40px;
+                            width: 40px;
+                            height: 40px;
+                            display: grid;
+                            place-items: center;
+                            border: 1px solid var(--brd-cate);
+                            border-radius: 6px;
+                            background-color: var(--field-bg);
+                            color: var(--svg-inp-clr);
+                            cursor: pointer;
+                            &[aria-pressed="true"] svg{ transform: rotate(180deg); }
+                        }
+
+						.prj-figma-link{
+							flex: 0 0 auto;
+							margin-left: auto;
+							min-height: 40px;
+							display: flex;
+							align-items: center;
+							justify-content: center;
+							gap: 9px;
+							padding: 8px 12px;
+							border: 1px solid var(--brd-cate);
+							border-radius: 6px;
+							background-color: var(--field-bg);
+							color: var(--svg-inp-clr);
+							font-size: 12px;
+							font-family: var(--font-satoshi);
+							white-space: nowrap;
+							text-decoration: none;
+							transition: border-color 180ms ease, background-color 180ms ease;
+							&:hover{ border-color: var(--mbrd-green-color); }
+							svg{ flex-shrink: 0; }
+						}
+
+						.prj-filter__toggle:focus-visible,
+						.prj-filter__option:focus-visible,
+						.prj-date-sort:focus-visible,
+                        .prj-figma-link:focus-visible{
+							outline: 2px solid var(--mbrd-green-color);
+							outline-offset: 2px;
+						}
+
+						@media (max-width: 1000px) {
+							flex-wrap: wrap;
+							.prj-search-bar{ flex-basis: 100%; }
+						}
+
 						@media (max-width: 640px) {
 							flex-direction: column;
 							gap: 12px;
@@ -354,6 +405,8 @@
 								flex-basis: auto;
 								width: 100%;
 							}
+							.prj-search-bar{ flex: 0 0 auto; }
+							.prj-figma-link{ width: 100%; margin-left: 0; }
 						}
 					}
 
