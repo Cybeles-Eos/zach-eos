@@ -46,9 +46,9 @@ caseStudySections:
 
   - id: stack
     label: Stack
-    title: The tools I used to design and build the Hivessel pages.
+    title: The tools and technologies we used to build Hivessel.
     paragraphs:
-      - I used Figma to plan and design the website pages before development. For the frontend, I worked on the page structure, styling, responsive layouts, reusable sections, and other interface parts needed to turn the approved designs into working pages.
+      - We used Figma to design and plan the pages before development. For the static frontend, we used HTML, SCSS, CSS, and JavaScript to build the page structure, styling, responsive layouts, and interactions based on the approved designs.
 
   - id: what-i-learn
     label: What i learn

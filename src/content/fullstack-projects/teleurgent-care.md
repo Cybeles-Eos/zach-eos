@@ -28,6 +28,7 @@ projectDetails:
     - Figma
     - Healthcare
     - UI Design
+    - Frontend
 caseStudySections:
   - id: overview
     label: overview
