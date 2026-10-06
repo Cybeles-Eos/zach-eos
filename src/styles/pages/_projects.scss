@@ -200,7 +200,7 @@
 
 					&__top{
 						display: grid;
-						grid-template-columns: minmax(0, 1fr) 150px 40px;
+						grid-template-columns: minmax(0, 1fr) 200px 150px 40px;
 						gap: 10px;
 
 						.prj-search-bar{
@@ -251,6 +251,11 @@
 							width: 150px;
 							height: 40px;
 							z-index: 20;
+
+							&--category{
+								width: 200px;
+								.prj-filter__menu{ max-height: 280px; overflow-y: auto; }
+							}
 
 							&__toggle{
 								width: 100%;
@@ -396,6 +401,7 @@
 						@media (max-width: 1000px) {
 							grid-template-columns: minmax(0, 1fr) 40px;
 							.prj-search-bar{ grid-column: 1 / -1; }
+							.prj-filter--category{ grid-column: 1 / -1; }
 							.prj-filter{ width: 100%; }
 						}
 
